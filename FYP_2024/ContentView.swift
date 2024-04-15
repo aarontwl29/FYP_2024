@@ -29,3 +29,5 @@ struct ContentView: View {
 
 
 //ufiaufbau
+
+//JENgebkgbakjbgjkab
