@@ -23,7 +23,3 @@ struct ContentView: View {
     ContentView()
 }
 
-
-//DASHJKHJKH
-
-//update
