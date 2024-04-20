@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-                    NavigationLink(destination: MapView()) {
+                    NavigationLink(destination: TapsView()) {
                         Text("Go to Map View")
                     }
                 }
