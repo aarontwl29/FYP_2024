@@ -2,8 +2,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-
-        MapView()
+        NavigationView {
+                    NavigationLink(destination: MapView()) {
+                        Text("Go to Map View")
+                    }
+                }
     }
 }
 
