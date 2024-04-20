@@ -294,11 +294,8 @@
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,
 				933BA10E2BD3DB1800CB9A88 /* CustomAnnotationView.swift in Sources */,
-<<<<<<< HEAD
 				ABEC70542BD41BA70014082E /* PostView.swift in Sources */,
-=======
 				938FBC282BD41EAC0006F627 /* TapsView.swift in Sources */,
->>>>>>> 5dcb008b0e4cfbbc1289b6f44d0825b6e4f97094
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
