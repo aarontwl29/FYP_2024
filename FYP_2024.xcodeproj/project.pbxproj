@@ -21,6 +21,7 @@
 		9350B47A2BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350B4792BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift */; };
 		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 		AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57F92BD42F0300D89984 /* TapsView.swift */; };
+		AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57FD2BD4334900D89984 /* FavouriteView.swift */; };
 		ABEC70542BD41BA70014082E /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC70532BD41BA70014082E /* PostView.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		9350B4792BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FYP_2024UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		AB0D57F92BD42F0300D89984 /* TapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapsView.swift; sourceTree = "<group>"; };
+		AB0D57FD2BD4334900D89984 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
 		ABEC70532BD41BA70014082E /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
+				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				933BA0FD2BD39DA600CB9A88 /* MapView.swift */,
 				ABEC70532BD41BA70014082E /* PostView.swift */,
 				933BA10F2BD3DC5600CB9A88 /* CustomAnnotationViewRepresentable.swift */,
@@ -290,6 +293,7 @@
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,
 				933BA10E2BD3DB1800CB9A88 /* CustomAnnotationView.swift in Sources */,
+				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
 				ABEC70542BD41BA70014082E /* PostView.swift in Sources */,
 				AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,

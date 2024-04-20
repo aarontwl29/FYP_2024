@@ -12,7 +12,7 @@ struct SwiftUIView: View {
                     Label("Home", systemImage: "house")
                 }
             
-            MapView()
+            FavouriteView()
                 .tabItem {
                     Label("Favourite", systemImage: "star")
                 }

@@ -41,11 +41,12 @@ struct PostView: View {
                         }
                         
                         // 圖片示例（這裡只是示例，你需要使用實際的圖片）
-                        Image("image1")
+                        Image(post.imageUrl)  // 修改這裡，使用帖子的 imageUrl
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 200)
                             .clipped()
+                            .padding(.horizontal, -30)
                         
                         HStack {
                             Button(action: {
