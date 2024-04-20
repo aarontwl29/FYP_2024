@@ -1,26 +1,18 @@
-//
-//  ContentView.swift
-//  FYP_2024
-//
-//  Created by Aaron Tso  on 14/4/2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("GG")
+        NavigationView {
+            NavigationLink(destination: MapView()) {
+                Text("Navigate to MapView")
+            }
+            .navigationTitle("Main Page")
         }
-        .padding()
     }
 }
 
-#Preview {
-    // ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
-
-//
