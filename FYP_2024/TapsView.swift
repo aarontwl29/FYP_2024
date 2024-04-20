@@ -7,17 +7,17 @@ struct SwiftUIView: View {
 
     var body: some View {
         TabView {
-            ContentView()
+            MapView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
             
-            ContentView()
+            MapView()
                 .tabItem {
                     Label("Favourite", systemImage: "star")
                 }
             
-            ContentView()
+            PostView()
                 .tabItem {
                     Label("Post", systemImage: "square.and.pencil")
                 }
