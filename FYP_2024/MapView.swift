@@ -18,13 +18,12 @@ struct MapView: View {
             ZStack {
                 Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
                     MapAnnotation(coordinate: location.coordinate) {
-                        let imageName = location.imageName
                         Circle()
                             .stroke(Color.gray, lineWidth: 0.5)
                             .fill(.blue)
                             .frame(width: 35, height: 35)
                             .overlay {
-                                if let imageName = imageName {
+                                if let imageName = location.imageName {
                                                 Image(imageName)
                                                     .resizable()
                                                     .scaledToFit()
