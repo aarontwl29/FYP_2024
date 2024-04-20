@@ -7,33 +7,34 @@ struct MapView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var searchText = ""
-    @State private var showNewView = false
     @State private var selectedAnnotation: CustomAnnotation?
 
     let annotations: [CustomAnnotation] = [
-        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal)
-   
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal),
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.400873, longitude: 114.198035), title: "San Francisco", imageName: "dog", type: .animal)
     ]
 
     var body: some View {
             ZStack {
                 Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
                     MapAnnotation(coordinate: location.coordinate) {
+                        let imageName = location.imageName
                         Circle()
                             .stroke(Color.gray, lineWidth: 0.5)
                             .fill(.blue)
                             .frame(width: 35, height: 35)
                             .overlay {
-                                Image("cat")
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                                .frame(width: 30, height: 30)
-                                                                .clipShape(Circle())
+                                if let imageName = imageName {
+                                                Image(imageName)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 30, height: 30)
+                                                    .clipShape(Circle())
+                                            }
                             }
                             .scaleEffect(1.8)
                             .onTapGesture {
-                                
-                                self.showNewView = true
+                                self.selectedAnnotation = location
                             }
                     }
                 }.ignoresSafeArea()
@@ -44,16 +45,10 @@ struct MapView: View {
                     Spacer()
                 }
             }
-            .sheet(isPresented: $showNewView) {
-                if let annotation = selectedAnnotation {
-                    // Display details for the selected annotation
-                    FilterView()
-                } else {
-                    // Fallback view if no annotation is selected
-                    Text("No annotation selected")
-                }
-            }
-        }
+            .sheet(item: $selectedAnnotation, content: {
+                annotation in FilterView()
+            })
+    }
 }
 
 struct MapView_Previews: PreviewProvider {
