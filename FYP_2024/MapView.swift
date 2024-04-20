@@ -11,14 +11,20 @@ struct MapView: View {
     @State private var annotationType: AnnotationType?
     let annotations: [CustomAnnotation] = [
         CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal)
-     
     ]
 
     var body: some View {
         ZStack {
             Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
                 MapAnnotation(coordinate: annotation.coordinate) {
-                    CustomAnnotationViewRepresentable(annotation: annotation, showNewView: $showNewView, annotationType: $annotationType)
+                    Circle()
+                            .strokeBorder(Color.blue, lineWidth: 2)
+                            .background(Circle().foregroundColor(annotation.type == .animal ? Color.green : Color.red))
+                            .frame(width: 30, height: 30)
+                            .onTapGesture {
+                                self.annotationType = annotation.type
+                                self.showNewView = true
+                            }
                 }
             }.ignoresSafeArea()
             VStack {
@@ -40,6 +46,7 @@ struct MapView: View {
         }
     }
 }
+
 
 
 struct MapView_Previews: PreviewProvider {
