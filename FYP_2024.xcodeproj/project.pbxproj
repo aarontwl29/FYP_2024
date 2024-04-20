@@ -19,6 +19,7 @@
 		9350B46E2BCAF26400DC2FB7 /* FYP_2024Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350B46D2BCAF26400DC2FB7 /* FYP_2024Tests.swift */; };
 		9350B4782BCAF26400DC2FB7 /* FYP_2024UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350B4772BCAF26400DC2FB7 /* FYP_2024UITests.swift */; };
 		9350B47A2BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350B4792BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift */; };
+		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		9350B4732BCAF26400DC2FB7 /* FYP_2024UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FYP_2024UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9350B4772BCAF26400DC2FB7 /* FYP_2024UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FYP_2024UITests.swift; sourceTree = "<group>"; };
 		9350B4792BCAF26400DC2FB7 /* FYP_2024UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FYP_2024UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */,
 				933BA10D2BD3DB1800CB9A88 /* CustomAnnotationView.swift */,
 				933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */,
+				93C90C9E2BD4107300C6B660 /* FilterView.swift */,
 				9350B45F2BCAF26300DC2FB7 /* Assets.xcassets */,
 				9350B4612BCAF26300DC2FB7 /* FYP_2024.entitlements */,
 				9350B4622BCAF26300DC2FB7 /* Preview Content */,
@@ -278,6 +281,7 @@
 				933BA1102BD3DC5600CB9A88 /* CustomAnnotationViewRepresentable.swift in Sources */,
 				933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */,
 				933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */,
+				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,
 				933BA10E2BD3DB1800CB9A88 /* CustomAnnotationView.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,

@@ -61,17 +61,6 @@ struct Map_SearchBar: View {
     }
 }
 
-
-
-struct FilterView: View {
-    var body: some View {
-        Text("Filter View waiting for update")
-        Image("cat")
-            .resizable()
-            .scaledToFit()
-    }
-}
-
 struct Map_SearchBar_Previews: PreviewProvider {
     static var previews: some View {
         Map_SearchBarPreview()
