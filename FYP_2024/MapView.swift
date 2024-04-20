@@ -10,7 +10,8 @@ struct MapView: View {
     @State private var showNewView = false
     @State private var annotationType: AnnotationType?
     let annotations: [CustomAnnotation] = [
-        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166), title: "San Francisco", imageName: "cat", type: .animal)
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal)
+     
     ]
 
     var body: some View {
@@ -30,7 +31,9 @@ struct MapView: View {
         .sheet(isPresented: $showNewView) {
             if let type = annotationType {
                 switch type {
-                case .camera, .animal:
+                case .camera:
+                    FilterView()
+                case .animal:
                     FilterView()
                 }
             }

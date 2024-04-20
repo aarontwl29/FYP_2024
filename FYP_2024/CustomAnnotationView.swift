@@ -16,7 +16,8 @@ class CustomAnnotationView: MKAnnotationView {
         self.calloutOffset = CGPoint(x: -5, y: 5)
         self.setupAnnotationView()
         
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tap)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,11 +41,12 @@ class CustomAnnotationView: MKAnnotationView {
     }
     
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        print("Annotation tapped")
         if gestureRecognizer.state == .ended {
             if let annotation = annotation as? CustomAnnotation {
+                print("Delegate about to be called, type: \(annotation.type)")
                 delegate?.annotationView(self, didTapAnnotationType: annotation.type)
             }
         }
     }
 }
-

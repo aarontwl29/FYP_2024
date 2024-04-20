@@ -28,8 +28,11 @@ struct CustomAnnotationViewRepresentable: UIViewRepresentable {
         }
 
         func annotationView(_ view: CustomAnnotationView, didTapAnnotationType type: AnnotationType?) {
-            parent.showNewView = true
-            parent.annotationType = type
+            DispatchQueue.main.async {
+                print("Annotation tapped, type: \(String(describing: type))")
+                self.parent.showNewView = true
+                self.parent.annotationType = type
+            }
         }
     }
 }
