@@ -1,13 +1,22 @@
 import MapKit
 
+protocol CustomAnnotationViewDelegate: AnyObject {
+    func annotationView(_ view: CustomAnnotationView, didTapAnnotationType type: AnnotationType?)
+}
+
 class CustomAnnotationView: MKAnnotationView {
     static let reuseIdentifier = "CustomAnnotationView"
-
+    
+    weak var delegate: CustomAnnotationViewDelegate?
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        self.isUserInteractionEnabled = true
         self.canShowCallout = true
         self.calloutOffset = CGPoint(x: -5, y: 5)
         self.setupAnnotationView()
+        
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,4 +38,13 @@ class CustomAnnotationView: MKAnnotationView {
 
         self.addSubview(circleView)
     }
+    
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            if let annotation = annotation as? CustomAnnotation {
+                delegate?.annotationView(self, didTapAnnotationType: annotation.type)
+            }
+        }
+    }
 }
+

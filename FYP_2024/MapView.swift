@@ -7,15 +7,17 @@ struct MapView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var searchText = ""
+    @State private var showNewView = false
+    @State private var annotationType: AnnotationType?
     let annotations: [CustomAnnotation] = [
-            CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166), title: "San Francisco", imageName: "cat")
-        ]
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166), title: "San Francisco", imageName: "cat", type: .animal)
+    ]
 
     var body: some View {
         ZStack {
             Map(coordinateRegion: $region, annotationItems: annotations) { annotation in
                 MapAnnotation(coordinate: annotation.coordinate) {
-                    CustomAnnotationViewRepresentable(annotation: annotation)
+                    CustomAnnotationViewRepresentable(annotation: annotation, showNewView: $showNewView, annotationType: $annotationType)
                 }
             }.ignoresSafeArea()
             VStack {
@@ -25,8 +27,17 @@ struct MapView: View {
                 Spacer()
             }
         }
+        .sheet(isPresented: $showNewView) {
+            if let type = annotationType {
+                switch type {
+                case .camera, .animal:
+                    FilterView()
+                }
+            }
+        }
     }
 }
+
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
