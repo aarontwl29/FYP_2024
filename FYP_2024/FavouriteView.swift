@@ -1,7 +1,5 @@
 import SwiftUI
 
-//Create a Search Bar and Filter For User input stray cats' name and checkbox/radio to do filter, On the top of this page
-
 struct PetCardView: View {
     var imageName: String
     var breed: String
@@ -59,9 +57,14 @@ struct PetCardView: View {
     }
 }
 
+import SwiftUI
+
 struct FavouriteView: View {
     @State private var searchText = ""
     @State private var filterMale = true
+    @State private var selectedSort = "Date" // 用于排序的选择
+
+    let sortOptions = ["Date", "Name", "Breed"] // 排序选项
 
     var body: some View {
         VStack {
@@ -69,14 +72,46 @@ struct FavouriteView: View {
             TextField("Search for stray cats", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+                .shadow(radius: 5)
+                .padding(.horizontal)
+
+            // Filter and Sort Button
+            // Filter and Sort Button
+            HStack {
+                Menu {
+                    // Toggle for Male/Female filter
+                    Toggle("Male Cats Only", isOn: $filterMale)
+
+                    // Picker for sorting options
+                    Picker("Sort by", selection: $selectedSort) {
+                        ForEach(sortOptions, id: \.self) { option in
+                            Text(option).tag(option)
+                        }
+                    }
+                } label: {
+                    Label("Filter", systemImage: "slider.horizontal.3")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading) // Label填满宽度，内容靠左
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                }
+                // 删除 Spacer
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 10)
 
 
             // List of Pets
             ScrollView {
-                VStack {
-                    ForEach(0..<10, id: \.self) { _ in
+                VStack(spacing: 15) {
+                    ForEach(0..<10, id: \.self) { index in
                         PetCardView(
-                            imageName: "image1",
+                            imageName: "image\(index + 1)",
                             breed: "Mixed Breed",
                             colors: "Black, White",
                             gender: "Male",
@@ -87,6 +122,7 @@ struct FavouriteView: View {
                     }
                 }
             }
+            .padding(.top, -5)
         }
     }
 }
@@ -96,3 +132,6 @@ struct FavouriteView_Previews: PreviewProvider {
         FavouriteView()
     }
 }
+
+// 保持 PetCardView 结构体不变
+
