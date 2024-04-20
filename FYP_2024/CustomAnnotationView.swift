@@ -15,7 +15,7 @@ class CustomAnnotationView: MKAnnotationView {
         self.canShowCallout = true
         self.calloutOffset = CGPoint(x: -5, y: 5)
         self.setupAnnotationView()
-        
+        self.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         self.addGestureRecognizer(tap)
     }
