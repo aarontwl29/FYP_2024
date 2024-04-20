@@ -16,7 +16,6 @@ struct Map_SearchBar: View {
                         .padding(7)
                         .padding(.horizontal, 25)
                         .background(Color(.systemGray6))
-                        .cornerRadius(8)
                         .overlay(
                             HStack {
                                 Image(systemName: "magnifyingglass")
@@ -39,7 +38,7 @@ struct Map_SearchBar: View {
                             self.isEditing = true
                         }
                         .animation(.default, value: isEditing)
-                        .frame(width: geometry.size.width * 0.5)
+                        .frame(width: geometry.size.width * 0.6)
                     
                     Button(action: {
                         self.showFilter.toggle()
@@ -50,7 +49,7 @@ struct Map_SearchBar: View {
                     .sheet(isPresented: $showFilter) {
                         FilterView()
                     }
-                    .frame(width: geometry.size.width * 0.3)
+                    .frame(width: geometry.size.width * 0.2)
                 }
                 .background(Color.blue) // Add background color here
                 .cornerRadius(8) // Add corner radius for rounded corners
