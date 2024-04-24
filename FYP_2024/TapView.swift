@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TapsView: View {
+struct SwiftUIView: View {
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
     }
@@ -17,26 +17,21 @@ struct TapsView: View {
                     Label("Favourite", systemImage: "star")
                 }
             
-            BlogView()
+            PostView()
                 .tabItem {
-                    Label("Blog", systemImage: "newspaper")
+                    Label("Post", systemImage: "square.and.pencil")
                 }
             
-            DonateView()
+            ContentView()
                 .tabItem {
-                    Label("Donate", systemImage: "dollarsign.circle")
-                }
-            
-            AccountView()
-                .tabItem {
-                    Label("Account", systemImage: "person.crop.circle") 
+                    Label("Setting", systemImage: "gear")
                 }
         }
     }
 }
 
-struct TapsView_Previews: PreviewProvider {
+struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        TapsView()
+        SwiftUIView()
     }
 }

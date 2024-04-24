@@ -9,7 +9,7 @@ struct Post {
     var content: String
 }
 
-struct PostView: View {
+struct BlogView: View {
     // 模擬數據
     let posts: [Post] = [
         Post(username: "user1", imageUrl: "image1", likes: 120, comments: 30, content: "A beautiful stray cat found in the park."),
@@ -79,8 +79,6 @@ struct PostView: View {
     }
 }
 
-struct PostView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView()
-    }
+#Preview {
+    BlogView()
 }
