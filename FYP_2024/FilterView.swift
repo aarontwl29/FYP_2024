@@ -33,20 +33,12 @@ struct FilterView: View {
                     }
                 }
                 
-                Section(header: Text("Location")) {
-                    if let location = location {
-                        MapView(coordinate: location)
-                            .frame(height: 200)
-                    } else {
-                        Button(action: getCurrentLocation) {
-                            Text("Add Current Location")
-                        }
-                    }
-                }
                 
                 Section(header: Text("Date and Time")) {
-                    DatePicker("Date and Time", selection: $date, displayedComponents: .dateAndTime)
+                    DatePicker("Date and Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
                 }
+
+                
                 
                 Section(header: Text("Animal Type")) {
                     Picker("Animal Type", selection: $animalType) {
@@ -92,4 +84,8 @@ struct FilterView: View {
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
     let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll"]
+}
+
+#Preview {
+    FilterView()
 }
