@@ -1,5 +1,7 @@
 import SwiftUI
 import MapKit
+import UIKit
+
 
 struct ReportingView: View {
     @State private var nickname: String = ""
@@ -7,6 +9,7 @@ struct ReportingView: View {
         UIImage(named: "cat")!,
         UIImage(named: "dog")!
     ]
+    @State private var capturedImage: UIImage?
     @State private var location: CLLocationCoordinate2D? = nil
     @State private var date: Date = Date()
     @State private var animalType: AnimalType = .dog
@@ -15,6 +18,8 @@ struct ReportingView: View {
     @State private var phone: String = ""
     @State private var selectedColor: Color = .red
     
+    @State private var selectedImage: UIImage?
+    @State private var showImagePicker = false
     @State private var showFilePickerView = false
     @State private var voiceFileURL: URL?
     
@@ -30,10 +35,14 @@ struct ReportingView: View {
                 Section(header: Text("Photos")) {
                                     ImagePreviewArea(images: $images)
                                     
-                                    if images.isEmpty {
-                                        Button(action: takePhoto) {
-                                            Text("Take Photo")
-                                        }
+                    Button(action: takePhoto) {
+                        Text("Take Photo")
+                    }
+                                    
+                                    Button(action: {
+                                        showImagePicker = true
+                                    }) {
+                                        Text("Import Photos")
                                     }
                                 }
                 
@@ -93,17 +102,38 @@ struct ReportingView: View {
                 }
             }
             .navigationBarTitle("Report Stray Animal")
-            .navigationBarItems(trailing: Button(action: submitReport) {
-                Text("Submit")
-            })
-            .sheet(isPresented: $showFilePickerView) {
+                        .navigationBarItems(trailing: Button(action: submitReport) {
+                            Text("Submit")
+                        })
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(image: $selectedImage, onDismiss: { image in
+                                if let image = image {
+                                    images.append(image)
+                                }
+                            })
+                        }
+                        .sheet(isPresented: $showFilePickerView) {
                             VoiceFileUploadView(voiceFileURL: $voiceFileURL)
                         }
         }
     }
     
+    func loadImage(_ image: UIImage?) {
+            if let image = image {
+                images.append(image)
+            }
+        }
+        
+    func loadImages(_ newImages: [UIImage]) {
+            images.append(contentsOf: newImages)
+    }
+    
     func takePhoto() {
-        // Implement functionality to take a photo using the device's camera
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
     }
     
     func submitReport() {
@@ -162,6 +192,49 @@ struct ColorSampleView: View {
     }
 }
 
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+        @Environment(\.presentationMode) private var presentationMode
+        var onDismiss: (UIImage?) -> Void
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = context.coordinator
+        imagePicker.allowsEditing = false
+        return imagePicker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        // No need to implement this method
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.image = image
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
+
+
+
 struct VoiceFileUploadView: UIViewControllerRepresentable {
     @Binding var voiceFileURL: URL?
 
@@ -189,6 +262,20 @@ struct VoiceFileUploadView: UIViewControllerRepresentable {
                 parent.voiceFileURL = url
             }
         }
+    }
+}
+
+extension ReportingView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            capturedImage = image
+            images.append(image)
+        }
+        dismiss(animated: true)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
     }
 }
 
