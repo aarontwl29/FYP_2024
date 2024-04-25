@@ -5,12 +5,17 @@ struct DonationData {
     var organizationName: String
     var description: String
     var detailDescription: String
+    var instagramURL: String
+    var facebookURL: String
+    var websiteURL: String
 }
+
 
 struct DonationCardView: View {
     var donation: DonationData
     @State private var isLiked = false  // State to track if the heart is 'liked'
     @State private var showDetails = false  // State to control the visibility of the Bottom Sheet
+    @State private var showPayment = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -36,7 +41,7 @@ struct DonationCardView: View {
                 Button(action: {
                     isLiked.toggle()
                 }) {
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                    Image(systemName: isLiked ? "cat.fill" : "cat")
                         .foregroundColor(isLiked ? .red : .gray)
                 }
                 .buttonStyle(BorderlessButtonStyle())
@@ -47,7 +52,8 @@ struct DonationCardView: View {
                 Spacer()
 
                 Button(action: {
-                    showDetails.toggle()  // Toggle the state to show the Bottom Sheet
+                    showDetails.toggle() 
+                     // Toggle the state to show the Bottom Sheet
                 }) {
                     Image(systemName: "book.circle")
                         .resizable()
@@ -62,21 +68,24 @@ struct DonationCardView: View {
                         .stroke(Color.black, lineWidth: 1)
                 )
                 .shadow(radius: 0.5)
+                
 
-                Button(action: {}) {
-                    Image(systemName: "dollarsign.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.black)
-                }
-                .frame(width: 100, height: 44)
-                .background(Color.yellow)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.black, lineWidth: 1)
-                )
-                .shadow(radius: 0.5)
+                Button(action: {
+                                    showPayment.toggle()
+                                }) {
+                                    Image(systemName: "dollarsign.circle")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 30, height: 30)
+                                        .foregroundColor(.black)
+                                }
+                                .frame(width: 100, height: 44)
+                                .background(Color.yellow)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.black, lineWidth: 1)
+                                )
+                                .shadow(radius: 0.5)
             }
         }
         .padding()
@@ -86,21 +95,27 @@ struct DonationCardView: View {
         .sheet(isPresented: $showDetails) {
             // Pass the donation data to the detail view
             DonationDetailView(donation: donation)
+            
+            
+        }
+        .sheet(isPresented: $showPayment) {
+            PaymentView() // Present PaymentView as a modal sheet
         }
     }
 }
+
 
 
 // 修改 DonateView 來使用這些新資料
 struct DonateView: View {
     @State private var selectedTab = "Organization"
     let donations = [
-        DonationData(imageName: "img_bl_icon1", organizationName: "HKSCDA", description: "An organization focusing on special dental care education in Hong Kong.", detailDescription: "The Hong Kong Special Care Dental Association focuses on providing specialized dental care and education for individuals with special needs. It aims to enhance oral health through professional dental services, educational workshops, and resources for caregivers."),
-        DonationData(imageName: "img_bl_icon2", organizationName: "HKDR_HK", description: "Dedicated to rescuing homeless dogs and finding adoptive families.", detailDescription: "Hong Kong Dog Rescue is committed to rescuing homeless dogs and providing them with the care they need until they are adopted into loving homes. They also engage in community education to raise awareness about animal welfare."),
-        DonationData(imageName: "img_bl_icon3", organizationName: "LAP_HK", description: "Offers animal rescue and adoption services for abused or abandoned animals.", detailDescription: "Lifelong Animal Protection Charity provides rescue and adoption services for abused and abandoned animals. By offering shelter and rehabilitation, they also advocate for animal rights and educate the community on responsible pet ownership."),
-        DonationData(imageName: "img_bl_icon4", organizationName: "SPCA", description: "Prevents animal cruelty and promotes welfare with shelter services.", detailDescription: "The Society for the Prevention of Cruelty to Animals operates shelters and provides care to mistreated and abandoned animals. They also conduct educational programs and advocate for animal rights legislation."),
-        DonationData(imageName: "img_bl_icon5", organizationName: "Villa Kunterbunt Lantau", description: "Focuses on animal welfare, providing shelter and adoption on Lantau Island.", detailDescription: "Villa Kunterbunt Lantau offers a sanctuary for animals on Lantau Island, promoting animal welfare through shelter, adoption, and education initiatives aimed at changing public attitudes towards animal rights."),
-        DonationData(imageName: "img_bl_icon6", organizationName: "Tobby's Friends Adoption", description: "Provides temporary homes for homeless dogs until permanent adoption.", detailDescription: "Tobby's Friends Adoption focuses on providing temporary foster care for homeless dogs, facilitating their health and well-being while seeking permanent, loving homes for them.")
+        DonationData(imageName: "img_bl_icon1", organizationName: "HKSCDA", description: "An organization focusing on special dental care education in Hong Kong.", detailDescription: "The Hong Kong Special Care Dental Association focuses on providing specialized dental care and education for individuals with special needs. It aims to enhance oral health through professional dental services, educational workshops, and resources for caregivers.", instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/"),
+        DonationData(imageName: "img_bl_icon2", organizationName: "HKDR_HK", description: "Dedicated to rescuing homeless dogs and finding adoptive families.", detailDescription: "Hong Kong Dog Rescue is committed to rescuing homeless dogs and providing them with the care they need until they are adopted into loving homes. They also engage in community education to raise awareness about animal welfare." ,instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/"),
+        DonationData(imageName: "img_bl_icon3", organizationName: "LAP_HK", description: "Offers animal rescue and adoption services for abused or abandoned animals.", detailDescription: "Lifelong Animal Protection Charity provides rescue and adoption services for abused and abandoned animals. By offering shelter and rehabilitation, they also advocate for animal rights and educate the community on responsible pet ownership." ,instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/"),
+        DonationData(imageName: "img_bl_icon4", organizationName: "SPCA", description: "Prevents animal cruelty and promotes welfare with shelter services.", detailDescription: "The Society for the Prevention of Cruelty to Animals operates shelters and provides care to mistreated and abandoned animals. They also conduct educational programs and advocate for animal rights legislation." ,instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/"),
+        DonationData(imageName: "img_bl_icon5", organizationName: "Villa Kunterbunt Lantau", description: "Focuses on animal welfare, providing shelter and adoption on Lantau Island.", detailDescription: "Villa Kunterbunt Lantau offers a sanctuary for animals on Lantau Island, promoting animal welfare through shelter, adoption, and education initiatives aimed at changing public attitudes towards animal rights.", instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/"),
+        DonationData(imageName: "img_bl_icon6", organizationName: "Tobby's Friends Adoption", description: "Provides temporary homes for homeless dogs until permanent adoption.", detailDescription: "Tobby's Friends Adoption focuses on providing temporary foster care for homeless dogs, facilitating their health and well-being while seeking permanent, loving homes for them.",instagramURL: "https://www.instagram.com/hkscda", facebookURL: "https://www.facebook.com/hkscda", websiteURL: "https://www.google.com.hk/")
     ]
 
     
@@ -140,7 +155,7 @@ struct DonationDetailView: View {
 
     var body: some View {
         VStack {
-            Image(donation.imageName) // Assuming this is a profile-like picture
+            Image(donation.imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
@@ -157,15 +172,50 @@ struct DonationDetailView: View {
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.top,10)
+
+            // Social media buttons
+            HStack {
+                Button(action: {
+                    UIApplication.shared.open(URL(string: donation.instagramURL)!)
+                }) {
+                    Image("ins_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                }
+                .padding(.horizontal, 10)
+
+                Button(action: {
+                    UIApplication.shared.open(URL(string: donation.facebookURL)!)
+                }) {
+                    Image("facebook_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                }
+                .padding(.horizontal, 10)
+
+                Button(action: {
+                    UIApplication.shared.open(URL(string: donation.websiteURL)!)
+                }) {
+                    Image("web_icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                }
+                .padding(.horizontal, 10)
+            }
+            .padding(.top, 20)
             
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white.edgesIgnoringSafeArea(.all)) // Using black as an example, adjust as needed
+        .background(Color.white.edgesIgnoringSafeArea(.all))
         .cornerRadius(20)
         .padding()
     }
 }
+
 
 
 
