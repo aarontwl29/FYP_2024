@@ -95,6 +95,9 @@ struct ReportingView: View {
             .navigationBarItems(trailing: Button(action: submitReport) {
                 Text("Submit")
             })
+            .sheet(isPresented: $showFilePickerView) {
+                            VoiceFileUploadView(voiceFileURL: $voiceFileURL)
+                        }
         }
     }
     
