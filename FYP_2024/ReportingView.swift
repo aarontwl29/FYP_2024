@@ -129,12 +129,9 @@ struct ReportingView: View {
     }
     
     func takePhoto() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = false
-        imagePicker.delegate = self
-        present(imagePicker, animated: true)
+   
     }
+    
     
     func submitReport() {
         // Implement functionality to submit the report with the entered data
@@ -200,9 +197,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
-        imagePicker.delegate = context.coordinator
-        imagePicker.allowsEditing = false
-        return imagePicker
+                imagePicker.delegate = context.coordinator
+                imagePicker.allowsEditing = false
+                imagePicker.sourceType = .camera
+                return imagePicker
     }
 
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
@@ -265,19 +263,7 @@ struct VoiceFileUploadView: UIViewControllerRepresentable {
     }
 }
 
-extension ReportingView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let image = info[.originalImage] as? UIImage {
-            capturedImage = image
-            images.append(image)
-        }
-        dismiss(animated: true)
-    }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-}
 
 
 #Preview {
