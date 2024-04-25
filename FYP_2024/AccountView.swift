@@ -33,6 +33,7 @@ struct AccountView: View {
                                 .background(Color.yellow)
                                 .cornerRadius(40)
                         }
+                        .padding(.bottom,10)
                         .buttonStyle(PlainButtonStyle())
                         .padding(.top, 8)
                     }
@@ -53,7 +54,7 @@ struct AccountView: View {
                         }
                         .listRowSeparator(.hidden)
                     }
-                }
+                }.padding(.vertical, 2)
                 
                 Button(action: {
                     // Logout action
@@ -67,7 +68,7 @@ struct AccountView: View {
                         .cornerRadius(10)
                         .shadow(color: .gray.opacity(0.3), radius: 3, x: 1, y: 1)
                 }
-                .padding(.vertical)
+                .padding(.vertical,2)
                 .listRowSeparator(.hidden)
             }
             .background(Image("img_bk2").resizable().scaledToFill())
@@ -77,23 +78,24 @@ struct AccountView: View {
 }
 
 enum MenuOption: CaseIterable {
-    case settings, billingDetails, userManagement, information
+    case mypost, my_notifications, faq, setting, fav_blog
     
     var title: String {
         switch self {
-        case .settings: return "Settings"
-        case .billingDetails: return "Billing Details"
-        case .userManagement: return "User Management"
-        case .information: return "Information"
+        case .mypost: return "My reports"
+        case .fav_blog: return "Blogs"
+        case .my_notifications: return "My notifications"
+        case .faq: return "FAQ"
+        case .setting: return "Setting"
         }
     }
     
     var imageName: String {
         switch self {
-        case .settings: return "gear"
-        case .billingDetails: return "creditcard"
-        case .userManagement: return "person.3"
-        case .information: return "info.circle"
+        case .mypost: return "message.badge"
+        case .my_notifications: return "bell.badge"
+        case .faq: return "exclamationmark.bubble"
+        case .setting: return "gearshape"
         }
     }
     
