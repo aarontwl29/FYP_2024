@@ -4,12 +4,14 @@ struct DonationData {
     var imageName: String
     var organizationName: String
     var description: String
+    var detailDescription: String
 }
 
-// DonationCardView now takes a DonationData object
 struct DonationCardView: View {
     var donation: DonationData
-    
+    @State private var isLiked = false  // State to track if the heart is 'liked'
+    @State private var showDetails = false  // State to control the visibility of the Bottom Sheet
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
@@ -17,7 +19,7 @@ struct DonationCardView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 70, height: 70)
-                
+
                 VStack(alignment: .leading) {
                     Text(donation.organizationName)
                         .font(.title)
@@ -28,19 +30,25 @@ struct DonationCardView: View {
                 }
                 .padding(.leading, 10)
             }
-            // 按鈕配置保持不變
+
+            // Buttons Configuration
             HStack {
-                Button(action: {}) {
-                    Image(systemName: "heart")
+                Button(action: {
+                    isLiked.toggle()
+                }) {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .foregroundColor(isLiked ? .red : .gray)
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .frame(width: 44, height: 44)
                 .background(Color.gray.opacity(0.1))
                 .clipShape(Circle())
-                
+
                 Spacer()
-                
-                Button(action: {}) {
+
+                Button(action: {
+                    showDetails.toggle()  // Toggle the state to show the Bottom Sheet
+                }) {
                     Image(systemName: "book.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -54,7 +62,7 @@ struct DonationCardView: View {
                         .stroke(Color.black, lineWidth: 1)
                 )
                 .shadow(radius: 0.5)
-                
+
                 Button(action: {}) {
                     Image(systemName: "dollarsign.circle")
                         .resizable()
@@ -75,20 +83,26 @@ struct DonationCardView: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 2)
+        .sheet(isPresented: $showDetails) {
+            // Pass the donation data to the detail view
+            DonationDetailView(donation: donation)
+        }
     }
 }
+
 
 // 修改 DonateView 來使用這些新資料
 struct DonateView: View {
     @State private var selectedTab = "Organization"
     let donations = [
-        DonationData(imageName: "img_bl_icon1", organizationName: "HKSCDA", description: "An organization focusing on special dental care education in Hong Kong."),
-        DonationData(imageName: "img_bl_icon2", organizationName: "HKDR_HK", description: "Dedicated to rescuing homeless dogs and finding adoptive families."),
-        DonationData(imageName: "img_bl_icon3", organizationName: "LAP_HK", description: "Offers animal rescue and adoption services for abused or abandoned animals."),
-        DonationData(imageName: "img_bl_icon4", organizationName: "SPCA", description: "Prevents animal cruelty and promotes welfare with shelter services."),
-        DonationData(imageName: "img_bl_icon5", organizationName: "Villa Kunterbunt Lantau", description: "Focuses on animal welfare, providing shelter and adoption on Lantau Island."),
-        DonationData(imageName: "img_bl_icon6", organizationName: "Tobby's Friends Adoption", description: "Provides temporary homes for homeless dogs until permanent adoption.")
+        DonationData(imageName: "img_bl_icon1", organizationName: "HKSCDA", description: "An organization focusing on special dental care education in Hong Kong.", detailDescription: "The Hong Kong Special Care Dental Association focuses on providing specialized dental care and education for individuals with special needs. It aims to enhance oral health through professional dental services, educational workshops, and resources for caregivers."),
+        DonationData(imageName: "img_bl_icon2", organizationName: "HKDR_HK", description: "Dedicated to rescuing homeless dogs and finding adoptive families.", detailDescription: "Hong Kong Dog Rescue is committed to rescuing homeless dogs and providing them with the care they need until they are adopted into loving homes. They also engage in community education to raise awareness about animal welfare."),
+        DonationData(imageName: "img_bl_icon3", organizationName: "LAP_HK", description: "Offers animal rescue and adoption services for abused or abandoned animals.", detailDescription: "Lifelong Animal Protection Charity provides rescue and adoption services for abused and abandoned animals. By offering shelter and rehabilitation, they also advocate for animal rights and educate the community on responsible pet ownership."),
+        DonationData(imageName: "img_bl_icon4", organizationName: "SPCA", description: "Prevents animal cruelty and promotes welfare with shelter services.", detailDescription: "The Society for the Prevention of Cruelty to Animals operates shelters and provides care to mistreated and abandoned animals. They also conduct educational programs and advocate for animal rights legislation."),
+        DonationData(imageName: "img_bl_icon5", organizationName: "Villa Kunterbunt Lantau", description: "Focuses on animal welfare, providing shelter and adoption on Lantau Island.", detailDescription: "Villa Kunterbunt Lantau offers a sanctuary for animals on Lantau Island, promoting animal welfare through shelter, adoption, and education initiatives aimed at changing public attitudes towards animal rights."),
+        DonationData(imageName: "img_bl_icon6", organizationName: "Tobby's Friends Adoption", description: "Provides temporary homes for homeless dogs until permanent adoption.", detailDescription: "Tobby's Friends Adoption focuses on providing temporary foster care for homeless dogs, facilitating their health and well-being while seeking permanent, loving homes for them.")
     ]
+
     
     var body: some View {
         NavigationView {
@@ -119,6 +133,43 @@ struct DonateView: View {
         }
     }
 }
+
+
+struct DonationDetailView: View {
+    var donation: DonationData
+
+    var body: some View {
+        VStack {
+            Image(donation.imageName) // Assuming this is a profile-like picture
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .padding(.top, 20)
+
+            Text(donation.organizationName)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+                .padding(.top, 20)
+
+            Text(donation.detailDescription)
+                .font(.body)
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .padding(.top,10)
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white.edgesIgnoringSafeArea(.all)) // Using black as an example, adjust as needed
+        .cornerRadius(20)
+        .padding()
+    }
+}
+
+
+
+
 // 預覽代碼保持不變
 struct DonateView_Previews: PreviewProvider {
     static var previews: some View {
