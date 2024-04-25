@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
 		93040C0A2BDA767F00C55B9A /* APITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* APITesting.swift */; };
-=======
 		93040C0A2BDA767F00C55B9A /* JsonResultPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* JsonResultPreview.swift */; };
 		93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C0D2BDA8E0400C55B9A /* ReportingView.swift */; };
 		9309A3762BDA57C1005C903F /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309A3752BDA57C1005C903F /* AnimalDetailsView.swift */; };
->>>>>>> 36478e53d1c759d945d0c3793afadde5b3c4dbb2
 		933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FD2BD39DA600CB9A88 /* MapView.swift */; };
 		933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */; };
 		933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */; };
@@ -58,13 +55,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		93040C092BDA767F00C55B9A /* APITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITesting.swift; sourceTree = "<group>"; };
-=======
 		93040C092BDA767F00C55B9A /* JsonResultPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonResultPreview.swift; sourceTree = "<group>"; };
 		93040C0D2BDA8E0400C55B9A /* ReportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingView.swift; sourceTree = "<group>"; };
 		9309A3752BDA57C1005C903F /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
->>>>>>> 36478e53d1c759d945d0c3793afadde5b3c4dbb2
 		933BA0FD2BD39DA600CB9A88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_SearchBar.swift; sourceTree = "<group>"; };
 		933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
