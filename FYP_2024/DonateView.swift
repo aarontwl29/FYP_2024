@@ -55,11 +55,22 @@ struct DonationCardView: View {
                     showDetails.toggle() 
                      // Toggle the state to show the Bottom Sheet
                 }) {
-                    Image(systemName: "book.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.black)
+                    ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.green)
+                                .frame(width: 100, height: 44)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.black, lineWidth: 1)
+                                )
+                                .shadow(radius: 0.5)
+                            
+                            Image(systemName: "book.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.black)
+                        }
                 }
                 .frame(width: 100, height: 44)
                 .background(Color.green)
