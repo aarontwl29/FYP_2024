@@ -31,6 +31,7 @@
 		AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80A2BD9EA6800AA7F85 /* MyNotificationsView.swift */; };
 		AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */; };
 		AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */; };
+		AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */; };
 		ABEC70542BD41BA70014082E /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC70532BD41BA70014082E /* BlogView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		AB91E80A2BD9EA6800AA7F85 /* MyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationsView.swift; sourceTree = "<group>"; };
 		AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		ABEC70532BD41BA70014082E /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 		9350B45A2BCAF26300DC2FB7 /* FYP_2024 */ = {
 			isa = PBXGroup;
 			children = (
+				AB91E8102BDA5CFE00AA7F85 /* DonateView */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
@@ -189,6 +192,14 @@
 				AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */,
 			);
 			path = AccountView;
+			sourceTree = "<group>";
+		};
+		AB91E8102BDA5CFE00AA7F85 /* DonateView */ = {
+			isa = PBXGroup;
+			children = (
+				AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */,
+			);
+			path = DonateView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +351,7 @@
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
 				9309A3762BDA57C1005C903F /* AnimalDetailsView.swift in Sources */,
 				AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */,
+				AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */,
 				AB91E8052BD9E9D700AA7F85 /* EditProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
