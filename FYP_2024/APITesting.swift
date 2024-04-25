@@ -24,9 +24,9 @@ struct Animal: Codable, Identifiable {
 func performAPICall() async throws -> [Animal] {
     let url = URL(string: "https://594a-123-203-44-5.ngrok-free.app/animals")!
     let (data, _) = try await URLSession.shared.data(from: url)
-    let wrapper = try JSONDecoder().decode(Wrapper.self, from: data)
+    let wrapper = try JSONDecoder().decode([Animal].self, from: data)
     
-    return wrapper.items
+    return wrapper
 }
 
 struct TestAPIView: View {

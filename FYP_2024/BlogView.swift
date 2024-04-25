@@ -1,15 +1,8 @@
 import SwiftUI
 
 struct BlogView: View {
-    @State private var posts: [PostData] = [
-        PostData(profileImageName: "img_bl_icon1", userName: "HKSCDA", postImageName: "img_bl_content1", likes: "Liked by LucasNG_ and 44,872 others", description: "As we enter early winter, the weather is gradually getting chillier. When you see stray cats and dogs on the street cowering away from the cold, have you ever thought about helping them?", date: "2024-04-25 08:00"),
-        PostData(profileImageName: "img_bl_icon2", userName: "HKDR_HK", postImageName: "img_bl_content2", likes: "Liked by JessWong and 22,567 others", description: "Today we helped a litter of kittens get the warm shelter they desperately need. Every small action counts.", date: "2024-04-25 12:00"),
-        PostData(profileImageName: "img_bl_icon3", userName: "LAP_HK", postImageName: "img_bl_content3", likes: "Liked by MarkChen and 30,298 others", description: "A heartwarming sight at our center today as three stray puppies found a new home!", date: "2024-04-25 15:30"),
-        PostData(profileImageName: "img_bl_icon4", userName: "SPCA", postImageName: "img_bl_content4", likes: "Liked by AnnieHo and 15,943 others", description: "Emergency rescue! We saved a dog stuck in a drain. It's crucial to keep our streets safe for all living beings.", date: "2024-04-25 17:45"),
-        PostData(profileImageName: "img_bl_icon5", userName: "Villa Kunterbunt Lantau", postImageName: "img_bl_content5", likes: "Liked by LeoKwok and 5,672 others", description: "Do you know how to care for elderly stray animals? Join our workshop this weekend.", date: "2024-04-25 10:15"),
-        PostData(profileImageName: "img_bl_icon6", userName: "Tobby's Friends Adoption", postImageName: "img_bl_content6", likes: "Liked by Samantha and 18,244 others", description: "Let's make a difference together! Adopt, don't shop. Our furry friends await.", date: "2024-04-25 20:00")
-    ]
-//    @State private var posts: [PostData] = []
+    
+    @State private var posts: [PostData] = []
     @State private var animals: [Animal] = []
     
     
