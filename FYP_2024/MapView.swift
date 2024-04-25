@@ -44,8 +44,8 @@ struct MapView: View {
                     Spacer()
                 }
             }
-            .sheet(item: $selectedAnnotation, content: {
-                annotation in FilterView()
+            .fullScreenCover(item: $selectedAnnotation, content: {
+                annotation in AnimalDetailsView()
             })
     }
 }
