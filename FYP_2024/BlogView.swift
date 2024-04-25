@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BlogView: View {
-    let posts = [
+    @State private var posts: [PostData] = [
         PostData(profileImageName: "img_bl_icon1", userName: "HKSCDA", postImageName: "img_bl_content1", likes: "Liked by LucasNG_ and 44,872 others", description: "As we enter early winter, the weather is gradually getting chillier. When you see stray cats and dogs on the street cowering away from the cold, have you ever thought about helping them?", date: "2024-04-25 08:00"),
         PostData(profileImageName: "img_bl_icon2", userName: "HKDR_HK", postImageName: "img_bl_content2", likes: "Liked by JessWong and 22,567 others", description: "Today we helped a litter of kittens get the warm shelter they desperately need. Every small action counts.", date: "2024-04-25 12:00"),
         PostData(profileImageName: "img_bl_icon3", userName: "LAP_HK", postImageName: "img_bl_content3", likes: "Liked by MarkChen and 30,298 others", description: "A heartwarming sight at our center today as three stray puppies found a new home!", date: "2024-04-25 15:30"),
@@ -9,6 +9,9 @@ struct BlogView: View {
         PostData(profileImageName: "img_bl_icon5", userName: "Villa Kunterbunt Lantau", postImageName: "img_bl_content5", likes: "Liked by LeoKwok and 5,672 others", description: "Do you know how to care for elderly stray animals? Join our workshop this weekend.", date: "2024-04-25 10:15"),
         PostData(profileImageName: "img_bl_icon6", userName: "Tobby's Friends Adoption", postImageName: "img_bl_content6", likes: "Liked by Samantha and 18,244 others", description: "Let's make a difference together! Adopt, don't shop. Our furry friends await.", date: "2024-04-25 20:00")
     ]
+//    @State private var posts: [PostData] = []
+    @State private var animals: [Animal] = []
+    
     
     var body: some View {
         NavigationView {
@@ -22,9 +25,37 @@ struct BlogView: View {
             }
             .navigationBarTitle(Text("Blogs"), displayMode: .inline)
         }
+        .task {
+            await fetchAnimals()
+        }
+    }
+    
+    func fetchAnimals() async {
+        do {
+            let fetchedAnimals = try await performAPICall()
+            animals = fetchedAnimals
+            
+            var postsData: [PostData] = []
+            for animal in animals {
+                let profileImageName = "img_bl_icon\(Int.random(in: 1...6))"
+                let userName = animal.nickName
+                let postImageName = "img_bl_content\(Int.random(in: 1...6))"
+                let likes = "Liked by \(["LucasNG_", "JessWong", "MarkChen", "AnnieHo", "LeoKwok", "Samantha"].randomElement()!) and \(Int.random(in: 5000...50000)) others"
+                let description = animal.description
+                let date = "2024-04-25 \(String(format: "%02d:%02d", Int.random(in: 0...23), Int.random(in: 0...59)))"
+                
+                let postData = PostData(profileImageName: profileImageName, userName: userName, postImageName: postImageName, likes: likes, description: description, date: date)
+                postsData.append(postData)
+            }
+            DispatchQueue.main.async {
+                self.posts = postsData
+            }
+        } catch {
+            print("Error fetching animals: \(error)")
+        }
     }
 }
-
+    
 struct PostView: View {
     @State var postData: PostData
     
