@@ -47,7 +47,7 @@ struct Map_SearchBar: View {
                             .foregroundColor(.gray)
                     }
                     .sheet(isPresented: $showFilter) {
-                        FilterView()
+                        ReportingView()
                     }
                     .frame(width: geometry.size.width * 0.2)
                 }
