@@ -71,7 +71,6 @@ struct AccountView: View {
                 .padding(.vertical,2)
                 .listRowSeparator(.hidden)
             }
-            .background(Image("img_bk2").resizable().scaledToFill())
             .listStyle(GroupedListStyle())
         }
     }
@@ -83,7 +82,7 @@ enum MenuOption: CaseIterable {
     var title: String {
         switch self {
         case .mypost: return "My reports"
-        case .fav_blog: return "Favourite Blogs"
+        case .fav_blog: return "Favourite blogs"
         case .my_notifications: return "My notifications"
         case .faq: return "FAQ"
         case .setting: return "Setting"
