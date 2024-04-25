@@ -1,125 +1,113 @@
 import SwiftUI
-
-struct ImageViewer: View {
-    var images: [String]
-
-    var body: some View {
-        TabView {
-            ForEach(images, id: \.self) { img in
-                Image(img)
-                    .resizable()
-                    .scaledToFit()
-            }
-        }
-        .tabViewStyle(PageTabViewStyle())
-        .frame(height: 300)
-    }
-}
-
-struct InfoCell: View {
-    var label: String
-    var value: String
-    var backgroundColor: Color = .green // Default background color
-
-    var body: some View {
-        VStack {
-            Text(label)
-                .font(.headline)
-                .foregroundColor(.secondary)
-            Text(value)
-                .font(.title2)
-        }
-        .padding() // Add padding around the text
-        .background(backgroundColor) // Set the background color
-        .cornerRadius(8) // Optional: Add a corner radius for a rounded rectangle look
-    }
-}
-
-struct AnimalInfoGrid: View {
-    @State private var selectedAnnotation: CustomAnnotation?
-    
-    var body: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-            InfoCell(label: "Name", value: "")
-            InfoCell(label: "Age", value: "")
-            InfoCell(label: "Gender", value: "123")
-            InfoCell(label: "Species", value: "")
-        }
-        .padding()
-    }
-}
-
-struct LinksView: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Link("Adopt this animal", destination: URL(string: "https://adopt.com")!)
-            Link("More about animal care", destination: URL(string: "https://care.com")!)
-        }
-        .padding()
-    }
-}
-
-struct DetailsTable: View {
-
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Camera")
-                Spacer()
-                Text("location")
-                Spacer()
-                Text("TimeStamp")
-                Spacer()
-                Text("Date")
-                Spacer()
-            }
-            .font(.headline)
-            .padding()
-
-            HStack {
-                Text("data")
-                Spacer()
-                Text("data")
-                Spacer()
-                Text("data")
-                Spacer()
-                Text("data")
-                Spacer()
-            }
-            .padding()
-        }
-    }
-}
-
-
-
 struct AnimalDetailsView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isLiked = false
+    @State private var navigateToTapsView = false // 控制導航到 TapsView 的狀態
+    @State private var strayName = "Lucas"
     
     var body: some View {
-        ScrollView {
+        NavigationView {
             VStack {
                 HStack {
+                    NavigationLink(destination: TapsView(), isActive: $navigateToTapsView) {
+                        EmptyView()
+                    }
+                    
                     Button(action: {
-                        dismiss()
+                        // 觸發導航到 TapsView
+                        self.navigateToTapsView = true
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.title)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.black)
                     }
-                    .padding()
+                    .padding(.leading, 20)
+                    .padding(.bottom, 10)
                     
                     Spacer()
+                    
+                    Button(action: {
+                        // 觸發導航到 TapsView
+                        self.navigateToTapsView = true
+                    }) {
+                        Text(strayName)
+                            .font(.title)
+                            .foregroundStyle(.blue)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.bottom, 10)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.isLiked.toggle()
+                    }) {
+                        Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
+                            .foregroundColor(isLiked ? .green : .black)
+                            .font(.title)
+                    }
+                    .padding(.trailing, 10)
+                    .padding(.bottom, 10)
                 }
-                ImageViewer(images: ["cat", "dog"])
-                AnimalInfoGrid()
-                LinksView()
-                DetailsTable()
+                .background(Color.white) // 給按鈕添加半透明的背景色，以便它們在圖片之上突出顯示
+                
+                Image("img_ad_content1")
+                    .resizable()
+                    .scaledToFit()
+                    .edgesIgnoringSafeArea(.top) // 讓圖片延伸到頂部的安全區之外
+                    .padding(.bottom, -20)
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        // Hachiko - Maltese title
+                        Text("Hachiko - Maltese")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        
+                        // Information bubbles
+                        HStack {
+                            InfoBubble(title: "Age", detail: "15 Month")
+                            InfoBubble(title: "Sex", detail: "Female")
+                            InfoBubble(title: "Location", detail: "Cibadak")
+                        }
+                    }
+                    .padding()
+                }
+                .background(Color(.systemGroupedBackground)) // This is the background color similar to the one in your image
+                .edgesIgnoringSafeArea(.bottom)
+                
             }
+            
+            
+            
         }
     }
 }
 
-#Preview {
-    AnimalDetailsView()
+
+struct InfoBubble: View {
+    var title: String
+    var detail: String
+    
+    var body: some View {
+        VStack {
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.gray)
+            Text(detail)
+                .font(.headline)
+                .foregroundColor(.primary)
+        }
+        .padding()
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 1)
+    }
+}
+
+struct AnimalDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        AnimalDetailsView()
+    }
 }

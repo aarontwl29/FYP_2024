@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		93040C0A2BDA767F00C55B9A /* APITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* APITesting.swift */; };
-		9309A3762BDA57C1005C903F /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9309A3752BDA57C1005C903F /* AnimalDetailsView.swift */; };
 		933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FD2BD39DA600CB9A88 /* MapView.swift */; };
 		933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */; };
 		933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */; };
@@ -31,6 +30,7 @@
 		AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */; };
 		AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */; };
 		AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */; };
+		AB91E8142BDA99E200AA7F85 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */; };
 		ABEC70542BD41BA70014082E /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC70532BD41BA70014082E /* BlogView.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		93040C092BDA767F00C55B9A /* APITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITesting.swift; sourceTree = "<group>"; };
-		9309A3752BDA57C1005C903F /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
 		933BA0FD2BD39DA600CB9A88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_SearchBar.swift; sourceTree = "<group>"; };
 		933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
 		ABEC70532BD41BA70014082E /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,7 +135,7 @@
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
-				9309A3752BDA57C1005C903F /* AnimalDetailsView.swift */,
+				AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */,
 				AB91E8012BD9C91E00AA7F85 /* DonateView.swift */,
 				AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */,
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
@@ -345,8 +345,8 @@
 				AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */,
 				AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
-				9309A3762BDA57C1005C903F /* AnimalDetailsView.swift in Sources */,
 				AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */,
+				AB91E8142BDA99E200AA7F85 /* AnimalDetailsView.swift in Sources */,
 				AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */,
 				AB91E8052BD9E9D700AA7F85 /* EditProfileView.swift in Sources */,
 			);
