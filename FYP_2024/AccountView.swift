@@ -78,12 +78,12 @@ struct AccountView: View {
 }
 
 enum MenuOption: CaseIterable {
-    case mypost, my_notifications, faq, setting, fav_blog
+    case mypost, fav_blog, my_notifications, faq, setting
     
     var title: String {
         switch self {
         case .mypost: return "My reports"
-        case .fav_blog: return "Blogs"
+        case .fav_blog: return "Favourite Blogs"
         case .my_notifications: return "My notifications"
         case .faq: return "FAQ"
         case .setting: return "Setting"
@@ -93,6 +93,7 @@ enum MenuOption: CaseIterable {
     var imageName: String {
         switch self {
         case .mypost: return "message.badge"
+        case .fav_blog: return "heart.text.square"
         case .my_notifications: return "bell.badge"
         case .faq: return "exclamationmark.bubble"
         case .setting: return "gearshape"
