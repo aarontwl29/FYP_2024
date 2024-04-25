@@ -3,7 +3,10 @@ import MapKit
 
 struct ReportingView: View {
     @State private var nickname: String = ""
-    @State private var image: UIImage? = nil
+    @State private var images: [UIImage] = [
+        UIImage(named: "cat")!,
+        UIImage(named: "dog")!
+    ]
     @State private var location: CLLocationCoordinate2D? = nil
     @State private var date: Date = Date()
     @State private var animalType: AnimalType = .dog
@@ -24,17 +27,15 @@ struct ReportingView: View {
         NavigationView {
             Form {
                 
-                Section(header: Text("Photo")) {
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Button(action: takePhoto) {
-                            Text("Take Photo")
-                        }
-                    }
-                }
+                Section(header: Text("Photos")) {
+                                    ImagePreviewArea(images: $images)
+                                    
+                                    if images.isEmpty {
+                                        Button(action: takePhoto) {
+                                            Text("Take Photo")
+                                        }
+                                    }
+                                }
                 
                 Section(header: Text("Color")) {
                     HStack {
@@ -114,6 +115,25 @@ struct ReportingView: View {
     let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll"]
     
     let colors: [Color] = [.red, .green, .blue, .yellow, .orange, .purple, .pink, .brown, .gray, .black]
+}
+
+struct ImagePreviewArea: View {
+    @Binding var images: [UIImage]
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: true) {
+            LazyHGrid(rows: [GridItem(.flexible())], spacing: 8) {
+                ForEach(images, id: \.self) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150)
+                }
+            }
+            .padding(.horizontal)
+        }
+        .frame(height: 180)
+    }
 }
 
 struct ColorSampleView: View {

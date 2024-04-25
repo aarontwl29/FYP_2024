@@ -4,7 +4,7 @@ import MapKit
 struct FilterView: View {
     
     var body: some View {
-        Text("")
+        Text("Waiting for updates")
     }
 }
 
