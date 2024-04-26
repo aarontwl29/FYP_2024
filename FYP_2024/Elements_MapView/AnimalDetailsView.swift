@@ -65,7 +65,7 @@ struct AnimalDetailsView: View {
                     .resizable()
                     .scaledToFit()
                     .edgesIgnoringSafeArea(.top) // 讓圖片延伸到頂部的安全區之外
-                    .padding(.bottom, -20)
+                    .padding(.bottom, 0)
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {

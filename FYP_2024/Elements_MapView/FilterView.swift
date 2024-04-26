@@ -358,10 +358,11 @@ struct SubmitBubble: View {
             }) {
                 Text(buttonInfo)
                     .font(.title2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.blue)
+                    .bold()
             }
             .frame(width:290 , height: 50)
-            .background(Color.yellow)
+            .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.gray, lineWidth: 1)

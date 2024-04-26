@@ -30,6 +30,9 @@
 		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 		AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57F92BD42F0300D89984 /* TapsView.swift */; };
 		AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57FD2BD4334900D89984 /* FavouriteView.swift */; };
+		AB28B0312BDC02EA00662336 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0302BDC02EA00662336 /* LoginView.swift */; };
+		AB28B0332BDC02FF00662336 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0322BDC02FF00662336 /* RegisterView.swift */; };
+		AB28B0352BDC031B00662336 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0342BDC031B00662336 /* IndexView.swift */; };
 		AB8A38172BDC011400C34430 /* FavFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A38162BDC011400C34430 /* FavFilterView.swift */; };
 		AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */; };
 		AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8012BD9C91E00AA7F85 /* DonateView.swift */; };
@@ -89,6 +92,9 @@
 		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		AB0D57F92BD42F0300D89984 /* TapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapsView.swift; sourceTree = "<group>"; };
 		AB0D57FD2BD4334900D89984 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
+		AB28B0302BDC02EA00662336 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AB28B0322BDC02FF00662336 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		AB28B0342BDC031B00662336 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		AB8A38162BDC011400C34430 /* FavFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavFilterView.swift; sourceTree = "<group>"; };
 		AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AB91E8012BD9C91E00AA7F85 /* DonateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateView.swift; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 		9350B45A2BCAF26300DC2FB7 /* FYP_2024 */ = {
 			isa = PBXGroup;
 			children = (
+				AB28B02F2BDC02CF00662336 /* LoginView */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
@@ -223,6 +230,16 @@
 				AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */,
 			);
 			path = Elements_MapView;
+			sourceTree = "<group>";
+		};
+		AB28B02F2BDC02CF00662336 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				AB28B0302BDC02EA00662336 /* LoginView.swift */,
+				AB28B0322BDC02FF00662336 /* RegisterView.swift */,
+				AB28B0342BDC031B00662336 /* IndexView.swift */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		AB8A38152BDC011400C34430 /* FavouriteView */ = {
@@ -396,6 +413,7 @@
 				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
 				AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */,
 				AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */,
+				AB28B0332BDC02FF00662336 /* RegisterView.swift in Sources */,
 				ABEC70542BD41BA70014082E /* BlogView.swift in Sources */,
 				AB91E8072BD9EA3300AA7F85 /* MyReportsView.swift in Sources */,
 				939B818C2BDB939600373F31 /* PhotoImportView.swift in Sources */,
@@ -405,7 +423,9 @@
 				AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */,
 				AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */,
 				939B81952BDBB17500373F31 /* LocationPickerView.swift in Sources */,
+				AB28B0312BDC02EA00662336 /* LoginView.swift in Sources */,
 				93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */,
+				AB28B0352BDC031B00662336 /* IndexView.swift in Sources */,
 				939B81902BDB9A1100373F31 /* ImagePreviewArea.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
 				AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */,
