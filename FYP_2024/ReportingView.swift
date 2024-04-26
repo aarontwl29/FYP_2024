@@ -46,19 +46,40 @@ struct ReportingView: View {
     @State private var email: String = ""
     @State private var phone: String = ""
     
-    @State private var selectedGender: String? = "Male"
-    @State private var selectedNeuteredStatus: String? = "Yes"
-    @State private var selectedHealthStatus: String? = "Healthy"
+    @State private var selectedGender: String?
+  
     
     enum AnimalType: String, CaseIterable {
         case dog = "Dog"
         case cat = "Cat"
     }
     
+    let genders = ["N/A", "Male", "Female"]
     
     var body: some View {
         NavigationView {
             Form {
+                
+                
+                Section(header: Text("Gender")) {
+                    HStack{
+                        RadioButtonField(
+                            id: "Male",
+                            label: "Male",
+                            selectedValue: $selectedGender
+                        )
+                        
+                        RadioButtonField(
+                            id: "Female",
+                            label: "Female",
+                            selectedValue: $selectedGender
+                        )
+                    }
+                }
+                GenderSection(genders: genders, selectedGender: $selectedGender)
+                
+                
+                
                 
                 Section(header: Text("Photos")) {
                     ImagePreviewArea(images: $images)
@@ -156,66 +177,8 @@ struct ReportingView: View {
                     
                     
                     
-                    Section(header: Text("Gender")) {
-                                HStack {
-                                    RadioButtonField(
-                                        id: "Male",
-                                        label: "Male",
-                                        selectedValue: $selectedGender
-                                    )
-
-                                    RadioButtonField(
-                                        id: "Female",
-                                        label: "Female",
-                                        selectedValue: $selectedGender
-                                    )
-                                }
-                            }
-
-                            Section(header: Text("Neutered Status")) {
-                                HStack {
-                                    RadioButtonField(
-                                        id: "Yes",
-                                        label: "Yes",
-                                        selectedValue: $selectedNeuteredStatus
-                                    )
-
-                                    RadioButtonField(
-                                        id: "No",
-                                        label: "No",
-                                        selectedValue: $selectedNeuteredStatus
-                                    )
-
-                                    RadioButtonField(
-                                        id: "Unknown",
-                                        label: "Unknown",
-                                        selectedValue: $selectedNeuteredStatus
-                                    )
-                                }
-                            }
-
-                            Section(header: Text("Health Status")) {
-                                HStack {
-                                    RadioButtonField(
-                                        id: "Healthy",
-                                        label: "Healthy",
-                                        selectedValue: $selectedHealthStatus
-                                    )
-
-                                    RadioButtonField(
-                                        id: "Sick",
-                                        label: "Sick",
-                                        selectedValue: $selectedHealthStatus
-                                    )
-
-                                    RadioButtonField(
-                                        id: "Injured",
-                                        label: "Injured",
-                                        selectedValue: $selectedHealthStatus
-                                    )
-                                }
-                            }
-                     
+                    
+              
                         
                     
                     
@@ -283,17 +246,28 @@ struct RadioButtonField<T: Hashable>: View {
     
     var body: some View {
         Button(action: {
-            selectedValue = id
+            selectedValue = selectedValue == id ? nil : id
         }) {
-            HStack {
-                Image(systemName: selectedValue == id ? "circle.fill" : "circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 18, height: 18)
+            HStack(spacing: 10) {
+                ZStack {
+                    Circle()
+                        .stroke(selectedValue == id ? Color.accentColor : Color.gray, lineWidth: 2)
+                        .frame(width: 20, height: 20)
+                    
+                    if selectedValue == id {
+                        Circle()
+                            .fill(Color.accentColor)
+                            .frame(width: 12, height: 12)
+                    }
+                }
                 
                 Text(label)
+                    .foregroundColor(selectedValue == id ? .accentColor : .primary)
+                    .font(.headline)
             }
+            .background(Color.yellow.opacity(0.2)) // Add a semi-transparent yellow background
+            .cornerRadius(8) // Add some corner radius for a better visual appearance
         }
-        .foregroundColor(Color.primary)
     }
 }
+

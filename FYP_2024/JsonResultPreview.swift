@@ -43,6 +43,7 @@ struct TestAPIView: View {
             do {
                 let fetchedAnimals = try await performAPICall()
                 animals = fetchedAnimals
+                print(animals)
             } catch {
                 errorMessage = "Error fetching animals: \(error.localizedDescription)"
             }
