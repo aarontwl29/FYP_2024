@@ -44,15 +44,24 @@ struct Map_SearchBar: View {
                         self.showFilter.toggle()
                     }) {
                         Image(systemName: "line.horizontal.3.decrease.circle")
-                            .foregroundColor(.gray)
+                            .font(.title2)
+                            .padding(.leading,40)
+                           
+                            .cornerRadius(8) // Add corner radius for rounded corners
+                            
                     }
                     .sheet(isPresented: $showFilter) {
                         FilterView()
                     }
                     .frame(width: geometry.size.width * 0.2)
                 }
-                .background(Color.blue) // Add background color here
+                .background(Color(.systemGray6)) // Add background color here
                 .cornerRadius(8) // Add corner radius for rounded corners
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.black, lineWidth: 1)
+                )
+                .shadow(radius: 0.5)
                 
                 Spacer()
                     .frame(width: geometry.size.width * 0.1)
