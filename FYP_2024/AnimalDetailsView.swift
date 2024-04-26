@@ -7,24 +7,24 @@ struct AnimalDetailsView: View {
     
     
     
+    @Binding var selectedAnnotation : CustomAnnotation?
+    
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    NavigationLink(destination: TapsView(), isActive: $navigateToTapsView) {
-                        EmptyView()
-                    }
+                    
                     
                     Button(action: {
-                        // 觸發導航到 TapsView
-                        self.navigateToTapsView = true
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .font(.title)
-                            .foregroundStyle(.black)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.bottom, 10)
+                                            // Dismiss the current view
+                                            presentationMode.wrappedValue.dismiss()
+                                        }) {
+                                            Image(systemName: "chevron.left")
+                                                .font(.title)
+                                                .foregroundStyle(.black)
+                                        }
+                                        .padding(.leading, 20)
+                                        .padding(.bottom, 10)
                     
                     Spacer()
                     
@@ -113,7 +113,7 @@ struct InfoBubble: View {
 
 struct AnimalDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        AnimalDetailsView()
+        AnimalDetailsView(selectedAnnotation: .constant(nil))
     }
 }
 

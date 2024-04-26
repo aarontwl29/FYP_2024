@@ -75,7 +75,7 @@ struct MapView: View {
                 }
             }
             .fullScreenCover(item: $selectedAnnotation, content: {
-                annotation in AnimalDetailsView()
+                annotation in AnimalDetailsView(selectedAnnotation: $selectedAnnotation)
             })
     }
 }

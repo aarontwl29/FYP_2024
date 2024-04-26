@@ -1,9 +1,15 @@
 import SwiftUI
 import MapKit
+import UIKit
+
 
 struct ReportingView: View {
     @State private var nickname: String = ""
-    @State private var image: UIImage? = nil
+    @State private var images: [UIImage] = [
+        UIImage(named: "cat")!,
+        UIImage(named: "dog")!
+    ]
+    @State private var capturedImage: UIImage?
     @State private var location: CLLocationCoordinate2D? = nil
     @State private var date: Date = Date()
     @State private var animalType: AnimalType = .dog
@@ -12,6 +18,8 @@ struct ReportingView: View {
     @State private var phone: String = ""
     @State private var selectedColor: Color = .red
     
+    @State private var selectedImage: UIImage?
+    @State private var showImagePicker = false
     @State private var showFilePickerView = false
     @State private var voiceFileURL: URL?
     
@@ -24,17 +32,19 @@ struct ReportingView: View {
         NavigationView {
             Form {
                 
-                Section(header: Text("Photo")) {
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Button(action: takePhoto) {
-                            Text("Take Photo")
-                        }
+                Section(header: Text("Photos")) {
+                                    ImagePreviewArea(images: $images)
+                                    
+                    Button(action: takePhoto) {
+                        Text("Take Photo")
                     }
-                }
+                                    
+                                    Button(action: {
+                                        showImagePicker = true
+                                    }) {
+                                        Text("Import Photos")
+                                    }
+                                }
                 
                 Section(header: Text("Color")) {
                     HStack {
@@ -92,18 +102,36 @@ struct ReportingView: View {
                 }
             }
             .navigationBarTitle("Report Stray Animal")
-            .navigationBarItems(trailing: Button(action: submitReport) {
-                Text("Submit")
-            })
-            .sheet(isPresented: $showFilePickerView) {
+                        .navigationBarItems(trailing: Button(action: submitReport) {
+                            Text("Submit")
+                        })
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(image: $selectedImage, onDismiss: { image in
+                                if let image = image {
+                                    images.append(image)
+                                }
+                            })
+                        }
+                        .sheet(isPresented: $showFilePickerView) {
                             VoiceFileUploadView(voiceFileURL: $voiceFileURL)
                         }
         }
     }
     
-    func takePhoto() {
-        // Implement functionality to take a photo using the device's camera
+    func loadImage(_ image: UIImage?) {
+            if let image = image {
+                images.append(image)
+            }
+        }
+        
+    func loadImages(_ newImages: [UIImage]) {
+            images.append(contentsOf: newImages)
     }
+    
+    func takePhoto() {
+   
+    }
+    
     
     func submitReport() {
         // Implement functionality to submit the report with the entered data
@@ -114,6 +142,25 @@ struct ReportingView: View {
     let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll"]
     
     let colors: [Color] = [.red, .green, .blue, .yellow, .orange, .purple, .pink, .brown, .gray, .black]
+}
+
+struct ImagePreviewArea: View {
+    @Binding var images: [UIImage]
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: true) {
+            LazyHGrid(rows: [GridItem(.flexible())], spacing: 8) {
+                ForEach(images, id: \.self) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150)
+                }
+            }
+            .padding(.horizontal)
+        }
+        .frame(height: 180)
+    }
 }
 
 struct ColorSampleView: View {
@@ -141,6 +188,50 @@ struct ColorSampleView: View {
         .accessibilityLabel(color.description)
     }
 }
+
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+        @Environment(\.presentationMode) private var presentationMode
+        var onDismiss: (UIImage?) -> Void
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+                imagePicker.delegate = context.coordinator
+                imagePicker.allowsEditing = false
+                imagePicker.sourceType = .camera
+                return imagePicker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        // No need to implement this method
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.image = image
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
+
+
 
 struct VoiceFileUploadView: UIViewControllerRepresentable {
     @Binding var voiceFileURL: URL?
@@ -171,6 +262,8 @@ struct VoiceFileUploadView: UIViewControllerRepresentable {
         }
     }
 }
+
+
 
 
 #Preview {
