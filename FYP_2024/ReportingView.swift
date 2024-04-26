@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 import UIKit
-
+import CoreLocation
 
 struct ReportingView: View {
     
@@ -13,10 +13,14 @@ struct ReportingView: View {
     ]
     @State private var voiceFileURL: URL?
     
+    @StateObject private var locationViewModel = LocationViewModel() 
+
     
     @State private var showCameraView = false
     @State private var showPhotoImportView = false
     @State private var showFilePickerView = false
+    
+    @State private var showLocationPicker = false
 
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
@@ -27,11 +31,15 @@ struct ReportingView: View {
     
     // Data return
     @State private var selectedColors: [Color] = []
+    
+    @State private var lastSeenDate: Date = Date()
+    @State private var appearTime: Date = Date()
+    @State private var disappearTime: Date = Date()
+
 
     
     @State private var nickname: String = ""
     @State private var location: CLLocationCoordinate2D? = nil
-    @State private var date: Date = Date()
     @State private var animalType: AnimalType = .dog
     @State private var breed: String = ""
     @State private var email: String = ""
@@ -95,8 +103,20 @@ struct ReportingView: View {
                     }
                 }
                 
-                Section(header: Text("Date and Time")) {
-                    DatePicker("Date and Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                Section(header: Text("Last Seen Information")) {
+                    DatePicker("Date", selection: $lastSeenDate, displayedComponents: .date)
+                    DatePicker("Appear Time", selection: $appearTime, displayedComponents: [.hourAndMinute])
+                    DatePicker("Disappear Time", selection: $disappearTime, displayedComponents: [.hourAndMinute])
+                }
+
+                Section(header: Text("Location")) {
+                    Button(action: getCurrentLocation) {
+                        Text("Get Current Location")
+                    }
+
+                    Button(action: selectLocationFromMap) {
+                        Text("Select Location from Map")
+                    }
                 }
                 
                 Section(header: Text("Nickname")) {
@@ -129,8 +149,18 @@ struct ReportingView: View {
                                 // Perform any necessary actions when the view is dismissed
                             })
                         }
-
+                        .sheet(isPresented: $locationViewModel.showLocationPicker) {
+                            LocationPickerView(locationViewModel: locationViewModel)
+                        }
         }
+    }
+    
+    func getCurrentLocation() {
+        locationViewModel.getCurrentLocation()
+    }
+    
+    func selectLocationFromMap() {
+        locationViewModel.selectLocationFromMap()
     }
     
     func submitReport() {
