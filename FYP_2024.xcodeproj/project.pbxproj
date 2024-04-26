@@ -151,14 +151,14 @@
 		9350B45A2BCAF26300DC2FB7 /* FYP_2024 */ = {
 			isa = PBXGroup;
 			children = (
-				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
 				933BA0FD2BD39DA600CB9A88 /* MapView.swift */,
-				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				939B819A2BDBF8F800373F31 /* Elements_MapView */,
+				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
+				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
 				939B81912BDB9B9100373F31 /* Elements_ReportingView */,
 				ABEC70532BD41BA70014082E /* BlogView.swift */,
