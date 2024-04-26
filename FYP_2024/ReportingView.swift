@@ -26,6 +26,9 @@ struct ReportingView: View {
     
     
     // Data return
+    @State private var selectedColors: [Color] = []
+
+    
     @State private var nickname: String = ""
     @State private var location: CLLocationCoordinate2D? = nil
     @State private var date: Date = Date()
@@ -33,7 +36,6 @@ struct ReportingView: View {
     @State private var breed: String = ""
     @State private var email: String = ""
     @State private var phone: String = ""
-    @State private var selectedColor: Color = .red
     
     enum AnimalType: String, CaseIterable {
         case dog = "Dog"
@@ -62,9 +64,11 @@ struct ReportingView: View {
                 }
                 
                 Section(header: Text("Color")) {
-                    HStack {
-                        ForEach(colors, id: \.self) { color in
-                            ColorSampleView(color: color, selectedColor: $selectedColor)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(ColorOptions.options) { colorOption in
+                                ColorOptionView(colorOption: colorOption, selectedColors: $selectedColors)
+                            }
                         }
                     }
                 }
