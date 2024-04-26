@@ -65,6 +65,7 @@ struct AnimalDetailsView: View {
                     .resizable()
                     .scaledToFit()
                     .edgesIgnoringSafeArea(.top) // 讓圖片延伸到頂部的安全區之外
+                    .padding(.bottom, -20)
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
@@ -347,6 +348,10 @@ struct AnimalDetailsView: View {
 
 struct AnimalDetailsView_Previews: PreviewProvider {
     static var previews: some View {
+        // 確保這裡的代碼可以正確生成一個 AnimalDetailsView 的實例
+        // 注意：這需要一個 CustomAnnotation 的實例或者 nil
+        // 如果你的 CustomAnnotation 需要特定的數據，你應該在這裡提供
+        // 例如，如果 selectedAnnotation 是必需的，你需要創建一個示例
         AnimalDetailsView(selectedAnnotation: .constant(nil))
     }
 }

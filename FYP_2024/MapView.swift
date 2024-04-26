@@ -41,7 +41,7 @@ struct MapView: View {
 
     let annotations: [CustomAnnotation] = [
         CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal),
-        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.400873, longitude: 114.198035), title: "San Francisco", imageName: "dog", type: .animal)
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", imageName: "dog", type: .animal)
     ]
     
     @State private var showReportingView = false
