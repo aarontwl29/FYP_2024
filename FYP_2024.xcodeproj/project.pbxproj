@@ -27,6 +27,7 @@
 		939B81952BDBB17500373F31 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81942BDBB17500373F31 /* LocationPickerView.swift */; };
 		939B81972BDBBD2600373F31 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81962BDBBD2600373F31 /* LocationViewModel.swift */; };
 		939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81982BDBF6C500373F31 /* RadioButtonField.swift */; };
+		939B81A02BDC371F00373F31 /* OverlaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B819F2BDC371F00373F31 /* OverlaysView.swift */; };
 		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 		AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57F92BD42F0300D89984 /* TapsView.swift */; };
 		AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57FD2BD4334900D89984 /* FavouriteView.swift */; };
@@ -89,6 +90,7 @@
 		939B81942BDBB17500373F31 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
 		939B81962BDBBD2600373F31 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		939B81982BDBF6C500373F31 /* RadioButtonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonField.swift; sourceTree = "<group>"; };
+		939B819F2BDC371F00373F31 /* OverlaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaysView.swift; sourceTree = "<group>"; };
 		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		AB0D57F92BD42F0300D89984 /* TapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapsView.swift; sourceTree = "<group>"; };
 		AB0D57FD2BD4334900D89984 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
@@ -158,12 +160,12 @@
 			isa = PBXGroup;
 			children = (
 				AB28B02F2BDC02CF00662336 /* LoginView */,
-				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
 				933BA0FD2BD39DA600CB9A88 /* MapView.swift */,
+				939B819F2BDC371F00373F31 /* OverlaysView.swift */,
 				939B819A2BDBF8F800373F31 /* Elements_MapView */,
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
@@ -402,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB8A38172BDC011400C34430 /* FavFilterView.swift in Sources */,
+				939B81A02BDC371F00373F31 /* OverlaysView.swift in Sources */,
 				9350B45E2BCAF26300DC2FB7 /* ContentView.swift in Sources */,
 				933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */,
 				939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */,
