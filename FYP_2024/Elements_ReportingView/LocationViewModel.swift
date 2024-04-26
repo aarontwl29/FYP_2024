@@ -9,11 +9,12 @@ class LocationViewModel: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     
     @Published var showLocationPicker = false
-
+    
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
 
     func getCurrentLocation() {
@@ -47,4 +48,5 @@ extension LocationViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error getting location: \(error.localizedDescription)")
     }
+
 }
