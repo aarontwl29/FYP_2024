@@ -15,7 +15,7 @@ struct ImagePreviewArea: View {
             }
             .padding(.horizontal)
         }
-        .frame(height: 180)
+        .frame(height: 160)
     }
 }
 

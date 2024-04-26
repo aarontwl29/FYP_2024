@@ -24,6 +24,9 @@
 		939B818E2BDB93C800373F31 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B818D2BDB93C800373F31 /* CameraView.swift */; };
 		939B81902BDB9A1100373F31 /* ImagePreviewArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B818F2BDB9A1100373F31 /* ImagePreviewArea.swift */; };
 		939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81922BDB9E2700373F31 /* ColorOptionView.swift */; };
+		939B81952BDBB17500373F31 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81942BDBB17500373F31 /* LocationPickerView.swift */; };
+		939B81972BDBBD2600373F31 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81962BDBBD2600373F31 /* LocationViewModel.swift */; };
+		939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81982BDBF6C500373F31 /* RadioButtonField.swift */; };
 		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 		AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57F92BD42F0300D89984 /* TapsView.swift */; };
 		AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57FD2BD4334900D89984 /* FavouriteView.swift */; };
@@ -80,6 +83,9 @@
 		939B818D2BDB93C800373F31 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		939B818F2BDB9A1100373F31 /* ImagePreviewArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewArea.swift; sourceTree = "<group>"; };
 		939B81922BDB9E2700373F31 /* ColorOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionView.swift; sourceTree = "<group>"; };
+		939B81942BDBB17500373F31 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
+		939B81962BDBBD2600373F31 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		939B81982BDBF6C500373F31 /* RadioButtonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonField.swift; sourceTree = "<group>"; };
 		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		AB0D57F92BD42F0300D89984 /* TapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapsView.swift; sourceTree = "<group>"; };
 		AB0D57FD2BD4334900D89984 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
@@ -202,7 +208,10 @@
 				939B818D2BDB93C800373F31 /* CameraView.swift */,
 				939B818B2BDB939600373F31 /* PhotoImportView.swift */,
 				939B81922BDB9E2700373F31 /* ColorOptionView.swift */,
+				939B81942BDBB17500373F31 /* LocationPickerView.swift */,
+				939B81962BDBBD2600373F31 /* LocationViewModel.swift */,
 				939B81892BDB8E9F00373F31 /* VoiceFilePickerView.swift */,
+				939B81982BDBF6C500373F31 /* RadioButtonField.swift */,
 			);
 			path = Elements_ReportingView;
 			sourceTree = "<group>";
@@ -374,6 +383,7 @@
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
 				AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */,
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,
+				939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */,
 				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
 				AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */,
 				AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */,
@@ -386,10 +396,12 @@
 				AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */,
 				AB273D4D2BDBE9F100FA1EEB /* FavFilterView.swift in Sources */,
 				AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */,
+				939B81952BDBB17500373F31 /* LocationPickerView.swift in Sources */,
 				93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */,
 				939B81902BDB9A1100373F31 /* ImagePreviewArea.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
 				AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */,
+				939B81972BDBBD2600373F31 /* LocationViewModel.swift in Sources */,
 				AB91E8142BDA99E200AA7F85 /* AnimalDetailsView.swift in Sources */,
 				AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */,
 				AB91E8052BD9E9D700AA7F85 /* EditProfileView.swift in Sources */,

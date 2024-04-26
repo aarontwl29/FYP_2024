@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
 import UIKit
-
+import CoreLocation
 
 struct ReportingView: View {
     
@@ -13,10 +13,16 @@ struct ReportingView: View {
     ]
     @State private var voiceFileURL: URL?
     
+    @StateObject private var locationViewModel = LocationViewModel() 
+
     
     @State private var showCameraView = false
     @State private var showPhotoImportView = false
     @State private var showFilePickerView = false
+    
+    @State private var showLocationPicker = false
+    
+    @State private var showAdditionalDetails = false
 
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
@@ -27,15 +33,25 @@ struct ReportingView: View {
     
     // Data return
     @State private var selectedColors: [Color] = []
+    
+    @State private var lastSeenDate: Date = Date()
+    @State private var appearTime: Date = Date()
+    @State private var disappearTime: Date = Date()
 
     
     @State private var nickname: String = ""
-    @State private var location: CLLocationCoordinate2D? = nil
-    @State private var date: Date = Date()
     @State private var animalType: AnimalType = .dog
     @State private var breed: String = ""
+    
+    @State private var location: CLLocationCoordinate2D? = nil
+    
+    @State private var selectedGender: String?
+    @State private var selectedNeuteredStatus: String?
+    @State private var selectedHealthStatus: String?
+    
     @State private var email: String = ""
     @State private var phone: String = ""
+    
     
     enum AnimalType: String, CaseIterable {
         case dog = "Dog"
@@ -46,7 +62,7 @@ struct ReportingView: View {
     var body: some View {
         NavigationView {
             Form {
-                
+
                 Section(header: Text("Photos")) {
                     ImagePreviewArea(images: $images)
                     
@@ -95,23 +111,88 @@ struct ReportingView: View {
                     }
                 }
                 
-                Section(header: Text("Date and Time")) {
-                    DatePicker("Date and Time", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                Section(header: Text("Last Seen Information")) {
+                    DatePicker("Date", selection: $lastSeenDate, displayedComponents: .date)
+                    DatePicker("Appear Time", selection: $appearTime, displayedComponents: [.hourAndMinute])
+                    DatePicker("Disappear Time", selection: $disappearTime, displayedComponents: [.hourAndMinute])
+                }
+
+                Section(header: Text("Location")) {
+                    switch locationViewModel.authorizationStatus {
+                    case .authorizedWhenInUse, .authorizedAlways:
+                        // Display location-related UI
+                        Button(action: getCurrentLocation) {
+                            Text("Get Current Location")
+                        }
+
+                        Button(action: selectLocationFromMap) {
+                            Text("Select Location from Map")
+                        }
+                        
+                        if let selectedLocation = locationViewModel.selectedLocation {
+                            Text("Selected Location: \(selectedLocation.latitude), \(selectedLocation.longitude)")
+                        } else {
+                            Text("No location selected")
+                        }
+                    case .denied, .restricted:
+                        Text("Location access denied. Please grant permission in Settings.")
+                    case .notDetermined:
+                        Text("Location access not determined. Please allow access to use location features.")
+                    default:
+                        Text("Unable to determine location access status.")
+                    }
+                }
+
+                Section {
+                    Button(action: {
+                        showAdditionalDetails.toggle()
+                    }) {
+                        Text(showAdditionalDetails ? "Hide Additional Details" : "Show Additional Details")
+                    }
                 }
                 
-                Section(header: Text("Nickname")) {
-                    TextField("Enter nickname", text: $nickname)
-                }
-                
-                Section(header: Text("Voice Sample")) {
-                    VoiceFilePickerView(voiceFileURL: $voiceFileURL)
-                                }
-                
-                Section(header: Text("Contact Information")) {
-                    TextField("Enter email", text: $email)
-                        .keyboardType(.emailAddress)
-                    TextField("Enter phone number", text: $phone)
-                        .keyboardType(.phonePad)
+                if showAdditionalDetails {
+                    
+                    Section(header: Text("Nickname")) {
+                        TextField("Enter nickname", text: $nickname)
+                    }
+
+                    Section(header: Text("Gender")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "M", label: "Male", selectedValue: $selectedGender)
+                                RadioButtonField(id: "F", label: "Female", selectedValue: $selectedGender)
+                            }
+                        }
+                    }
+                    Section(header: Text("Neutered Status")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "T", label: "True", selectedValue: $selectedNeuteredStatus)
+                                RadioButtonField(id: "F", label: "False", selectedValue: $selectedNeuteredStatus)
+                            }
+                        }
+                    }
+                    Section(header: Text("Health Status")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "Healthy", label: "Healthy", selectedValue: $selectedHealthStatus)
+                                RadioButtonField(id: "Sick", label: "Sick", selectedValue: $selectedHealthStatus)
+                                RadioButtonField(id: "Injured", label: "Injured", selectedValue: $selectedHealthStatus)
+                            }
+                        }
+                    }
+                    
+                    Section(header: Text("Voice Sample")) {
+                        VoiceFilePickerView(voiceFileURL: $voiceFileURL)
+                    }
+                    
+                    Section(header: Text("Contact Information")) {
+                        TextField("Enter email", text: $email)
+                            .keyboardType(.emailAddress)
+                        TextField("Enter phone number", text: $phone)
+                            .keyboardType(.phonePad)
+                    }
                 }
             }
             .navigationBarTitle("Report Stray Animal")
@@ -129,8 +210,21 @@ struct ReportingView: View {
                                 // Perform any necessary actions when the view is dismissed
                             })
                         }
+                        .sheet(isPresented: $locationViewModel.showLocationPicker) {
+                            LocationPickerView(locationViewModel: locationViewModel)
+                                .onChange(of: locationViewModel.locationUpdated) { _ in
+                                    locationViewModel.locationUpdated = false
+                                }
+                        }
 
         }
+    }
+    
+    func getCurrentLocation() {
+        locationViewModel.getCurrentLocation()
+    }
+    func selectLocationFromMap() {
+        locationViewModel.selectLocationFromMap()
     }
     
     func submitReport() {
@@ -139,7 +233,7 @@ struct ReportingView: View {
 }
 
 
-
 #Preview {
     ReportingView()
 }
+

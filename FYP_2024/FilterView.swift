@@ -15,12 +15,12 @@ struct FilterView: View {
     let neu = ["N/A", "Yes", "No"]
     let health = ["N/A", "Excellent", "Good", "Fair", "Hurt"]
     
-    
     var body: some View {
         
         NavigationView {
             ScrollView{
                 VStack {
+                    
                     BrandSection(brands: brands, selectedBrands: $selectedBrands)
                     GenderSection(genders: genders, selectedGender: $selectedGender)
                     
