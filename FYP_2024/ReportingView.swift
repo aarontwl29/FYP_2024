@@ -4,6 +4,12 @@ import UIKit
 
 
 struct ReportingView: View {
+    
+    @State private var voiceFileURL: URL?
+    
+    
+    
+    
     @State private var nickname: String = ""
     @State private var images: [UIImage] = [
         UIImage(named: "cat")!,
@@ -21,7 +27,7 @@ struct ReportingView: View {
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
     @State private var showFilePickerView = false
-    @State private var voiceFileURL: URL?
+    
     
     enum AnimalType: String, CaseIterable {
         case dog = "Dog"
@@ -85,13 +91,7 @@ struct ReportingView: View {
                 }
                 
                 Section(header: Text("Voice Sample")) {
-                                    if let voiceFileURL = voiceFileURL {
-                                        Text(voiceFileURL.lastPathComponent)
-                                    } else {
-                                        Button("Select Voice File") {
-                                            showFilePickerView = true
-                                        }
-                                    }
+                    VoiceFilePickerView(voiceFileURL: $voiceFileURL)
                                 }
                 
                 Section(header: Text("Contact Information")) {
@@ -113,8 +113,11 @@ struct ReportingView: View {
                             })
                         }
                         .sheet(isPresented: $showFilePickerView) {
-                            VoiceFileUploadView(voiceFileURL: $voiceFileURL)
+                            VoiceFileUploadView(voiceFileURL: $voiceFileURL, onDismiss: {
+                                // Perform any necessary actions when the view is dismissed
+                            })
                         }
+
         }
     }
     
@@ -231,37 +234,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
-
-
-struct VoiceFileUploadView: UIViewControllerRepresentable {
-    @Binding var voiceFileURL: URL?
-
-    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.audio], asCopy: true)
-        documentPicker.delegate = context.coordinator
-        return documentPicker
-    }
-
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, UIDocumentPickerDelegate {
-        let parent: VoiceFileUploadView
-
-        init(_ parent: VoiceFileUploadView) {
-            self.parent = parent
-        }
-
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            if let url = urls.first {
-                parent.voiceFileURL = url
-            }
-        }
-    }
-}
 
 
 
