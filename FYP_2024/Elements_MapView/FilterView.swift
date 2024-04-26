@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FavFilterView: View {
+struct FilterView: View {
     @State private var selectedBrands = Set<String>()
     @State private var selectedGender: String? // Default selection
     @State private var selectedNeutered: String? // Default selection
@@ -15,21 +15,21 @@ struct FavFilterView: View {
     let neu = ["N/A", "Yes", "No"]
     let health = ["N/A", "Excellent", "Good", "Fair", "Hurt"]
     
-    
     var body: some View {
         
         NavigationView {
             ScrollView{
                 VStack {
-                    BrandSection2(brands: brands, selectedBrands: $selectedBrands)
-                    GenderSection2(genders: genders, selectedGender: $selectedGender)
+                    
+                    BrandSection(brands: brands, selectedBrands: $selectedBrands)
+                    GenderSection(genders: genders, selectedGender: $selectedGender)
                     
                     // Rest of the filter content goes here...
-                    AgeSection2(ageBound: $ageBound)
-                    ColorSection2(colors: colors, selectedColors: $selectedColors)
-                    NeuteredSection2(neutered: neu, selectedNeutered: $selectedNeutered)
-                    HealthSection2(health: health, selectedHealth: $selectedHealth)
-                    SubmitBubble2(buttonInfo: "Submit")
+                    AgeSection(ageBound: $ageBound)
+                    ColorSection(colors: colors, selectedColors: $selectedColors)
+                    NeuteredSection(neutered: neu, selectedNeutered: $selectedNeutered)
+                    HealthSection(health: health, selectedHealth: $selectedHealth)
+                    SubmitBubble(buttonInfo: "Submit")
                 }
                 .navigationBarTitle("Filters", displayMode: .inline)
                 .navigationBarItems(
@@ -37,6 +37,15 @@ struct FavFilterView: View {
                         // Your code to handle the back action
                     }) {
                         Image(systemName: "chevron.left") // This creates the back arrow
+                    },
+                    trailing: Button("Reset") {
+                        // Your code to handle the reset action
+                        self.selectedBrands.removeAll()
+                        self.selectedGender = ""
+                        self.selectedNeutered = ""
+                        self.selectedHealth = ""
+                        self.ageBound = 1
+                        self.selectedColors.removeAll()
                     }
                 )
             }
@@ -45,7 +54,7 @@ struct FavFilterView: View {
     }
 }
 
-struct BrandSection2: View {
+struct BrandSection: View {
     let brands: [String]
     @Binding var selectedBrands: Set<String>
     
@@ -102,7 +111,7 @@ struct BrandSection2: View {
     }
 }
 
-struct GenderSection2: View {
+struct GenderSection: View {
     let genders: [String]
     @Binding var selectedGender: String?
     
@@ -144,7 +153,7 @@ struct GenderSection2: View {
 
 
 
-struct NeuteredSection2: View {
+struct NeuteredSection: View {
     let neutered: [String]
     @Binding var selectedNeutered: String?
     
@@ -187,7 +196,7 @@ struct NeuteredSection2: View {
 
 
 
-struct HealthSection2: View {
+struct HealthSection: View {
     let health: [String]
     @Binding var selectedHealth: String?
     
@@ -232,7 +241,7 @@ struct HealthSection2: View {
 
 
 
-struct AgeSection2: View {
+struct AgeSection: View {
     @Binding var ageBound: Double
     
     var body: some View {
@@ -257,7 +266,7 @@ struct AgeSection2: View {
 
 
 
-struct ColorSection2: View {
+struct ColorSection: View {
     let colors: [String]
     @Binding var selectedColors: Set<String>
     
@@ -332,15 +341,15 @@ struct ColorSection2: View {
 
 
 
-struct FavFilterView_Previews: PreviewProvider {
+struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FavFilterView()
+        FilterView()
     }
 }
 
 
 
-struct SubmitBubble2: View {
+struct SubmitBubble: View {
     var buttonInfo: String
     var body: some View {
         VStack {
@@ -349,11 +358,10 @@ struct SubmitBubble2: View {
             }) {
                 Text(buttonInfo)
                     .font(.title2)
-                    .foregroundStyle(.blue)
-                    .bold()
+                    .foregroundStyle(.black)
             }
             .frame(width:290 , height: 50)
-            .background(Color.white)
+            .background(Color.yellow)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.gray, lineWidth: 1)
