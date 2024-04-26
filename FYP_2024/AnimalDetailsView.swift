@@ -294,17 +294,18 @@ struct AnimalDetailsView: View {
                     ForEach(cameraInfos, id: \.location) { info in
                         Text(info.camID)
                         
-                        Button(action: {
-                            // 寫上導航到其他頁面的程式碼
-                        }) {
-                            Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
-                        }
-                        .frame(width:90 , height: 40)
-                        .background(Color.green)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                     
+                            Button(action: {
+                                // 寫上導航到其他頁面的程式碼
+                            }) {
+                                Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
+                            }
+                            .frame(width:90 , height: 40)
+                            .background(Color.green)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
@@ -355,3 +356,7 @@ struct AnimalDetailsView_Previews: PreviewProvider {
     }
 }
 
+
+#Preview {
+    AnimalDetailsView(selectedAnnotation: .constant(nil))
+}
