@@ -76,6 +76,21 @@ struct ReportingView: View {
                         )
                     }
                 }
+                Section(header: Text("Gender")) {
+            
+                        RadioButtonField(
+                            id: "Male",
+                            label: "Male",
+                            selectedValue: $selectedGender
+                        )
+                        
+                        RadioButtonField(
+                            id: "Female",
+                            label: "Female",
+                            selectedValue: $selectedGender
+                        )
+                    }
+                
                 GenderSection(genders: genders, selectedGender: $selectedGender)
                 
                 
