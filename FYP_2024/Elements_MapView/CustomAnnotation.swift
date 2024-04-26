@@ -22,3 +22,57 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
         super.init()
     }
 }
+class AnimalAnnotation: CustomAnnotation {
+    
+
+    override init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType) {
+        super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
+    }
+}
+class CameraAnnotation: CustomAnnotation {
+    
+
+    override init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType) {
+        super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
+    }
+}
+
+struct Animal: Codable, Identifiable {
+    let id: String
+    let image: String
+    let gender: String
+    let color: String
+    let nickName: String
+    let latitude: Double
+    let description: String
+    let type: String
+    let animalId: String
+    let breed: String
+    let neuteredStatus: String
+    let healthStatus: String
+    let age: Int
+    let longitude: Double
+}
+
+struct Camera: Codable, Identifiable {
+    let id: String
+    let ip: String
+    let latitude: Double
+    let longitude: Double
+    let startTime: Int64
+    let url: String
+}
+
+
+func performAPICall_Animals() async throws -> [Animal] {
+    let url = URL(string: "https://fyp2024.azurewebsites.net/animals")!
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let wrapper = try JSONDecoder().decode([Animal].self, from: data)
+    return wrapper
+}
+func performAPICall_Cameras() async throws -> [Camera] {
+    let url = URL(string: "https://fyp2024.azurewebsites.net/cameras")!
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let wrapper = try JSONDecoder().decode([Camera].self, from: data)
+    return wrapper
+}

@@ -25,7 +25,7 @@ struct BlogView: View {
     
     func fetchAnimals() async {
         do {
-            let fetchedAnimals = try await performAPICall()
+            let fetchedAnimals = try await performAPICall_Animals()
             animals = fetchedAnimals
             
             var postsData: [PostData] = []

@@ -5,6 +5,9 @@ struct OverlaysView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showOverlays = true
     
+    var annotations: [CustomAnnotation]
+    var region: MKCoordinateRegion
+    
     var body: some View {
    
         VStack {
@@ -23,16 +26,8 @@ struct OverlaysView: View {
             
             
             MapViewTest(
-                annotations: [
-                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
-                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .camera),
-                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
-                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal)
-                ],
-                region: MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035),
-                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                ),
+                annotations: annotations,
+                region: region,
                 showOverlays: $showOverlays
             )
             Button("Toggle Overlays (Filter Later on)") {
@@ -43,8 +38,35 @@ struct OverlaysView: View {
             .foregroundColor(.white)
             .cornerRadius(8)
         }
+ 
     }
 }
+
+
+
+#Preview {
+    OverlaysView(annotations:[
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
+        CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .camera),
+        CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
+        AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal)
+    ],
+                 region: MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
+                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                ))
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -188,6 +210,4 @@ class CustomAnnotationView: MKAnnotationView {
 
 
 
-#Preview {
-    OverlaysView()
-}
+
