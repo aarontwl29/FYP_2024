@@ -83,6 +83,7 @@ struct MapView: View {
                             .foregroundColor(.white)
                             .padding()
                             .background(Circle().fill(Color.blue))
+                            .padding(.bottom, 30)
                     }
                 }
             }
