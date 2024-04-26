@@ -43,6 +43,8 @@ struct MapView: View {
         CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", imageName: "cat", type: .animal),
         CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.400873, longitude: 114.198035), title: "San Francisco", imageName: "dog", type: .animal)
     ]
+    
+    @State private var showReportingView = false
 
     var body: some View {
             ZStack {
@@ -72,11 +74,24 @@ struct MapView: View {
                         .padding(.top, 0)
                         .padding(.horizontal)
                     Spacer()
+                    
+                    Button(action: {
+                        showReportingView = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.blue))
+                    }
                 }
             }
             .fullScreenCover(item: $selectedAnnotation, content: {
                 annotation in AnimalDetailsView(selectedAnnotation: $selectedAnnotation)
             })
+            .sheet(isPresented: $showReportingView) {
+                ReportingView()
+            }
     }
 }
 

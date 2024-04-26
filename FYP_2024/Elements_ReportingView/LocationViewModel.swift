@@ -3,7 +3,9 @@ import SwiftUI
 import MapKit
 
 class LocationViewModel: NSObject, ObservableObject {
+    @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var selectedLocation: CLLocationCoordinate2D?
+    @Published var locationUpdated = false
     private let locationManager = CLLocationManager()
     
     @Published var showLocationPicker = false
@@ -11,6 +13,7 @@ class LocationViewModel: NSObject, ObservableObject {
     override init() {
         super.init()
         locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
 
     func getCurrentLocation() {
@@ -24,9 +27,21 @@ class LocationViewModel: NSObject, ObservableObject {
 }
 
 extension LocationViewModel: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last?.coordinate else { return }
-        selectedLocation = location
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        authorizationStatus = status
+        
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            // Handle denied or restricted access
+            break
+        case .notDetermined:
+            // Request authorization again if needed
+            manager.requestWhenInUseAuthorization()
+        @unknown default:
+            break
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

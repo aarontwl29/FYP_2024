@@ -21,6 +21,8 @@ struct ReportingView: View {
     @State private var showFilePickerView = false
     
     @State private var showLocationPicker = false
+    
+    @State private var showAdditionalDetails = false
 
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
@@ -110,28 +112,55 @@ struct ReportingView: View {
                 }
 
                 Section(header: Text("Location")) {
-                    Button(action: getCurrentLocation) {
-                        Text("Get Current Location")
-                    }
+                    switch locationViewModel.authorizationStatus {
+                    case .authorizedWhenInUse, .authorizedAlways:
+                        // Display location-related UI
+                        Button(action: getCurrentLocation) {
+                            Text("Get Current Location")
+                        }
 
-                    Button(action: selectLocationFromMap) {
-                        Text("Select Location from Map")
+                        Button(action: selectLocationFromMap) {
+                            Text("Select Location from Map")
+                        }
+
+                        if let selectedLocation = locationViewModel.selectedLocation {
+                            Text("Selected Location: \(selectedLocation.latitude), \(selectedLocation.longitude)")
+                        } else {
+                            Text("No location selected")
+                        }
+                    case .denied, .restricted:
+                        Text("Location access denied. Please grant permission in Settings.")
+                    case .notDetermined:
+                        Text("Location access not determined. Please allow access to use location features.")
+                    default:
+                        Text("Unable to determine location access status.")
+                    }
+                }
+
+                Section {
+                    Button(action: {
+                        showAdditionalDetails.toggle()
+                    }) {
+                        Text(showAdditionalDetails ? "Hide Additional Details" : "Show Additional Details")
                     }
                 }
                 
-                Section(header: Text("Nickname")) {
-                    TextField("Enter nickname", text: $nickname)
-                }
-                
-                Section(header: Text("Voice Sample")) {
-                    VoiceFilePickerView(voiceFileURL: $voiceFileURL)
-                                }
-                
-                Section(header: Text("Contact Information")) {
-                    TextField("Enter email", text: $email)
-                        .keyboardType(.emailAddress)
-                    TextField("Enter phone number", text: $phone)
-                        .keyboardType(.phonePad)
+                if showAdditionalDetails {
+                    
+                    Section(header: Text("Nickname")) {
+                        TextField("Enter nickname", text: $nickname)
+                    }
+                    
+                    Section(header: Text("Voice Sample")) {
+                        VoiceFilePickerView(voiceFileURL: $voiceFileURL)
+                    }
+                    
+                    Section(header: Text("Contact Information")) {
+                        TextField("Enter email", text: $email)
+                            .keyboardType(.emailAddress)
+                        TextField("Enter phone number", text: $phone)
+                            .keyboardType(.phonePad)
+                    }
                 }
             }
             .navigationBarTitle("Report Stray Animal")
@@ -151,7 +180,11 @@ struct ReportingView: View {
                         }
                         .sheet(isPresented: $locationViewModel.showLocationPicker) {
                             LocationPickerView(locationViewModel: locationViewModel)
+                                .onChange(of: locationViewModel.locationUpdated) { _ in
+                                    locationViewModel.locationUpdated = false
+                                }
                         }
+
         }
     }
     
