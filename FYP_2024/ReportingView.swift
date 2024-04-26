@@ -40,62 +40,29 @@ struct ReportingView: View {
 
     
     @State private var nickname: String = ""
-    @State private var location: CLLocationCoordinate2D? = nil
     @State private var animalType: AnimalType = .dog
     @State private var breed: String = ""
+    
+    @State private var location: CLLocationCoordinate2D? = nil
+    
+    @State private var selectedGender: String?
+    @State private var selectedNeuteredStatus: String?
+    @State private var selectedHealthStatus: String?
+    
     @State private var email: String = ""
     @State private var phone: String = ""
     
-    @State private var selectedGender: String?
-  
     
     enum AnimalType: String, CaseIterable {
         case dog = "Dog"
         case cat = "Cat"
     }
     
-    let genders = ["N/A", "Male", "Female"]
     
     var body: some View {
         NavigationView {
             Form {
-                
-                
-                Section(header: Text("Gender")) {
-                    HStack{
-                        RadioButtonField(
-                            id: "Male",
-                            label: "Male",
-                            selectedValue: $selectedGender
-                        )
-                        
-                        RadioButtonField(
-                            id: "Female",
-                            label: "Female",
-                            selectedValue: $selectedGender
-                        )
-                    }
-                }
-                Section(header: Text("Gender")) {
-            
-                        RadioButtonField(
-                            id: "Male",
-                            label: "Male",
-                            selectedValue: $selectedGender
-                        )
-                        
-                        RadioButtonField(
-                            id: "Female",
-                            label: "Female",
-                            selectedValue: $selectedGender
-                        )
-                    }
-                
-                GenderSection(genders: genders, selectedGender: $selectedGender)
-                
-                
-                
-                
+
                 Section(header: Text("Photos")) {
                     ImagePreviewArea(images: $images)
                     
@@ -189,13 +156,32 @@ struct ReportingView: View {
                     Section(header: Text("Nickname")) {
                         TextField("Enter nickname", text: $nickname)
                     }
-                    
-                    
-                    
-                    
-              
-                        
-                    
+
+                    Section(header: Text("Gender")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "M", label: "Male", selectedValue: $selectedGender)
+                                RadioButtonField(id: "F", label: "Female", selectedValue: $selectedGender)
+                            }
+                        }
+                    }
+                    Section(header: Text("Neutered Status")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "T", label: "True", selectedValue: $selectedNeuteredStatus)
+                                RadioButtonField(id: "F", label: "False", selectedValue: $selectedNeuteredStatus)
+                            }
+                        }
+                    }
+                    Section(header: Text("Health Status")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                RadioButtonField(id: "Healthy", label: "Healthy", selectedValue: $selectedHealthStatus)
+                                RadioButtonField(id: "Sick", label: "Sick", selectedValue: $selectedHealthStatus)
+                                RadioButtonField(id: "Injured", label: "Injured", selectedValue: $selectedHealthStatus)
+                            }
+                        }
+                    }
                     
                     Section(header: Text("Voice Sample")) {
                         VoiceFilePickerView(voiceFileURL: $voiceFileURL)
@@ -237,7 +223,6 @@ struct ReportingView: View {
     func getCurrentLocation() {
         locationViewModel.getCurrentLocation()
     }
-    
     func selectLocationFromMap() {
         locationViewModel.selectLocationFromMap()
     }
@@ -250,39 +235,5 @@ struct ReportingView: View {
 
 #Preview {
     ReportingView()
-}
-
-
-
-struct RadioButtonField<T: Hashable>: View {
-    let id: T
-    let label: String
-    @Binding var selectedValue: T?
-    
-    var body: some View {
-        Button(action: {
-            selectedValue = selectedValue == id ? nil : id
-        }) {
-            HStack(spacing: 10) {
-                ZStack {
-                    Circle()
-                        .stroke(selectedValue == id ? Color.accentColor : Color.gray, lineWidth: 2)
-                        .frame(width: 20, height: 20)
-                    
-                    if selectedValue == id {
-                        Circle()
-                            .fill(Color.accentColor)
-                            .frame(width: 12, height: 12)
-                    }
-                }
-                
-                Text(label)
-                    .foregroundColor(selectedValue == id ? .accentColor : .primary)
-                    .font(.headline)
-            }
-            .background(Color.yellow.opacity(0.2)) // Add a semi-transparent yellow background
-            .cornerRadius(8) // Add some corner radius for a better visual appearance
-        }
-    }
 }
 
