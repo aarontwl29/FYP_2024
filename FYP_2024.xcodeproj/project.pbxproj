@@ -157,11 +157,8 @@
 		9350B45A2BCAF26300DC2FB7 /* FYP_2024 */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				AB28B02F2BDC02CF00662336 /* LoginView */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
-=======
->>>>>>> adab2e0980b58e9893d26665c0ff5f5b7dc23c21
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
