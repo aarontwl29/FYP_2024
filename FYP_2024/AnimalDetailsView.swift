@@ -71,15 +71,19 @@ struct AnimalDetailsView: View {
                         // Information bubbles
                         HStack {
                 
-                            InfoBubble(title: "Age", detail: "15 Month")
-                            InfoBubble(title: "Sex", detail: "Female")
-                            InfoBubble(title: "Species", detail: "Cibadak")
+                            ButtonBubble(title: "Age", detail: "15 Month")
+                            ButtonBubble(title: "Sex", detail: "Female")
+                            ButtonBubble(title: "Species", detail: "Cibadak")
                         }
                     }
                     .padding()
                     
                     //新增Table
                     CameraInfoGridView()
+                    
+                    
+                    InfoBubble(buttonInfo: "Adopt this animal")
+                    InfoBubble(buttonInfo: "More about animal care").padding(.top, -20)
                 }
                 .background(Color(.systemGroupedBackground)) // This is the background color similar to the one in your image
                 .edgesIgnoringSafeArea(.bottom)
@@ -91,6 +95,34 @@ struct AnimalDetailsView: View {
 
 
 struct InfoBubble: View {
+    var buttonInfo: String
+    var body: some View {
+        VStack {
+            Button(action: {
+                // 寫上導航到其他頁面的程式碼
+            }) {
+                Text(buttonInfo)
+                    .foregroundStyle(.red).bold()
+            }
+            .frame(width:290 , height: 50)
+            .background(Color.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
+        }
+        .padding()
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .cornerRadius(10)
+        .shadow(radius: 1)
+    }
+}
+
+
+
+
+
+struct ButtonBubble: View {
     var title: String
     var detail: String
     
@@ -118,6 +150,7 @@ struct AnimalDetailsView_Previews: PreviewProvider {
 }
 
 struct CameraInfo {
+    var camID: String
     var location: String
     var timeStamp: String
     var date: String
@@ -125,53 +158,70 @@ struct CameraInfo {
 
 
 struct CameraInfoGridView: View {
-    // 這裡是我們的假數據
     let cameraInfos: [CameraInfo] = [
-        CameraInfo(location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:00 AM", date: "2024-04-26"),
-        CameraInfo(location: "No. 22 Yuen Wo Road, Sha Tin", timeStamp: "10:05 AM", date: "2024-04-26"),
-        CameraInfo(location: "No. 23 Yuen Wo Road, Sha Tin", timeStamp: "10:10 AM", date: "2024-04-26"),
-        CameraInfo(location: "No. 24 Yuen Wo Road, Sha Tin", timeStamp: "10:15 AM", date: "2024-04-26"),
-        CameraInfo(location: "No. 25 Yuen Wo Road, Sha Tin", timeStamp: "10:20 AM", date: "2024-04-26")
+        CameraInfo(camID:"C01", location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:24 - 11:00", date: "01-03-24"),
+        CameraInfo(camID:"C02", location: "No. 22 Yuen Wo Road, Sha Tin", timeStamp: "11:12 - 11:24", date: "02-03-24"),
+        CameraInfo(camID:"C03", location: "No. 23 Yuen Wo Road, Sha Tin", timeStamp: "11:32 - 11:54", date: "03-03-24"),
+        CameraInfo(camID:"C04", location: "No. 24 Yuen Wo Road, Sha Tin", timeStamp: "12:12 - 13:13", date: "04-03-24"),
+        CameraInfo(camID:"C05", location: "No. 25 Yuen Wo Road, Sha Tin", timeStamp: "13:15 - 13:19", date: "05-03-24")
     ]
-    
-    // 這裡定義了每一列的格式
+
     let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible())
+        GridItem(.flexible(), spacing: -45),
+        GridItem(.flexible(), spacing: 15),
+        GridItem(.flexible(), spacing: 25),
+        GridItem(.flexible(), spacing: 0)
     ]
-    
-    
-    
+
     func truncatedLocation(_ location: String) -> String {
-            let maxLength = 21
-            return location.count > maxLength ? String(location.prefix(maxLength)) + "..." : location
-        }
-    
-    
-    
+        let maxLength = 10
+        return location.count > maxLength ? String(location.prefix(maxLength)) + "..." : location
+    }
+
     var body: some View {
         ScrollView {
-            // 使用LazyVGrid來創建網格布局
             LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
-                // 每一列的標題
-                
+                Text("ID").bold().foregroundStyle(.blue)
                 Text("Location").bold().foregroundStyle(.blue)
                 Text("TimeStamp").bold().foregroundStyle(.blue)
                 Text("Date").bold().foregroundStyle(.blue)
-                
-                // 循環創建每行數據
+
                 ForEach(cameraInfos, id: \.location) { info in
-                                    Text(self.truncatedLocation(info.location))
-                                    Text(info.timeStamp)
-                                    Text(info.date)
-                                }
+                    Text(info.camID)
+                    
+                    Button(action: {
+                        // 寫上導航到其他頁面的程式碼
+                    }) {
+                        Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
+                    }
+                    .frame(width:90 , height: 40)
+                    .background(Color.green)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+
+                    Button(action: {
+                        // 寫上導航到其他頁面的程式碼
+                    }) {
+                        Text(info.timeStamp).foregroundStyle(.black)
+                    }
+                    .frame(width:105 , height: 40)
+                    .background(Color.yellow)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+
+                    Text(info.date)
+                }
             }
             .padding()
         }
         .background(Color(.systemGroupedBackground))
     }
 }
+
 
 
 
