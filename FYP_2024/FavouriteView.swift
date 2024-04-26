@@ -120,9 +120,9 @@ struct FavouriteView: View {
                             date: "11/04/2024"
                         )
                     }
-                }
+                }.padding(.top,10)
             }
-            .padding(.top, -5)
+            .padding(.top,-10)
         }
     }
 }
