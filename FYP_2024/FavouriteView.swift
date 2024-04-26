@@ -61,14 +61,11 @@ import SwiftUI
 
 struct FavouriteView: View {
     @State private var searchText = ""
-    @State private var filterMale = true
-    @State private var selectedSort = "Date" // 用于排序的选择
-
-    let sortOptions = ["Date", "Name", "Breed"] // 排序选项
+    @State private var isFilterViewPresented = false
+    @State private var showingDetails = false  // 用於控制是否顯示詳細信息視圖
 
     var body: some View {
         VStack {
-            // Search Bar
             TextField("Search for stray cats", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -77,36 +74,24 @@ struct FavouriteView: View {
                 .shadow(radius: 5)
                 .padding(.horizontal)
 
-            // Filter and Sort Button
-            // Filter and Sort Button
-            HStack {
-                Menu {
-                    // Toggle for Male/Female filter
-                    Toggle("Male Cats Only", isOn: $filterMale)
-
-                    // Picker for sorting options
-                    Picker("Sort by", selection: $selectedSort) {
-                        ForEach(sortOptions, id: \.self) { option in
-                            Text(option).tag(option)
-                        }
-                    }
-                } label: {
-                    Label("Filter", systemImage: "slider.horizontal.3")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading) // Label填满宽度，内容靠左
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                }
-                // 删除 Spacer
+            Button(action: {
+                self.isFilterViewPresented = true
+            }) {
+                Label("Filter", systemImage: "slider.horizontal.3")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
             }
             .padding(.horizontal)
             .padding(.bottom, 10)
+            .sheet(isPresented: $isFilterViewPresented) {
+                FavFilterView()
+            }
 
-
-            // List of Pets
             ScrollView {
                 VStack(spacing: 15) {
                     ForEach(0..<10, id: \.self) { index in
@@ -119,13 +104,22 @@ struct FavouriteView: View {
                             address: "Kpousódou 21, Athína 115 28, Elláda",
                             date: "11/04/2024"
                         )
+                        .onTapGesture {
+                            self.showingDetails = true  // 更新顯示詳細信息視圖的狀態
+                        }
+                        .sheet(isPresented: $showingDetails) {
+                            // 這裡應該顯示你的 AnimalDetailsView
+                            AnimalDetailsView(selectedAnnotation: .constant(nil)).padding(.top,20)  // 需要正確的參數傳遞
+                        }
+                        
                     }
-                }.padding(.top,10)
+                }.padding(.top, 10)
             }
-            .padding(.top,-10)
+            .padding(.top, -10)
         }
     }
 }
+
 
 struct FavouriteView_Previews: PreviewProvider {
     static var previews: some View {
