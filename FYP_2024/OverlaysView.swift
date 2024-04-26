@@ -25,7 +25,9 @@ struct OverlaysView: View {
             MapViewTest(
                 annotations: [
                     CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
-                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .camera)
+                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .camera),
+                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
+                    CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal)
                 ],
                 region: MKCoordinateRegion(
                     center: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035),
@@ -33,7 +35,7 @@ struct OverlaysView: View {
                 ),
                 showOverlays: $showOverlays
             )
-            Button("Toggle Overlays") {
+            Button("Toggle Overlays (Filter Later on)") {
                 showOverlays.toggle()
             }
             .padding()
