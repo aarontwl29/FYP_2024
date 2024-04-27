@@ -6,10 +6,6 @@ struct MapView: View {
             center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
-    @State private var displayRegion = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-    )
     @State private var selectedAnnotation: CustomAnnotation?
     
     @State private var searchText = ""
@@ -27,7 +23,7 @@ struct MapView: View {
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $displayRegion, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
+            Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     Circle()
                         .stroke(Color.gray, lineWidth: 0.5)
@@ -45,17 +41,14 @@ struct MapView: View {
                         .scaleEffect(1.8)
                         .onTapGesture {
                             self.selectedAnnotation = location
-                            // Update both the actual region and the display region
+                            
                             let newCenter = CLLocationCoordinate2D(
-                                latitude: location.coordinate.latitude - 0.005,  // Adjust latitude for display
-                                longitude: location.coordinate.longitude
+                                        latitude: location.coordinate.latitude - 0.003,  // Adjust latitude for display
+                                        longitude: location.coordinate.longitude
                             )
+ 
                             region = MKCoordinateRegion(
-                                center: location.coordinate,  // True center
-                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                            )
-                            displayRegion = MKCoordinateRegion(
-                                center: newCenter,  // Adjusted center for display
+                                center: newCenter,
                                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                             )
                         }
@@ -156,7 +149,6 @@ struct MapView: View {
 
         }
         .onAppear {
-            displayRegion = region  // Ensure displayRegion is initialized
             Task {
                 await performAutomaticAction()
             }
@@ -168,7 +160,15 @@ struct MapView: View {
             ReportingView()
         }
         .fullScreenCover(isPresented: $showOverlaysView) {
-            OverlaysView(annotations:annotations, region: region)
+            let newCenter = CLLocationCoordinate2D(
+                        latitude: region.center.latitude + 0.003,  // Adjust latitude for display
+                        longitude: region.center.longitude
+            )
+            let region_ = MKCoordinateRegion(
+                center: newCenter,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+            OverlaysView(annotations:annotations, region: region_)
         }
     }
     
@@ -210,21 +210,18 @@ struct MapView: View {
     
     
     func focusOnAnnotation(withId id: UUID) {
-            guard let annotation = annotations.first(where: { $0.id == id }) else { return }
-            // Update both the actual region and the display region.
-            let newCenter = CLLocationCoordinate2D(
-                latitude: annotation.coordinate.latitude - 0.003, // Adjust latitude for display
-                longitude: annotation.coordinate.longitude
-            )
+        guard let annotation = annotations.first(where: { $0.id == id }) else { return }
+        let newCenter = CLLocationCoordinate2D(
+            latitude: annotation.coordinate.latitude - 0.0028, // Adjust latitude for display
+            longitude: annotation.coordinate.longitude
+        )
+        withAnimation {
             region = MKCoordinateRegion(
-                center: annotation.coordinate, // True center
-                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            )
-            displayRegion = MKCoordinateRegion(
-                center: newCenter, // Adjusted center for display
+                center: newCenter, // True center
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
         }
+    }
 
 }
 
