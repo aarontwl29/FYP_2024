@@ -22,6 +22,8 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
         self.imageName = imageName
         self.type = type
         super.init()
+        
+        self.highlightValue = Double.random(in: 1...100)
     }
     func setPercentage(to newValue: Double?) {}
 }
