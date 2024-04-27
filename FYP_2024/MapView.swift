@@ -6,22 +6,28 @@ struct MapView: View {
             center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
-        @State private var selectedAnnotation: CustomAnnotation?
+    @State private var displayRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    )
+    @State private var selectedAnnotation: CustomAnnotation?
+    
+    @State private var searchText = ""
+        
+    @State private var showReportingView = false
+    @State private var showOverlaysView = false
         
 
-        
-        @State private var searchText = ""
-        
-        @State private var showReportingView = false
-        @State private var showOverlaysView = false
-        
+    @State private var annotations: [CustomAnnotation] = []
+    var animalCount: Int {
+        annotations.filter { $0.type == .animal }.count
+    }
 
-        @State private var annotations: [CustomAnnotation] = []
 
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
+            Map(coordinateRegion: $displayRegion, interactionModes: .all, showsUserLocation: true, userTrackingMode: nil, annotationItems: annotations) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     Circle()
                         .stroke(Color.gray, lineWidth: 0.5)
@@ -39,8 +45,17 @@ struct MapView: View {
                         .scaleEffect(1.8)
                         .onTapGesture {
                             self.selectedAnnotation = location
+                            // Update both the actual region and the display region
+                            let newCenter = CLLocationCoordinate2D(
+                                latitude: location.coordinate.latitude - 0.005,  // Adjust latitude for display
+                                longitude: location.coordinate.longitude
+                            )
                             region = MKCoordinateRegion(
-                                center: self.selectedAnnotation!.coordinate,
+                                center: location.coordinate,  // True center
+                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                            )
+                            displayRegion = MKCoordinateRegion(
+                                center: newCenter,  // Adjusted center for display
                                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                             )
                         }
@@ -55,67 +70,93 @@ struct MapView: View {
                 Map_SearchBar(searchText: $searchText)
                     .padding(.top, 0)
                     .padding(.horizontal)
-                Spacer()
-                
-                Button(action: {
-                    showOverlaysView = true
-                }) {
-                    Text("Highlight Area")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(8)
+       
+                HStack{
+                    Button(action: {
+                        showOverlaysView = true
+                    }) {
+                        Text("Highlight Area")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        showReportingView = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.blue))
+                            
+                    }
                 }
-                
-                Button(action: {
-                    showReportingView = true
-                }) {
-                    Image(systemName: "plus")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Circle().fill(Color.blue))
-                        .padding(.bottom, 30)
-                }
+                .padding(.bottom, 5)
                 
                 
                 VStack(alignment: .leading, spacing: 20) {
- 
-                    Text("Similar Stray Animals")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.blue)
-                        .padding([.top], 10)
-                        .padding([.bottom], -15)
-                        .padding(.leading, 15)
+    
+                    HStack{
+                        Text("\(animalCount) recent posts")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                            .padding([.top], 10)
+                            .padding([.bottom], -22)
+                            .padding(.leading, 15)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                    
+                        }) {
+                            Text("List All")
+                                .foregroundColor(.blue)
+                                .padding()
+                        }
+                        .padding(.trailing, 10)
+                        .padding([.bottom], -32)
+                        .frame(maxHeight: 0)
+                    }
                     
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 20) {
-                            ForEach(annotations) { annotation in
-                                if annotation.type == .animal {
-                                    SimilarStrayBubble(
-                                        imageName: annotation.imageName!,
-                                        breed: "N/A",
-                                        colors: "N/A",
-                                        gender: "N/A",
-                                        size: "N/A",
-                                        address: "N/A",
-                                        date: "N/A"
-                                    )
+                        ScrollViewReader { value in
+                            HStack(spacing: 10) {
+                                ForEach(annotations) { annotation in
+                                    if annotation.type == .animal {
+                                        SimilarStrayBubble(
+                                            imageName: annotation.imageName!,
+                                            breed: "Unknown",
+                                            colors: "Unknown",
+                                            gender: "Unknown",
+                                            size: "Unknown",
+                                            address: "Unknown",
+                                            date: "Unknown"
+                                        )
+                                        .id(annotation.id)
+                                        .onTapGesture {
+                                            focusOnAnnotation(withId: annotation.id)
+                                        }
+                                    }
                                 }
                             }
+                            .padding()
                         }
-                        .padding()
                     }
                     
 
                 }
-                .background(Color(.white))
+                .background(Color.white.opacity(0.8))
                 .edgesIgnoringSafeArea(.bottom)
-                
             }
+
         }
         .onAppear {
+            displayRegion = region  // Ensure displayRegion is initialized
             Task {
                 await performAutomaticAction()
             }
@@ -166,6 +207,25 @@ struct MapView: View {
             }
         } catch {}
     }
+    
+    
+    func focusOnAnnotation(withId id: UUID) {
+            guard let annotation = annotations.first(where: { $0.id == id }) else { return }
+            // Update both the actual region and the display region.
+            let newCenter = CLLocationCoordinate2D(
+                latitude: annotation.coordinate.latitude - 0.003, // Adjust latitude for display
+                longitude: annotation.coordinate.longitude
+            )
+            region = MKCoordinateRegion(
+                center: annotation.coordinate, // True center
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+            displayRegion = MKCoordinateRegion(
+                center: newCenter, // Adjusted center for display
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+        }
+
 }
 
 struct MapView_Previews: PreviewProvider {
@@ -180,7 +240,59 @@ struct MapView_Previews: PreviewProvider {
 
 
 
-
-
-
-
+struct SimilarStrayBubble: View {
+    var imageName: String
+    var breed: String
+    var colors: String
+    var gender: String
+    var size: String
+    var address: String
+    var date: String
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(breed)
+                        .font(.headline)
+                    Text(colors)
+                        .font(.subheadline)
+                    Text(gender)
+                        .font(.subheadline)
+                    Text(size)
+                        .font(.subheadline)
+                }
+                .padding()
+                
+                Spacer()
+                
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding()
+            }
+            
+            HStack {
+                Image(systemName: "mappin.and.ellipse")
+                Text(address)
+                    .font(.footnote)
+                Spacer()
+            }
+            .padding([.leading, .bottom, .trailing])
+            
+            HStack {
+                Image(systemName: "calendar")
+                Text(date)
+                    .font(.footnote)
+                Spacer()
+            }
+            .padding([.leading, .bottom, .trailing])
+        }
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
+        .padding(.horizontal, 5)
+    }
+}
