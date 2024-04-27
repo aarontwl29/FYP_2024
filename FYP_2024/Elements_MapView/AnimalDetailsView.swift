@@ -167,6 +167,8 @@ struct AnimalDetailsView: View {
     
     
     
+    
+    
     struct SimilarStrayBubble: View {
         var imageName: String
         var breed: String
@@ -223,7 +225,6 @@ struct AnimalDetailsView: View {
             .padding(.horizontal)
         }
     }
-    
     
     
     
@@ -360,3 +361,9 @@ struct AnimalDetailsView_Previews: PreviewProvider {
 #Preview {
     AnimalDetailsView(selectedAnnotation: .constant(nil))
 }
+
+
+
+
+
+

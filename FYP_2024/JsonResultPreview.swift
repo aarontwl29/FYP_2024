@@ -41,7 +41,7 @@ struct TestAPIView: View {
 
         Task {
             do {
-                let fetchedAnimals = try await performAPICall()
+                let fetchedAnimals = try await performAPICall_Animals()
                 animals = fetchedAnimals
                 print(animals)
             } catch {
