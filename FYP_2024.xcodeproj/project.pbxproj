@@ -158,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				AB28B02F2BDC02CF00662336 /* LoginView */,
-				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
@@ -593,6 +592,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FYP_2024/Preview Content\"";
+				DEVELOPMENT_TEAM = 6259DS5L7C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -629,6 +629,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FYP_2024/Preview Content\"";
+				DEVELOPMENT_TEAM = 6259DS5L7C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

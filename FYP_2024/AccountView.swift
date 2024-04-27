@@ -19,23 +19,24 @@ struct AccountView: View {
                             .font(.title2)
                             .padding(.bottom, 2)
                         Text("ttighaw@icloud.com")
-                            .font(.subheadline)
+                            .font(.title3)
                             .foregroundColor(.gray)
+                            .padding(.bottom, 10)
                         
                         Button(action: {
                             // Button action
                         }) {
                             Text("Edit Profile")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .padding()
-                                .background(Color.yellow)
-                                .cornerRadius(40)
+                                .font(.title2)
+                                .foregroundStyle(.blue)
+                                .bold()
                         }
-                        .padding(.bottom,10)
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(.top, 8)
+                        .frame(width:290 , height: 50)
+                        .background(Color.white)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 }

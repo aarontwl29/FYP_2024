@@ -6,6 +6,7 @@ struct FilterView: View {
     @State private var selectedNeutered: String? // Default selection
     @State private var selectedHealth: String? // Default selection
     @State private var ageBound: Double = 1
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var selectedColors = Set<String>()
     
@@ -35,6 +36,7 @@ struct FilterView: View {
                 .navigationBarItems(
                     leading: Button(action: {
                         // Your code to handle the back action
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.left") // This creates the back arrow
                     },

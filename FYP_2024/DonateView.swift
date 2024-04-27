@@ -41,8 +41,8 @@ struct DonationCardView: View {
                 Button(action: {
                     isLiked.toggle()
                 }) {
-                    Image(systemName: isLiked ? "cat.fill" : "cat")
-                        .foregroundColor(isLiked ? .red : .gray)
+                    Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
+                        .foregroundColor(isLiked ? .green : .gray)
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .frame(width: 44, height: 44)

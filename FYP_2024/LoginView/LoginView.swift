@@ -7,14 +7,11 @@ struct LoginView: View {
     @State private var showError: Bool = false // 用於顯示錯誤訊息的變量
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var userAccounts: [UserAccount] = [
+    @State public var userAccounts: [UserAccount] = [
         UserAccount(username: "abc123", password: "abc123", type: UserAccount.AccountType(rawValue: "normal") ?? .normal),
         UserAccount(username: "abc456", password: "abc456", type: UserAccount.AccountType(rawValue: "volunteer") ?? .normal),
         UserAccount(username: "abc678", password: "abc678", type: UserAccount.AccountType(rawValue: "organization") ?? .normal)
     ]
-    
-    
-    
     
     
     var body: some View {
@@ -138,7 +135,7 @@ struct LoginView: View {
                 Button(action: {
                     // 註冊的動作
                 }) {
-                    Text("Register")
+                    Text("Sign up")
                         .foregroundColor(.blue)
                 }
             }
