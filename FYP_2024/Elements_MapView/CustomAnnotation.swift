@@ -38,29 +38,39 @@ class CameraAnnotation: CustomAnnotation {
 }
 
 struct Animal: Codable, Identifiable {
-    let id: String
+    let animalId: String
     let image: String
     let gender: String
     let color: String
     let nickName: String
     let latitude: Double
+    let longitude: Double
     let description: String
     let type: String
-    let animalId: String
     let breed: String
     let neuteredStatus: String
     let healthStatus: String
     let age: Int
-    let longitude: Double
+    let album: [String]
+    let video: String?
+    let voiceSample: String?
+    
+    var id: String {
+        return animalId
+    }
 }
 
 struct Camera: Codable, Identifiable {
-    let id: String
+    let cameraId: String
     let ip: String
     let latitude: Double
     let longitude: Double
     let startTime: Int64
     let url: String
+    
+    var id: String {
+        return cameraId
+    }
 }
 
 

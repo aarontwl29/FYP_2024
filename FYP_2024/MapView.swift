@@ -99,12 +99,10 @@ struct MapView: View {
     func performAutomaticAction() async  {
         annotations = [
             CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .camera),
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
             CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
             AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal)
         ]
-        
-        let animals: [Animal]
         do {
             let animals = try  await performAPICall_Animals()
             for animal in animals {
@@ -114,7 +112,18 @@ struct MapView: View {
                                                     title: "San Francisco",
                                                     subtitle: "Dog Spot",
                                                     imageName: "dog", type: .animal))
-                print("have")
+            }
+        } catch {}
+        do {
+            let cameras = try  await performAPICall_Cameras()
+            for camera in cameras {
+                annotations.append(CameraAnnotation(coordinate: CLLocationCoordinate2D(
+                                                    latitude: camera.latitude,
+                                                    longitude: camera.longitude),
+                                                    title: "San Francisco",
+                                                    subtitle: "Dog Spot",
+                                                    imageName: "camera", type: .camera))
+                print("in sucsess")
             }
         } catch {}
     }
