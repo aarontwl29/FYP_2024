@@ -35,21 +35,24 @@ struct View_pre: View {
                     .padding()
             }
             
-            HStack {
-                Image(systemName: "mappin.and.ellipse")
-                Text(address)
-                    .font(.footnote)
-                Spacer()
+            HStack{
+                HStack {
+                    Image(systemName: "mappin.and.ellipse")
+                    Text(address)
+                        .font(.footnote)
+                    Spacer()
+                }
+                .padding([.leading, .bottom, .trailing])
+                
+                
+                HStack {
+                    Image(systemName: "calendar")
+                    Text(date)
+                        .font(.footnote)
+                    Spacer()
+                }
+                .padding([.leading, .bottom, .trailing])
             }
-            .padding([.leading, .bottom, .trailing])
-            
-            HStack {
-                Image(systemName: "calendar")
-                Text(date)
-                    .font(.footnote)
-                Spacer()
-            }
-            .padding([.leading, .bottom, .trailing])
         }
         .background(Color.white)
         .cornerRadius(10)

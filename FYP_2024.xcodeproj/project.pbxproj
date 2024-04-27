@@ -46,6 +46,7 @@
 		AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */; };
 		AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */; };
 		AB91E8142BDA99E200AA7F85 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */; };
+		ABD3A3FF2BDDBBFF0097F0CC /* HightFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD3A3FE2BDDBBFF0097F0CC /* HightFilterView.swift */; };
 		ABEC70542BD41BA70014082E /* BlogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC70532BD41BA70014082E /* BlogView.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
+		ABD3A3FE2BDDBBFF0097F0CC /* HightFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HightFilterView.swift; sourceTree = "<group>"; };
 		ABEC70532BD41BA70014082E /* BlogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				AB8A38162BDC011400C34430 /* FavFilterView.swift */,
+				ABD3A3FE2BDDBBFF0097F0CC /* HightFilterView.swift */,
 			);
 			path = FavouriteView;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */,
 				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
 				AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */,
+				ABD3A3FF2BDDBBFF0097F0CC /* HightFilterView.swift in Sources */,
 				AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */,
 				939B81A22BDD5E4700373F31 /* View_pre.swift in Sources */,
 				AB28B0332BDC02FF00662336 /* RegisterView.swift in Sources */,
