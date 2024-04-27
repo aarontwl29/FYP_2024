@@ -77,6 +77,42 @@ struct MapView: View {
                         .background(Circle().fill(Color.blue))
                         .padding(.bottom, 30)
                 }
+                
+                
+                VStack(alignment: .leading, spacing: 20) {
+ 
+                    Text("Similar Stray Animals")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.blue)
+                        .padding([.top], 10)
+                        .padding([.bottom], -15)
+                        .padding(.leading, 15)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(annotations) { annotation in
+                                if annotation.type == .animal {
+                                    SimilarStrayBubble(
+                                        imageName: annotation.imageName!,
+                                        breed: "N/A",
+                                        colors: "N/A",
+                                        gender: "N/A",
+                                        size: "N/A",
+                                        address: "N/A",
+                                        date: "N/A"
+                                    )
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    
+
+                }
+                .background(Color(.white))
+                .edgesIgnoringSafeArea(.bottom)
+                
             }
         }
         .onAppear {
