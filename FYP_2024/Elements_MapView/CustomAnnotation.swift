@@ -12,6 +12,8 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
     let subtitle: String?
     let imageName: String?
     let type: AnnotationType
+    
+    var highlightValue: Double?
 
     init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, imageName: String? = nil, type: AnnotationType) {
         self.coordinate = coordinate
@@ -21,6 +23,7 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
         self.type = type
         super.init()
     }
+    func setPercentage(to newValue: Double?) {}
 }
 class AnimalAnnotation: CustomAnnotation {
     
@@ -31,9 +34,18 @@ class AnimalAnnotation: CustomAnnotation {
 }
 class CameraAnnotation: CustomAnnotation {
     
-
+    
     override init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType) {
         super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
+    }
+    
+    override func setPercentage(to newValue: Double?) {
+        // Optionally, add validation to ensure the percentage is within a valid range (0 to 100)
+        guard let newValue = newValue, newValue >= 0.0 && newValue <= 100.0 else {
+            print("Invalid percentage value. It must be between 0 and 100, or nil to clear the value.")
+            return
+        }
+        super.highlightValue = newValue
     }
 }
 
@@ -67,7 +79,7 @@ struct Camera: Codable, Identifiable {
     let longitude: Double
     let startTime: Int64
     let url: String
-    
+
     var id: String {
         return cameraId
     }

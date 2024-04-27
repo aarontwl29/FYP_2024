@@ -98,10 +98,13 @@ struct MapView: View {
     
     func performAutomaticAction() async  {
         annotations = [
-            CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
+            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "image3", type: .animal),
+            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "img_bl_content2", type: .animal),
+            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal),
+
             CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "cat", type: .animal),
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal)
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.392873, longitude: 114.195535), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
         ]
         do {
             let animals = try  await performAPICall_Animals()
@@ -123,7 +126,6 @@ struct MapView: View {
                                                     title: "San Francisco",
                                                     subtitle: "Dog Spot",
                                                     imageName: "camera", type: .camera))
-                print("in sucsess")
             }
         } catch {}
     }
