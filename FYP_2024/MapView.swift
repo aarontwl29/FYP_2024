@@ -104,7 +104,8 @@ struct MapView: View {
 
             CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
             CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.392873, longitude: 114.195535), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.386473, longitude: 114.196035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
         ]
         do {
             let animals = try  await performAPICall_Animals()

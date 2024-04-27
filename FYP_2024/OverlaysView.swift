@@ -3,10 +3,20 @@ import MapKit
 
 struct OverlaysView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var showAnimalAnnotations = false
     @State private var showOverlays = true
     
     var annotations: [CustomAnnotation]
     var region: MKCoordinateRegion
+    
+    var filteredAnnotations: [CustomAnnotation] {
+        annotations.filter { annotation in
+            // Always show .camera annotations
+            annotation.type == .camera ||
+            // Conditionally show .animal annotations based on the toggle state
+            (showAnimalAnnotations && annotation.type == .animal)
+        }
+    }
     
     var body: some View {
    
@@ -26,7 +36,7 @@ struct OverlaysView: View {
             
             
             MapViewTest(
-                annotations: annotations,
+                annotations: filteredAnnotations,
                 region: region,
                 showOverlays: $showOverlays
             )
@@ -37,6 +47,15 @@ struct OverlaysView: View {
             .background(Color.blue)
             .foregroundColor(.white)
             .cornerRadius(8)
+            
+            
+            Button("Toggle Animal Annotations") {
+                            showAnimalAnnotations.toggle()
+                        }
+                        .padding()
+                        .background(showAnimalAnnotations ? Color.green : Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
         }
  
     }
@@ -52,7 +71,8 @@ struct PreviewSetup {
             AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal),
             CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
             CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.392873, longitude: 114.195535), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
+            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.386473, longitude: 114.196035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
         ]
         if let cameraAnnotation = annotations[3] as? CameraAnnotation {cameraAnnotation.setPercentage(to: 70.0)}
         if let cameraAnnotation = annotations[4] as? CameraAnnotation {cameraAnnotation.setPercentage(to: 50.0)}
@@ -81,12 +101,10 @@ class CustomCircle: MKCircle {
     weak var customAnnotation: CustomAnnotation?
 }
 
-
-
 // Struct to represent a map view in SwiftUI using UIViewRepresentable
 struct MapViewTest: UIViewRepresentable {
     // Properties
-    let annotations: [CustomAnnotation]  // Array of custom annotations for the map
+    var annotations: [CustomAnnotation]  // Dynamic array of custom annotations for the map
     let region: MKCoordinateRegion  // The initial region that the map will display
     @Binding var showOverlays: Bool  // Binding to control the visibility of overlays on the map
 
@@ -101,6 +119,9 @@ struct MapViewTest: UIViewRepresentable {
 
     // Update the map view when SwiftUI state changes
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        uiView.removeAnnotations(uiView.annotations)  // Remove all current annotations
+        uiView.addAnnotations(annotations)  // Add current filtered annotations
+        
         if showOverlays {
             updateOverlays(from: uiView)  // Update to show overlays
         } else {
@@ -145,24 +166,21 @@ struct MapViewTest: UIViewRepresentable {
             if let customCircle = overlay as? CustomCircle, let annotation = customCircle.customAnnotation {
                 let circleRenderer = MKCircleRenderer(circle: customCircle)
                 circleRenderer.lineWidth = 1
+                circleRenderer.strokeColor = .black
 
                 if annotation.type == .camera {
                     if let highlightValue = annotation.highlightValue {
                         switch highlightValue {
                         case let x where x > 60:
-                            circleRenderer.strokeColor = .gray
-                            circleRenderer.fillColor = .red.withAlphaComponent(0.3)
+                            circleRenderer.fillColor = .red.withAlphaComponent(0.4)
                         case let x where x > 40:
-                            circleRenderer.strokeColor = .gray
-                            circleRenderer.fillColor = .yellow.withAlphaComponent(0.3)
+                            circleRenderer.fillColor = .yellow.withAlphaComponent(0.4)
                         default:
-                            circleRenderer.strokeColor = .gray
-                            circleRenderer.fillColor = .blue.withAlphaComponent(0.3)
+                            circleRenderer.fillColor = .green.withAlphaComponent(0.4)
                         }
                     } else {
                         // Handle the case where highlightValue is nil
-                        circleRenderer.strokeColor = .blue
-                        circleRenderer.fillColor = .gray.withAlphaComponent(0.3)
+                        circleRenderer.fillColor = .gray.withAlphaComponent(0.2)
                     }
                 }
                 
@@ -172,8 +190,6 @@ struct MapViewTest: UIViewRepresentable {
         }
     }
 }
-
-
 
 
 class Coordinator: NSObject, MKMapViewDelegate {
@@ -215,6 +231,8 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
 
 
+
+
 //// Custom annotation view for displaying annotations on a map
 //class CustomAnnotationView: MKAnnotationView {
 //    // Override the annotation property to customize the annotation view when it's set
@@ -250,9 +268,6 @@ class Coordinator: NSObject, MKMapViewDelegate {
 //        }
 //    }
 //}
-
-
-
 
 
 //// Coordinator class that acts as the delegate for MKMapView
@@ -300,6 +315,4 @@ class Coordinator: NSObject, MKMapViewDelegate {
 //        return MKOverlayRenderer(overlay: overlay)
 //    }
 //}
-
-
 
