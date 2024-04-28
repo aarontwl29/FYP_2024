@@ -5,6 +5,8 @@ import CoreLocation
 
 struct ReportingView: View {
     
+    
+    
     @State private var capturedImage: UIImage?
     //    @State private var selectedImage: UIImage?
     @State private var images: [UIImage] = [
@@ -14,6 +16,7 @@ struct ReportingView: View {
     @State private var voiceFileURL: URL?
     
     @StateObject private var locationViewModel = LocationViewModel()
+    
     
     
     @State private var showCameraView = false

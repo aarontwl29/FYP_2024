@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		93040C0A2BDA767F00C55B9A /* JsonResultPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* JsonResultPreview.swift */; };
 		93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C0D2BDA8E0400C55B9A /* ReportingView.swift */; };
+		933240A52BDE5EF600446A33 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933240A42BDE5EF600446A33 /* Report.swift */; };
 		933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FD2BD39DA600CB9A88 /* MapView.swift */; };
 		933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */; };
 		933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */; };
@@ -76,6 +77,7 @@
 /* Begin PBXFileReference section */
 		93040C092BDA767F00C55B9A /* JsonResultPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonResultPreview.swift; sourceTree = "<group>"; };
 		93040C0D2BDA8E0400C55B9A /* ReportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingView.swift; sourceTree = "<group>"; };
+		933240A42BDE5EF600446A33 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		933BA0FD2BD39DA600CB9A88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_SearchBar.swift; sourceTree = "<group>"; };
 		933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
+				933240A42BDE5EF600446A33 /* Report.swift */,
 				939B81912BDB9B9100373F31 /* Elements_ReportingView */,
 				ABEC70532BD41BA70014082E /* BlogView.swift */,
 				AB91E8012BD9C91E00AA7F85 /* DonateView.swift */,
@@ -443,6 +446,7 @@
 				939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */,
 				AB5F66942BDE21C300564550 /* SecurityView.swift in Sources */,
 				AB5F668F2BDDDF9800564550 /* MyPostDetailView.swift in Sources */,
+				933240A52BDE5EF600446A33 /* Report.swift in Sources */,
 				933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */,
 				AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */,
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
