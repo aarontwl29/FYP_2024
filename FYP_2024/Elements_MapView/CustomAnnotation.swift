@@ -1,4 +1,5 @@
 import MapKit
+import UIKit
 
 enum AnnotationType {
     case camera
@@ -8,12 +9,13 @@ enum AnnotationType {
 class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
     let id = UUID()
     let coordinate: CLLocationCoordinate2D
-    let title: String?
-    let subtitle: String?
+    
     let imageName: String?
     let type: AnnotationType
-    
     var highlightValue: Double?
+    
+    let title: String?
+    let subtitle: String?
 
     init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil, imageName: String? = nil, type: AnnotationType) {
         self.coordinate = coordinate
@@ -28,16 +30,31 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
     func setPercentage(to newValue: Double?) {}
 }
 class AnimalAnnotation: CustomAnnotation {
-    
+    let animal: Animal
+    var uiImage: UIImage?
 
-    override init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType) {
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType, animal: Animal) {
+        self.animal = animal
         super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
+        loadImage()
+    }
+
+    private func loadImage() {
+        guard let urlString = animal.image, let url = URL(string: urlString) else { return }
+        DispatchQueue.global(qos: .background).async {
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.uiImage = image
+                }
+            }
+        }
     }
 }
 class CameraAnnotation: CustomAnnotation {
+    let camera: Camera
     
-    
-    override init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType) {
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType, camera: Camera) {
+        self.camera = camera
         super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
     }
     
@@ -51,9 +68,11 @@ class CameraAnnotation: CustomAnnotation {
     }
 }
 
+
+
 struct Animal: Codable, Identifiable {
     let animalId: String
-    let image: String
+    let image: String?
     let gender: String
     let color: String
     let nickName: String
@@ -68,11 +87,12 @@ struct Animal: Codable, Identifiable {
     let album: [String]
     let video: String?
     let voiceSample: String?
-    
+
     var id: String {
         return animalId
     }
 }
+
 
 struct Camera: Codable, Identifiable {
     let cameraId: String
@@ -81,7 +101,7 @@ struct Camera: Codable, Identifiable {
     let longitude: Double
     let startTime: Int64
     let url: String
-
+    
     var id: String {
         return cameraId
     }
@@ -91,7 +111,7 @@ struct Camera: Codable, Identifiable {
 func performAPICall_Animals() async throws -> [Animal] {
     let url = URL(string: "https://fyp2024.azurewebsites.net/animals")!
     let (data, _) = try await URLSession.shared.data(from: url)
-    let wrapper = try JSONDecoder().decode([Animal].self, from: data)
+    var wrapper = try JSONDecoder().decode([Animal].self, from: data)
     return wrapper
 }
 func performAPICall_Cameras() async throws -> [Camera] {

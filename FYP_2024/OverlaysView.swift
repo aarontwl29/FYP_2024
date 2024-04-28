@@ -92,35 +92,6 @@ struct OverlaysView: View {
 
 
 
-struct PreviewSetup {
-    static func createAnnotations() -> [CustomAnnotation] {
-        var annotations: [CustomAnnotation] = [
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "image3", type: .animal),
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "img_bl_content2", type: .animal),
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.392873, longitude: 114.195535), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.386473, longitude: 114.196035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
-        ]
-        if let cameraAnnotation = annotations[3] as? CameraAnnotation {cameraAnnotation.setPercentage(to: 70.0)}
-        if let cameraAnnotation = annotations[4] as? CameraAnnotation {cameraAnnotation.setPercentage(to: 50.0)}
-        if let cameraAnnotation = annotations[5] as? CameraAnnotation {cameraAnnotation.setPercentage(to: 30.0)}
-        
-        return annotations
-    }
-}
-struct OverlaysView_Previews: PreviewProvider {
-    static var previews: some View {
-        let annotations = PreviewSetup.createAnnotations()
-        OverlaysView(annotations: annotations,
-                     region: MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
-                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                     ))
-    }
-}
-
 
 
 
