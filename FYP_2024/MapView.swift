@@ -30,17 +30,27 @@ struct MapView: View {
                         .fill(.blue)
                         .frame(width: 35, height: 35)
                         .overlay {
-                            if let animalAnnotation = location as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
-                                            Image(uiImage: uiImage)
-                                                .resizable()
+                            if let animalAnnotation = location as? AnimalAnnotation {
+                                // This is an animal annotation, access animal-specific properties
+                                if let urlString = animalAnnotation.animal.image, let url = URL(string: urlString) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .success(let image):
+                                            image.resizable() // Display the loaded image.
                                                 .aspectRatio(contentMode: .fill)
                                                 .frame(width: 30, height: 30)
                                                 .clipShape(Circle())
-                                        } else {
-                                            // Fallback or loading view if the image is not available
-                                            ProgressView()
+                                        case .failure(_):
+                                            Color.red // Indicates an error.
+                                        case .empty:
+                                            ProgressView() // Display a progress view while loading.
+                                        @unknown default:
+                                            EmptyView() // Handle unexpected cases.
                                         }
-                            if let cameraAnnotation = location as? CameraAnnotation {
+                                    }
+                                }
+                            }
+                            else if let cameraAnnotation = location as? CameraAnnotation {
                                 // This is a camera annotation, access camera-specific properties
                                 if let imageName = cameraAnnotation.imageName {
                                     Image(imageName)
