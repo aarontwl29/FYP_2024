@@ -1,9 +1,3 @@
-//
-//  ListAllView.swift
-//  FYP_2024
-//
-//  Created by itst on 29/4/2024.
-//
 
 import SwiftUI
 import CoreLocation
@@ -18,6 +12,7 @@ struct ListAllView: View {
         annotations.filter { annotation in annotation.type == .animal}
     }
     @State private var addresses: [UUID: String] = [:]
+    @State private var selectedAnnotation: CustomAnnotation?
     
 //    let petCardViews: [PetCardView] = [
 //        PetCardView(
@@ -113,16 +108,16 @@ struct ListAllView: View {
             ScrollView {
                 VStack(spacing: 15) {
                     //實現更改，更改Loop的內容，裡面內容改為PetCardView的array
-//                    ForEach(petCardViews, id: \.nickName) { petCardView in
-//                        petCardView
-//                            .onTapGesture {
-//                                self.showingDetails = true
-//                            }
-//                            .sheet(isPresented: $showingDetails) {
-//                                // 顯示詳細信息視圖
-//                                AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil)).padding(.top,20)
-//                            }
-//                    }
+                    //                    ForEach(petCardViews, id: \.nickName) { petCardView in
+                    //                        petCardView
+                    //                            .onTapGesture {
+                    //                                self.showingDetails = true
+                    //                            }
+                    //                            .sheet(isPresented: $showingDetails) {
+                    //                                // 顯示詳細信息視圖
+                    //                                AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil)).padding(.top,20)
+                    //                            }
+                    //                    }
                     
                     ForEach(annotations, id: \.id) { annotation in
                         if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
@@ -150,7 +145,7 @@ struct ListAllView: View {
                                 }
                             }
                             .onTapGesture {
-//                                focusOnAnnotation(withId: annotation.id)
+                                self.selectedAnnotation = annotation
                             }
                         }
                     }
@@ -160,6 +155,9 @@ struct ListAllView: View {
             }
             .padding(.top, -10)
         }.padding(.top, 20)
+            .fullScreenCover(item: $selectedAnnotation, content: {
+                annotation in AnimalDetailsView(isLiked: false, selectedAnnotation: $selectedAnnotation)
+            })
     }
     
     func randomDateWithinLastWeek() -> String {
