@@ -77,6 +77,7 @@ struct Animal: Codable, Identifiable {
     let album: [String]
     let video: String?
     let voiceSample: String?
+    let hls: [String]
 
     var id: String {
         return animalId
