@@ -77,11 +77,22 @@ struct Animal: Codable, Identifiable {
     let album: [String]
     let video: String?
     let voiceSample: String?
-    let hls: [String]
+    let hls: [HLS]
 
     var id: String {
         return animalId
     }
+}
+
+struct HLS: Codable, Identifiable {
+    let DisappearDate: String
+    let AppearTime: Int
+    let DisappearTime: String
+    let id: String
+    let animalId: String
+    let url: String
+    let AppearDate: Int
+    
 }
 
 
