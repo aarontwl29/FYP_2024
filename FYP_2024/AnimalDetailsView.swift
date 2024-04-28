@@ -7,7 +7,6 @@ struct AnimalDetailsView: View {
     @State private var showPrivacyView = false
     @State private var showFAQView = false
     
-    
     @Binding var selectedAnnotation: CustomAnnotation?
     var stray: StrayInfoDetal? {
             guard let animalAnnotation = selectedAnnotation as? AnimalAnnotation else {
@@ -25,6 +24,7 @@ struct AnimalDetailsView: View {
     
     
     var body: some View {
+       
         NavigationView {
             VStack {
                 HStack {
@@ -56,9 +56,9 @@ struct AnimalDetailsView: View {
                 .background(Color.white) // 給按鈕添加半透明的背景色，以便它們在圖片之上突出顯示
                 
                 
-                ScrollView(.horizontal, showsIndicators: false) { // 水平滑動，不顯示滾動條
-                    ImagePreviewArea(images: $images)
-                        }
+//                ScrollView(.horizontal, showsIndicators: false) { // 水平滑動，不顯示滾動條
+//                    ImagePreviewArea(images: $images)
+//                }
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {

@@ -282,92 +282,94 @@ struct ReportingView: View {
                 }
                 .padding([.top, .trailing], 5)
             }
+            
+            
+            //        let age = Int(ageInput) ?? 0
+            //        
+            //        let report = Report(
+            //            image: "N/A", // You need to upload the image and get the URL
+            //            gender: selectedGender ?? "",
+            //            color: selectedColors.map { $0.description }.joined(separator: ", "),
+            //            nickName: nickname,
+            //            album: ["https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
+            //            latitude: location?.latitude ?? 0,
+            //            description: animalDescription, // Add a text field in ReportingView for the description
+            //            video: "", // If you have a video, provide its URL
+            //            type: animalType.rawValue,
+            //            userId: "",
+            //            breed: breed,
+            //            neuteredStatus: selectedNeuteredStatus ?? "",
+            //            healthStatus: selectedHealthStatus ?? "",
+            //            voiceSample: voiceFileURL?.absoluteString ?? "",
+            //            age: age, // Add a field in ReportingView for the age
+            //            longitude: location?.longitude ?? 0,
+            //            timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in milliseconds
+            //            )
+            //
+            // 
+            //        guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
+            //        else {
+            //            print("Invalid URL")
+            //            return
+            //        }
+            
+            //        do {
+            //            let jsonData = try JSONEncoder().encode(report)
+            //            var request = URLRequest(url: url)
+            //            request.httpMethod = "POST"
+            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            //            request.httpBody = jsonData
+            //
+            //            URLSession.shared.dataTask(with: request) { data, response, error in
+            //                if let error = error {
+            //                    print("Error submitting report: \(error.localizedDescription)")
+            //                    return
+            //                }
+            //                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+            //                    print("Report submitted successfully")
+            //                } else {
+            //                    print("Failed to submit report")
+            //                }
+            //            }.resume()
+            //            print(jsonData)
+            //        } catch {
+            //            print("Error encoding report data: \(error.localizedDescription)")
+            //        }
         }
-    }
-        let age = Int(ageInput) ?? 0
         
-        let report = Report(
-            image: "N/A", // You need to upload the image and get the URL
-            gender: selectedGender ?? "",
-            color: selectedColors.map { $0.description }.joined(separator: ", "),
-            nickName: nickname,
-            album: ["https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
-            latitude: location?.latitude ?? 0,
-            description: animalDescription, // Add a text field in ReportingView for the description
-            video: "", // If you have a video, provide its URL
-            type: animalType.rawValue,
-            userId: "",
-            breed: breed,
-            neuteredStatus: selectedNeuteredStatus ?? "",
-            healthStatus: selectedHealthStatus ?? "",
-            voiceSample: voiceFileURL?.absoluteString ?? "",
-            age: age, // Add a field in ReportingView for the age
-            longitude: location?.longitude ?? 0,
-            timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in milliseconds
-            )
-
- 
-        guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
-        else {
-            print("Invalid URL")
-            return
-        }
+        //        let report = Report(
+        //            image: "https://loremflickr.com/640/480?lock=2874928630071296",
+        //
+        //            gender: "female",
+        //            color: "orange",
+        //            nickName: "GGWP000",
+        //            album: [
+        //                "https://picsum.photos/seed/vW73n/640/480",
+        //                "https://loremflickr.com/640/480?lock=4153357180600320",
+        //                "https://picsum.photos/seed/i5vegAE4sC/640/480"
+        //            ],
+        //            latitude: 22.4494,
+        //            description: "Quo denuncio conor nemo conturbo peior.",
+        //            video: "",
+        //            type: "cat",
+        //            userId: "6dLcsHbjWDGNzWM5yq0c",
+        //            breed: "Maremmano-Abruzzese Sheepdog",
+        //            neuteredStatus: "yes",
+        //            healthStatus: "injured",
+        //            voiceSample: "",
+        //            age: 99,
+        //            longitude: 114.1699,
+        //            timestamp: 1714114423784
+        //        )
         
-        do {
-            let jsonData = try JSONEncoder().encode(report)
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error submitting report: \(error.localizedDescription)")
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                    print("Report submitted successfully")
-                } else {
-                    print("Failed to submit report")
-                }
-            }.resume()
-            print(jsonData)
-        } catch {
-            print("Error encoding report data: \(error.localizedDescription)")
-        }
     }
     
-    //        let report = Report(
-    //            image: "https://loremflickr.com/640/480?lock=2874928630071296",
-    //
-    //            gender: "female",
-    //            color: "orange",
-    //            nickName: "GGWP000",
-    //            album: [
-    //                "https://picsum.photos/seed/vW73n/640/480",
-    //                "https://loremflickr.com/640/480?lock=4153357180600320",
-    //                "https://picsum.photos/seed/i5vegAE4sC/640/480"
-    //            ],
-    //            latitude: 22.4494,
-    //            description: "Quo denuncio conor nemo conturbo peior.",
-    //            video: "",
-    //            type: "cat",
-    //            userId: "6dLcsHbjWDGNzWM5yq0c",
-    //            breed: "Maremmano-Abruzzese Sheepdog",
-    //            neuteredStatus: "yes",
-    //            healthStatus: "injured",
-    //            voiceSample: "",
-    //            age: 99,
-    //            longitude: 114.1699,
-    //            timestamp: 1714114423784
-    //        )
     
 }
-
-
 
 
 #Preview {
     ReportingView()
 }
+    
 
