@@ -191,7 +191,6 @@
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
-				933240A42BDE5EF600446A33 /* Report.swift */,
 				939B81912BDB9B9100373F31 /* Elements_ReportingView */,
 				ABEC70532BD41BA70014082E /* BlogView.swift */,
 				AB91E8012BD9C91E00AA7F85 /* DonateView.swift */,
@@ -234,6 +233,7 @@
 		939B81912BDB9B9100373F31 /* Elements_ReportingView */ = {
 			isa = PBXGroup;
 			children = (
+				933240A42BDE5EF600446A33 /* Report.swift */,
 				939B818F2BDB9A1100373F31 /* ImagePreviewArea.swift */,
 				939B818D2BDB93C800373F31 /* CameraView.swift */,
 				939B818B2BDB939600373F31 /* PhotoImportView.swift */,
