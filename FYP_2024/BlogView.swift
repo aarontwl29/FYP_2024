@@ -48,7 +48,7 @@ struct BlogView: View {
         }
     }
 }
-    
+
 struct PostView: View {
     @State var postData: PostData
     
@@ -94,7 +94,7 @@ struct PostHeaderView: View {
             Text(postData.userName)
                 .font(.headline)
                 .padding(.vertical, 4)
-                
+            
             Spacer()
         }
         .padding(.top, 10)
@@ -174,7 +174,7 @@ struct PostDescriptionView: View {
                 Text(postData.likes)
                     .font(.footnote)
                     .bold()
-                    
+                
             }.padding(.bottom, 3).padding(.leading, -4)
             Text(postData.description)
                 .font(.footnote)
@@ -222,7 +222,7 @@ struct CommentsView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         
                         Spacer()
-
+                        
                         VStack(alignment: .trailing) {
                             Text(comment.userId)
                                 .font(.subheadline)
@@ -235,12 +235,12 @@ struct CommentsView: View {
                     .padding(.vertical, 5)
                 }
                 .frame(height: 200)  // 控制留言列表的高度
-
+                
                 HStack {
                     TextField("Add a comment...", text: $newComment)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(minWidth: 0, maxWidth: .infinity)
-
+                    
                     Button("Send") {
                         let newCommentEntry = Comment(content: newComment, userId: "Me", date: Date().formatted(date: .abbreviated, time: .omitted))  // 假設當前用戶 ID 是 currentUser
                         postData.comments.append(newCommentEntry)  // 新增留言到列表

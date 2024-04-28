@@ -6,15 +6,15 @@ import CoreLocation
 struct ReportingView: View {
     
     @State private var capturedImage: UIImage?
-//    @State private var selectedImage: UIImage?
+    //    @State private var selectedImage: UIImage?
     @State private var images: [UIImage] = [
         UIImage(named: "cat")!,
         UIImage(named: "dog")!
     ]
     @State private var voiceFileURL: URL?
     
-    @StateObject private var locationViewModel = LocationViewModel() 
-
+    @StateObject private var locationViewModel = LocationViewModel()
+    
     
     @State private var showCameraView = false
     @State private var showPhotoImportView = false
@@ -23,7 +23,7 @@ struct ReportingView: View {
     @State private var showLocationPicker = false
     
     @State private var showAdditionalDetails = false
-
+    
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
     let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll"]
@@ -37,7 +37,7 @@ struct ReportingView: View {
     @State private var lastSeenDate: Date = Date()
     @State private var appearTime: Date = Date()
     @State private var disappearTime: Date = Date()
-
+    
     
     @State private var nickname: String = ""
     @State private var animalType: AnimalType = .dog
@@ -62,7 +62,7 @@ struct ReportingView: View {
     var body: some View {
         NavigationView {
             Form {
-
+                
                 Section(header: Text("Photos")) {
                     ImagePreviewArea(images: $images)
                     
@@ -97,13 +97,13 @@ struct ReportingView: View {
                     }
                     
                     if animalType == .dog {
-                        Picker("Dog Breed", selection: $breed) {
+                        Picker("Species", selection: $breed) {
                             ForEach(dogBreeds, id: \.self) { breed in
                                 Text(breed)
                             }
                         }
                     } else {
-                        Picker("Cat Breed", selection: $breed) {
+                        Picker("Species", selection: $breed) {
                             ForEach(catBreeds, id: \.self) { breed in
                                 Text(breed)
                             }
@@ -116,7 +116,7 @@ struct ReportingView: View {
                     DatePicker("Appear Time", selection: $appearTime, displayedComponents: [.hourAndMinute])
                     DatePicker("Disappear Time", selection: $disappearTime, displayedComponents: [.hourAndMinute])
                 }
-
+                
                 Section(header: Text("Location")) {
                     switch locationViewModel.authorizationStatus {
                     case .authorizedWhenInUse, .authorizedAlways:
@@ -124,7 +124,7 @@ struct ReportingView: View {
                         Button(action: getCurrentLocation) {
                             Text("Get Current Location")
                         }
-
+                        
                         Button(action: selectLocationFromMap) {
                             Text("Select Location from Map")
                         }
@@ -142,7 +142,7 @@ struct ReportingView: View {
                         Text("Unable to determine location access status.")
                     }
                 }
-
+                
                 Section {
                     Button(action: {
                         showAdditionalDetails.toggle()
@@ -156,7 +156,7 @@ struct ReportingView: View {
                     Section(header: Text("Nickname")) {
                         TextField("Enter nickname", text: $nickname)
                     }
-
+                    
                     Section(header: Text("Gender")) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -196,27 +196,27 @@ struct ReportingView: View {
                 }
             }
             .navigationBarTitle("Report Stray Animal")
-                        .navigationBarItems(trailing: Button(action: submitReport) {
-                            Text("Submit")
-                        })
-                        .sheet(isPresented: $showCameraView) {
-                            CameraView(capturedImage: $capturedImage)
-                        }
-                        .sheet(isPresented: $showPhotoImportView) {
-                                        PhotoImportView(selectedImages: $images)
-                                    }
-                        .sheet(isPresented: $showFilePickerView) {
-                            VoiceFileUploadView(voiceFileURL: $voiceFileURL, onDismiss: {
-                                // Perform any necessary actions when the view is dismissed
-                            })
-                        }
-                        .sheet(isPresented: $locationViewModel.showLocationPicker) {
-                            LocationPickerView(locationViewModel: locationViewModel)
-                                .onChange(of: locationViewModel.locationUpdated) { _ in
-                                    locationViewModel.locationUpdated = false
-                                }
-                        }
-
+            .navigationBarItems(trailing: Button(action: submitReport) {
+                Text("Submit")
+            })
+            .sheet(isPresented: $showCameraView) {
+                CameraView(capturedImage: $capturedImage)
+            }
+            .sheet(isPresented: $showPhotoImportView) {
+                PhotoImportView(selectedImages: $images)
+            }
+            .sheet(isPresented: $showFilePickerView) {
+                VoiceFileUploadView(voiceFileURL: $voiceFileURL, onDismiss: {
+                    // Perform any necessary actions when the view is dismissed
+                })
+            }
+            .sheet(isPresented: $locationViewModel.showLocationPicker) {
+                LocationPickerView(locationViewModel: locationViewModel)
+                    .onChange(of: locationViewModel.locationUpdated) { _ in
+                        locationViewModel.locationUpdated = false
+                    }
+            }
+            
         }
     }
     

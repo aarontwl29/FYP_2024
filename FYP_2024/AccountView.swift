@@ -43,7 +43,7 @@ struct AccountView: View {
                 
                 Section {
                     ForEach(MenuOption.allCases, id: \.self) { option in
-                        NavigationLink(destination: Text(option.destination)) {
+                        NavigationLink(destination: option.destination) {
                             Label(option.title, systemImage: option.imageName)
                                 .foregroundColor(.primary)
                                 .padding(.vertical)
@@ -55,6 +55,7 @@ struct AccountView: View {
                         }
                         .listRowSeparator(.hidden)
                     }
+
                 }.padding(.vertical, 2)
                 
                 Button(action: {
@@ -78,13 +79,12 @@ struct AccountView: View {
 }
 
 enum MenuOption: CaseIterable {
-    case mypost, fav_blog, my_notifications, faq, setting
+    case mypost, fav_blog, faq, setting
     
     var title: String {
         switch self {
         case .mypost: return "My reports"
         case .fav_blog: return "Favourite blogs"
-        case .my_notifications: return "My notifications"
         case .faq: return "FAQ"
         case .setting: return "Setting"
         }
@@ -94,16 +94,25 @@ enum MenuOption: CaseIterable {
         switch self {
         case .mypost: return "message.badge"
         case .fav_blog: return "heart.text.square"
-        case .my_notifications: return "bell.badge"
         case .faq: return "exclamationmark.bubble"
         case .setting: return "gearshape"
         }
     }
     
-    var destination: String {
-        "Destination View for \(self.title)"
+    @ViewBuilder var destination: some View {
+        switch self {
+        case .mypost:
+            MyReportsView()
+        case .fav_blog:
+            MyFavBlogsView()
+        case .faq:
+            FAQView()
+        case .setting:
+            Text("Setting view here")
+        }
     }
 }
+
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {

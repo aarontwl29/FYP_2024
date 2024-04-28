@@ -16,6 +16,8 @@ struct AnimalDetailsView: View {
         StrayAnimal(imageName: "image5", breed: "Bulldog", colors: "Grey", gender: "Male", size: "Medium", address: "105 Pet Street", date: "2023-04-05")
     ]
     
+    let stray: StrayInfoDetal = StrayInfoDetal(age: "15 Month", sex: "Female", species: "Cibadak", color: "Yellow", neutered: "Yes", health: "Sick")
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -36,24 +38,10 @@ struct AnimalDetailsView: View {
                     Spacer()
                     
                     Button(action: {
-                        // 觸發導航到 TapsView
-                        self.navigateToTapsView = true
-                    }) {
-                        Image(systemName: "exclamationmark.shield")
-                            .font(.title)
-                            .foregroundStyle(.red)
-                            .bold()
-                    }
-                    .padding(.leading, 20)
-                    .padding(.bottom, 10)
-                    
-                    Spacer()
-                    
-                    Button(action: {
                         self.isLiked.toggle()
                     }) {
                         Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
-                            .foregroundColor(isLiked ? .red : .black)
+                            .foregroundColor(isLiked ? .green : .black)
                             .font(.title)
                     }
                     .padding(.trailing, 10)
@@ -77,9 +65,14 @@ struct AnimalDetailsView: View {
                         
                         // Information bubbles
                         HStack {
-                            DetailBubble(title: "Age", detail: "15 Month")
-                            DetailBubble(title: "Sex", detail: "Female")
-                            DetailBubble(title: "Species", detail: "Cibadak")
+                            DetailBubble(title: "Age", detail: stray.age)
+                            DetailBubble(title: "Sex", detail: stray.sex)
+                            DetailBubble(title: "Species", detail: stray.species)
+                        }
+                        HStack {
+                            DetailBubble(title: "Main Color", detail: stray.color)
+                            DetailBubble(title: "Neutered", detail: stray.neutered)
+                            DetailBubble(title: "Health", detail: stray.health)
                         }
                     }
                     .padding()
@@ -235,11 +228,11 @@ struct AnimalDetailsView: View {
         var body: some View {
             VStack {
                 Text(title)
-                    .font(.caption)
-                    .foregroundColor(.gray)
+                    .font(.footnote)
+                    .foregroundColor(.blue)
                 Text(detail)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.gray)
             }
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity)
@@ -342,6 +335,15 @@ struct AnimalDetailsView: View {
     }
     
     
+    struct StrayInfoDetal {
+        var age: String
+        var sex: String
+        var species: String
+        var color: String
+        var neutered: String
+        var health: String
+    }
+    
     
 }
 
@@ -358,9 +360,6 @@ struct AnimalDetailsView_Previews: PreviewProvider {
 }
 
 
-#Preview {
-    AnimalDetailsView(selectedAnnotation: .constant(nil))
-}
 
 
 

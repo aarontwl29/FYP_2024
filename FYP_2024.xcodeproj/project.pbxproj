@@ -35,13 +35,13 @@
 		AB28B0312BDC02EA00662336 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0302BDC02EA00662336 /* LoginView.swift */; };
 		AB28B0332BDC02FF00662336 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0322BDC02FF00662336 /* RegisterView.swift */; };
 		AB28B0352BDC031B00662336 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB28B0342BDC031B00662336 /* IndexView.swift */; };
+		AB5F668F2BDDDF9800564550 /* MyPostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F668E2BDDDF9800564550 /* MyPostDetailView.swift */; };
 		AB8A38172BDC011400C34430 /* FavFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A38162BDC011400C34430 /* FavFilterView.swift */; };
 		AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */; };
 		AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8012BD9C91E00AA7F85 /* DonateView.swift */; };
 		AB91E8052BD9E9D700AA7F85 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8042BD9E9D700AA7F85 /* EditProfileView.swift */; };
 		AB91E8072BD9EA3300AA7F85 /* MyReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8062BD9EA3300AA7F85 /* MyReportsView.swift */; };
-		AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8082BD9EA5000AA7F85 /* FavouriteBlogsView.swift */; };
-		AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80A2BD9EA6800AA7F85 /* MyNotificationsView.swift */; };
+		AB91E8092BD9EA5000AA7F85 /* MyFavBlogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8082BD9EA5000AA7F85 /* MyFavBlogsView.swift */; };
 		AB91E80D2BD9EA7900AA7F85 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */; };
 		AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */; };
 		AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */; };
@@ -100,13 +100,13 @@
 		AB28B0302BDC02EA00662336 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB28B0322BDC02FF00662336 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		AB28B0342BDC031B00662336 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
+		AB5F668E2BDDDF9800564550 /* MyPostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostDetailView.swift; sourceTree = "<group>"; };
 		AB8A38162BDC011400C34430 /* FavFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavFilterView.swift; sourceTree = "<group>"; };
 		AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AB91E8012BD9C91E00AA7F85 /* DonateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateView.swift; sourceTree = "<group>"; };
 		AB91E8042BD9E9D700AA7F85 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		AB91E8062BD9EA3300AA7F85 /* MyReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReportsView.swift; sourceTree = "<group>"; };
-		AB91E8082BD9EA5000AA7F85 /* FavouriteBlogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteBlogsView.swift; sourceTree = "<group>"; };
-		AB91E80A2BD9EA6800AA7F85 /* MyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationsView.swift; sourceTree = "<group>"; };
+		AB91E8082BD9EA5000AA7F85 /* MyFavBlogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavBlogsView.swift; sourceTree = "<group>"; };
 		AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		AB91E8112BDA5D2100AA7F85 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
@@ -171,16 +171,17 @@
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
 				933BA0FD2BD39DA600CB9A88 /* MapView.swift */,
 				939B819F2BDC371F00373F31 /* OverlaysView.swift */,
+				AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */,
 				939B819A2BDBF8F800373F31 /* Elements_MapView */,
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
 				939B81912BDB9B9100373F31 /* Elements_ReportingView */,
 				ABEC70532BD41BA70014082E /* BlogView.swift */,
-				AB91E8082BD9EA5000AA7F85 /* FavouriteBlogsView.swift */,
 				AB91E8012BD9C91E00AA7F85 /* DonateView.swift */,
 				AB91E8102BDA5CFE00AA7F85 /* DonateView */,
 				AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */,
+				AB5F668E2BDDDF9800564550 /* MyPostDetailView.swift */,
 				AB91E8032BD9E9BA00AA7F85 /* AccountView */,
 				9350B45F2BCAF26300DC2FB7 /* Assets.xcassets */,
 				9350B4612BCAF26300DC2FB7 /* FYP_2024.entitlements */,
@@ -235,7 +236,6 @@
 				933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */,
 				933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */,
 				93C90C9E2BD4107300C6B660 /* FilterView.swift */,
-				AB91E8132BDA99E200AA7F85 /* AnimalDetailsView.swift */,
 			);
 			path = Elements_MapView;
 			sourceTree = "<group>";
@@ -262,9 +262,9 @@
 		AB91E8032BD9E9BA00AA7F85 /* AccountView */ = {
 			isa = PBXGroup;
 			children = (
+				AB91E8082BD9EA5000AA7F85 /* MyFavBlogsView.swift */,
 				AB91E8042BD9E9D700AA7F85 /* EditProfileView.swift */,
 				AB91E8062BD9EA3300AA7F85 /* MyReportsView.swift */,
-				AB91E80A2BD9EA6800AA7F85 /* MyNotificationsView.swift */,
 				AB91E80C2BD9EA7900AA7F85 /* FAQView.swift */,
 				AB91E80E2BD9EA8900AA7F85 /* SettingView.swift */,
 			);
@@ -414,6 +414,7 @@
 				9350B45E2BCAF26300DC2FB7 /* ContentView.swift in Sources */,
 				933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */,
 				939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */,
+				AB5F668F2BDDDF9800564550 /* MyPostDetailView.swift in Sources */,
 				933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */,
 				AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */,
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
@@ -421,7 +422,6 @@
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,
 				939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */,
 				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
-				AB91E80B2BD9EA6800AA7F85 /* MyNotificationsView.swift in Sources */,
 				ABD3A3FF2BDDBBFF0097F0CC /* HightFilterView.swift in Sources */,
 				AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */,
 				939B81A22BDD5E4700373F31 /* View_pre.swift in Sources */,
@@ -440,7 +440,7 @@
 				AB28B0352BDC031B00662336 /* IndexView.swift in Sources */,
 				939B81902BDB9A1100373F31 /* ImagePreviewArea.swift in Sources */,
 				9350B45C2BCAF26300DC2FB7 /* FYP_2024App.swift in Sources */,
-				AB91E8092BD9EA5000AA7F85 /* FavouriteBlogsView.swift in Sources */,
+				AB91E8092BD9EA5000AA7F85 /* MyFavBlogsView.swift in Sources */,
 				939B81972BDBBD2600373F31 /* LocationViewModel.swift in Sources */,
 				AB91E8142BDA99E200AA7F85 /* AnimalDetailsView.swift in Sources */,
 				AB91E8122BDA5D2100AA7F85 /* PaymentView.swift in Sources */,

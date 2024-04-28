@@ -141,7 +141,7 @@ struct DonateView: View {
                 .frame(minHeight: 44)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.yellow, lineWidth: 2)
+                        .stroke(Color.blue, lineWidth: 1)
                         .background(RoundedRectangle(cornerRadius: 0).fill(Color.white))
                         .padding(.vertical, 5)
                 )
