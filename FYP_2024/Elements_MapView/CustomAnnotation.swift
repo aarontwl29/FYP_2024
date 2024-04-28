@@ -77,7 +77,7 @@ struct Animal: Codable, Identifiable {
     let album: [String]
     let video: String?
     let voiceSample: String?
-    let hls: [HLS]
+    let HLS: [HLS]?
 
     var id: String {
         return animalId
@@ -87,14 +87,12 @@ struct Animal: Codable, Identifiable {
 struct HLS: Codable, Identifiable {
     let DisappearDate: String
     let AppearTime: Int
-    let DisappearTime: String
+    let DisappearTime: Int
     let id: String
     let animalId: String
     let url: String
-    let AppearDate: Int
-    
+    let AppearDate: String
 }
-
 
 struct Camera: Codable, Identifiable {
     let cameraId: String
@@ -113,7 +111,29 @@ struct Camera: Codable, Identifiable {
 func performAPICall_Animals() async throws -> [Animal] {
     let url = URL(string: "https://fyp2024.azurewebsites.net/animals")!
     let (data, _) = try await URLSession.shared.data(from: url)
-    var wrapper = try JSONDecoder().decode([Animal].self, from: data)
+    // if let json = String(data: data, encoding: .utf8) {
+    //     print("Received JSON: \(json)")
+    // }
+    
+    // do {
+    //     let animals = try JSONDecoder().decode([Animal].self, from: data)
+    //     return animals
+    // } catch let DecodingError.dataCorrupted(context) {
+    //     print(context)
+    // } catch let DecodingError.keyNotFound(key, context) {
+    //     print("Key '\(key)' not found:", context.debugDescription)
+    //     print("codingPath:", context.codingPath)
+    // } catch let DecodingError.valueNotFound(value, context) {
+    //     print("Value '\(value)' not found:", context.debugDescription)
+    //     print("codingPath:", context.codingPath)
+    // } catch let DecodingError.typeMismatch(type, context) {
+    //     print("Type '\(type)' mismatch:", context.debugDescription)
+    //     print("codingPath:", context.codingPath)
+    // } catch {
+    //     print("Error:", error.localizedDescription)
+    // }
+    
+    let wrapper = try JSONDecoder().decode([Animal].self, from: data)
     return wrapper
 }
 func performAPICall_Cameras() async throws -> [Camera] {
