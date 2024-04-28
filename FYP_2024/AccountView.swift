@@ -55,7 +55,7 @@ struct AccountView: View {
                         }
                         .listRowSeparator(.hidden)
                     }
-
+                    
                 }.padding(.vertical, 2)
                 
                 Button(action: {
@@ -108,7 +108,7 @@ enum MenuOption: CaseIterable {
         case .faq:
             FAQView()
         case .setting:
-            Text("Setting view here")
+            SettingView()
         }
     }
 }

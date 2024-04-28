@@ -4,6 +4,8 @@ struct AnimalDetailsView: View {
     @State private var isLiked = false
     @State private var navigateToTapsView = false
     @State private var strayUrgency = "High Urgency"
+    @State private var showPrivacyView = false
+    @State private var showFAQView = false
     
     @Binding var selectedAnnotation: CustomAnnotation?
     
@@ -121,42 +123,56 @@ struct AnimalDetailsView: View {
                         
                         
                         
-                        
-                        InfoBubble(buttonInfo: "Adopt this animal")
-                        InfoBubble(buttonInfo: "More about animal care").padding(.top, -20)
+                      
+                        InfoBubble(buttonInfo: "Adopt this animal", action: {showPrivacyView.toggle()})
+                        InfoBubble(buttonInfo: "More about animal care", action: {showFAQView.toggle()})
+                            .padding(.top, -20)
                     }
                     .background(Color(.white)) // This is the background color similar to the one in your image
                     .edgesIgnoringSafeArea(.bottom)
                     
                 }
+                
             }
         }
+        .sheet(isPresented: $showPrivacyView) {
+            AdoptView(contact: PersonContact(imageUrl: "img_bl_icon1", name: "Alex Avalos", phone: "+852 5721 4211", email: "alex@example.com", organization: "HKSCDA"))
+        }
+        .sheet(isPresented: $showFAQView) {
+            FAQView()
+        }
+        
     }
     
     
     struct InfoBubble: View {
         var buttonInfo: String
+        var action: () -> Void
+
         var body: some View {
-            VStack {
-                Button(action: {
-                    // 寫上導航到其他頁面的程式碼
-                }) {
+            Button(action: action) {
+                ZStack {
                     Text(buttonInfo)
                         .foregroundStyle(.red).bold()
                 }
-                .frame(width:290 , height: 50)
-                .background(Color.white)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity) // 確保 Text 填滿 Button
             }
+            
+            .frame(width: 290, height: 50) // 指定 Button 的大小
+            .contentShape(Rectangle()) // 使整個矩形區域都能響應點擊
+            .background(Color.white)
+            
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.gray, lineWidth: 1)
+            )
             .padding()
-            .frame(minWidth: 0, maxWidth: .infinity)
             .cornerRadius(10)
             .shadow(radius: 1)
+            
         }
     }
+
     
     
     
@@ -242,11 +258,7 @@ struct AnimalDetailsView: View {
         }
     }
     
-    struct AnimalDetailsView_Previews: PreviewProvider {
-        static var previews: some View {
-            AnimalDetailsView(selectedAnnotation: .constant(nil))
-        }
-    }
+    
     
     struct CameraInfo {
         var camID: String
@@ -288,18 +300,18 @@ struct AnimalDetailsView: View {
                     ForEach(cameraInfos, id: \.location) { info in
                         Text(info.camID)
                         
-                     
-                            Button(action: {
-                                // 寫上導航到其他頁面的程式碼
-                            }) {
-                                Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
-                            }
-                            .frame(width:90 , height: 40)
-                            .background(Color.green)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
+                        
+                        Button(action: {
+                            // 寫上導航到其他頁面的程式碼
+                        }) {
+                            Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
+                        }
+                        .frame(width:90 , height: 40)
+                        .background(Color.green)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
@@ -347,14 +359,8 @@ struct AnimalDetailsView: View {
     
 }
 
-
-
 struct AnimalDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        // 確保這裡的代碼可以正確生成一個 AnimalDetailsView 的實例
-        // 注意：這需要一個 CustomAnnotation 的實例或者 nil
-        // 如果你的 CustomAnnotation 需要特定的數據，你應該在這裡提供
-        // 例如，如果 selectedAnnotation 是必需的，你需要創建一個示例
         AnimalDetailsView(selectedAnnotation: .constant(nil))
     }
 }
