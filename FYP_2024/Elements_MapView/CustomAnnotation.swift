@@ -27,6 +27,8 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
         
         self.highlightValue = Double.random(in: 1...100)
     }
+    
+    
     func setPercentage(to newValue: Double?) {}
 }
 class AnimalAnnotation: CustomAnnotation {
@@ -36,18 +38,6 @@ class AnimalAnnotation: CustomAnnotation {
     init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType, animal: Animal) {
         self.animal = animal
         super.init(coordinate: coordinate, title: title, subtitle: subtitle, imageName: imageName, type: type)
-        loadImage()
-    }
-
-    private func loadImage() {
-        guard let urlString = animal.image, let url = URL(string: urlString) else { return }
-        DispatchQueue.global(qos: .background).async {
-            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.uiImage = image
-                }
-            }
-        }
     }
 }
 class CameraAnnotation: CustomAnnotation {
@@ -87,10 +77,22 @@ struct Animal: Codable, Identifiable {
     let album: [String]
     let video: String?
     let voiceSample: String?
+    let hls: [HLS]
 
     var id: String {
         return animalId
     }
+}
+
+struct HLS: Codable, Identifiable {
+    let DisappearDate: String
+    let AppearTime: Int
+    let DisappearTime: String
+    let id: String
+    let animalId: String
+    let url: String
+    let AppearDate: Int
+    
 }
 
 

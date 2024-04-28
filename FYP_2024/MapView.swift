@@ -31,17 +31,27 @@ struct MapView: View {
                         .fill(.blue)
                         .frame(width: 35, height: 35)
                         .overlay {
-                            if let animalAnnotation = location as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
-                                            Image(uiImage: uiImage)
-                                                .resizable()
+                            if let animalAnnotation = location as? AnimalAnnotation {
+                                // This is an animal annotation, access animal-specific properties
+                                if let urlString = animalAnnotation.animal.image, let url = URL(string: urlString) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .success(let image):
+                                            image.resizable() // Display the loaded image.
                                                 .aspectRatio(contentMode: .fill)
                                                 .frame(width: 30, height: 30)
                                                 .clipShape(Circle())
-                                        } else {
-                                            // Fallback or loading view if the image is not available
-                                            ProgressView()
+                                        case .failure(_):
+                                            Color.red // Indicates an error.
+                                        case .empty:
+                                            ProgressView() // Display a progress view while loading.
+                                        @unknown default:
+                                            EmptyView() // Handle unexpected cases.
                                         }
-                            if let cameraAnnotation = location as? CameraAnnotation {
+                                    }
+                                }
+                            }
+                            else if let cameraAnnotation = location as? CameraAnnotation {
                                 // This is a camera annotation, access camera-specific properties
                                 if let imageName = cameraAnnotation.imageName {
                                     Image(imageName)
@@ -138,9 +148,9 @@ struct MapView: View {
                         ScrollViewReader { value in
                             HStack(spacing: 10) {
                                 ForEach(annotations) { annotation in
-                                    if annotation.type == .animal {
+                                    if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
                                         SimilarStrayBubble(
-                                            imageName: "",
+                                            uiImage: animalAnnotation.uiImage,
                                             breed: "Unknown",
                                             colors: "Unknown",
                                             gender: "Unknown",
@@ -207,6 +217,20 @@ struct MapView: View {
                     type: .animal,
                     animal: animal
                 )
+
+                let hardcodedImageUrl = animal.image
+                if let urlString = animal.image, let url = URL(string: urlString) {
+                    if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                        annotation.uiImage = image
+                    }
+                }
+                                
+        
+                if(annotation.uiImage != nil){
+                    print("UIImage: " , annotation.uiImage)
+                }else{
+                    print("nil!")
+                }
                 annotations.append(annotation)
             }
         } catch {}
@@ -255,7 +279,7 @@ struct MapView_Previews: PreviewProvider {
 
 
 struct SimilarStrayBubble: View {
-    var imageName: String
+    var uiImage: UIImage?
     var breed: String
     var colors: String
     var gender: String
@@ -280,12 +304,19 @@ struct SimilarStrayBubble: View {
                 
                 Spacer()
                 
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                if let uiImage = uiImage {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding()
+                } else {
+                    RoundedRectangle(cornerRadius: 15)
+                        .frame(width: 100, height: 100)
+                }
+                
+                
             }
             
             HStack{

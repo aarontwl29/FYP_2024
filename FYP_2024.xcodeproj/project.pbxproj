@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		93040C0A2BDA767F00C55B9A /* JsonResultPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* JsonResultPreview.swift */; };
 		93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C0D2BDA8E0400C55B9A /* ReportingView.swift */; };
+		933240A52BDE5EF600446A33 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933240A42BDE5EF600446A33 /* Report.swift */; };
 		933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FD2BD39DA600CB9A88 /* MapView.swift */; };
 		933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */; };
 		933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */; };
@@ -78,6 +79,7 @@
 /* Begin PBXFileReference section */
 		93040C092BDA767F00C55B9A /* JsonResultPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonResultPreview.swift; sourceTree = "<group>"; };
 		93040C0D2BDA8E0400C55B9A /* ReportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingView.swift; sourceTree = "<group>"; };
+		933240A42BDE5EF600446A33 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		933BA0FD2BD39DA600CB9A88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		933BA0FF2BD3A5E000CB9A88 /* Map_SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map_SearchBar.swift; sourceTree = "<group>"; };
 		933BA1092BD3D14600CB9A88 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
@@ -180,8 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				939B81A12BDD5E4700373F31 /* View_pre.swift */,
-				AB28B02F2BDC02CF00662336 /* LoginView */,
 				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
+				AB28B02F2BDC02CF00662336 /* LoginView */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
 				AB0D57F92BD42F0300D89984 /* TapsView.swift */,
@@ -237,6 +239,7 @@
 		939B81912BDB9B9100373F31 /* Elements_ReportingView */ = {
 			isa = PBXGroup;
 			children = (
+				933240A42BDE5EF600446A33 /* Report.swift */,
 				939B818F2BDB9A1100373F31 /* ImagePreviewArea.swift */,
 				939B818D2BDB93C800373F31 /* CameraView.swift */,
 				939B818B2BDB939600373F31 /* PhotoImportView.swift */,
@@ -451,6 +454,7 @@
 				939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */,
 				AB5F66942BDE21C300564550 /* SecurityView.swift in Sources */,
 				AB5F668F2BDDDF9800564550 /* MyPostDetailView.swift in Sources */,
+				933240A52BDE5EF600446A33 /* Report.swift in Sources */,
 				933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */,
 				AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */,
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
@@ -645,7 +649,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FYP_2024/Preview Content\"";
-				DEVELOPMENT_TEAM = 6259DS5L7C;
+				DEVELOPMENT_TEAM = R65GPSA585;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -663,7 +667,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itst;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itst-22020237600";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -683,7 +687,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FYP_2024/Preview Content\"";
-				DEVELOPMENT_TEAM = 6259DS5L7C;
+				DEVELOPMENT_TEAM = R65GPSA585;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -701,7 +705,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itst;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itst-22020237600";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
