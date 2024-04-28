@@ -30,13 +30,29 @@ struct MapView: View {
                         .fill(.blue)
                         .frame(width: 35, height: 35)
                         .overlay {
-                            if let imageName = location.imageName {
-                                            Image(imageName)
+                            if let animalAnnotation = location as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
+                                            Image(uiImage: uiImage)
                                                 .resizable()
-                                                .scaledToFit()
+                                                .aspectRatio(contentMode: .fill)
                                                 .frame(width: 30, height: 30)
                                                 .clipShape(Circle())
+                                        } else {
+                                            // Fallback or loading view if the image is not available
+                                            ProgressView()
                                         }
+                            if let cameraAnnotation = location as? CameraAnnotation {
+                                // This is a camera annotation, access camera-specific properties
+                                if let imageName = cameraAnnotation.imageName {
+                                    Image(imageName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30, height: 30)
+                                        .clipShape(Circle())
+                                }
+                            } else {
+                                // Default view if the annotation type is unknown
+                                Color.gray.frame(width: 30, height: 30).clipShape(Circle())
+                            }
                         }
                         .scaleEffect(1.8)
                         .onTapGesture {
@@ -122,7 +138,7 @@ struct MapView: View {
                                 ForEach(annotations) { annotation in
                                     if annotation.type == .animal {
                                         SimilarStrayBubble(
-                                            imageName: annotation.imageName!,
+                                            imageName: "",
                                             breed: "Unknown",
                                             colors: "Unknown",
                                             gender: "Unknown",
@@ -174,25 +190,19 @@ struct MapView: View {
     
     
     func performAutomaticAction() async  {
-        annotations = [
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.390873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "image3", type: .animal),
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.394873, longitude: 114.198035), title: "San Francisco", subtitle: "Cat Spot", imageName: "img_bl_content2", type: .animal),
-            AnimalAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.393873, longitude: 114.202035), title: "San Francisco", subtitle: "Dog Spot", imageName: "dog", type: .animal),
-
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.396873, longitude: 114.198035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.392873, longitude: 114.195535), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.388873, longitude: 114.200035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera),
-            CameraAnnotation(coordinate: CLLocationCoordinate2D(latitude: 22.386473, longitude: 114.196035), title: "San Francisco", subtitle: "Dog Spot", imageName: "camera", type: .camera)
-        ]
+        annotations = []
         do {
-            let animals = try  await performAPICall_Animals()
+            let animals = try await performAPICall_Animals()
             for animal in animals {
-                annotations.append(AnimalAnnotation(coordinate: CLLocationCoordinate2D(
-                                                    latitude: animal.latitude,
-                                                    longitude: animal.longitude),
-                                                    title: "San Francisco",
-                                                    subtitle: "Dog Spot",
-                                                    imageName: "dog", type: .animal))
+                let annotation = AnimalAnnotation(
+                    coordinate: CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude),
+                    title: "Stray Animal",
+                    subtitle: animal.nickName,
+                    imageName: "", // Assuming you handle image separately
+                    type: .animal,
+                    animal: animal
+                )
+                annotations.append(annotation)
             }
         } catch {}
         do {
@@ -201,9 +211,11 @@ struct MapView: View {
                 annotations.append(CameraAnnotation(coordinate: CLLocationCoordinate2D(
                                                     latitude: camera.latitude,
                                                     longitude: camera.longitude),
-                                                    title: "San Francisco",
-                                                    subtitle: "Dog Spot",
-                                                    imageName: "camera", type: .camera))
+                                                    title: "Camera",
+                                                    subtitle: camera.cameraId,
+                                                    imageName: "camera",
+                                                    type: .camera,
+                                                    camera: camera))
             }
         } catch {}
     }
