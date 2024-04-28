@@ -64,6 +64,7 @@ struct ReportingView: View {
             Form {
                 
                 Section(header: Text("Photos")) {
+                    //1.新增每張圖片的右上角新增獨立的delete按鈕
                     ImagePreviewArea(images: $images)
                     
                     Button(action: {
@@ -229,8 +230,51 @@ struct ReportingView: View {
     
     func submitReport() {
         // Implement functionality to submit the report with the entered data
+        
     }
+    
+    
+    
+    struct ImagePreviewArea: View {
+        @Binding var images: [UIImage]
+        
+        var body: some View {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(images.indices, id: \.self) { index in
+                        imageWithDeleteButton(for: images[index], at: index)
+                    }
+                }
+            }
+        }
+        
+        @ViewBuilder
+        private func imageWithDeleteButton(for image: UIImage, at index: Int) -> some View {
+            ZStack(alignment: .topTrailing) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(8)
+                
+                Button(action: {
+                    // Remove image from array
+                    images.remove(at: index)
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(2)
+                        .background(Color.white.opacity(0.6))
+                        .clipShape(Circle())
+                }
+                .padding([.top, .trailing], 5)
+            }
+        }
+    }
+    
 }
+
+
 
 
 #Preview {

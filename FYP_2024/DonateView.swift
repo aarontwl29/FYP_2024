@@ -18,7 +18,7 @@ struct DonationCardView: View {
     @State private var showPayment = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) { 
             HStack(spacing: 10) {
                 Image(donation.imageName)
                     .resizable()

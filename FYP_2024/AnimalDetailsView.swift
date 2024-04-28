@@ -1,11 +1,12 @@
 import SwiftUI
 struct AnimalDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var isLiked = false
+    @State var isLiked: Bool
     @State private var navigateToTapsView = false
     @State private var strayUrgency = "High Urgency"
     @State private var showPrivacyView = false
     @State private var showFAQView = false
+    
     
     @Binding var selectedAnnotation: CustomAnnotation?
     
@@ -18,14 +19,18 @@ struct AnimalDetailsView: View {
         StrayAnimal(imageName: "image5", breed: "Bulldog", colors: "Grey", gender: "Male", size: "Medium", address: "105 Pet Street", date: "2023-04-05")
     ]
     
+    @State private var images: [UIImage] = [
+        UIImage(named: "image1")!,
+        UIImage(named: "image2")!,
+        UIImage(named: "image3")!
+    ]
+    
     let stray: StrayInfoDetal = StrayInfoDetal(age: "15 Month", sex: "Female", species: "Cibadak", color: "Yellow", neutered: "Yes", health: "Sick")
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    
-                    
                     Button(action: {
                         // Dismiss the current view
                         presentationMode.wrappedValue.dismiss()
@@ -40,22 +45,22 @@ struct AnimalDetailsView: View {
                     Spacer()
                     
                     Button(action: {
-                        self.isLiked.toggle()
+                        isLiked.toggle()
                     }) {
                         Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
-                            .foregroundColor(isLiked ? .green : .black)
+                            .foregroundColor(isLiked ? .blue : .gray)
                             .font(.title)
+                        
                     }
                     .padding(.trailing, 10)
                     .padding(.bottom, 10)
                 }
                 .background(Color.white) // 給按鈕添加半透明的背景色，以便它們在圖片之上突出顯示
                 
-                Image("img_ad_content1")
-                    .resizable()
-                    .scaledToFit()
-                    .edgesIgnoringSafeArea(.top) // 讓圖片延伸到頂部的安全區之外
-                    .padding(.bottom, 0)
+                
+                ScrollView(.horizontal, showsIndicators: false) { // 水平滑動，不顯示滾動條
+                    ImagePreviewArea(images: $images)
+                        }
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
@@ -141,6 +146,8 @@ struct AnimalDetailsView: View {
         .sheet(isPresented: $showFAQView) {
             FAQView()
         }
+        
+        
         
     }
     
@@ -246,6 +253,7 @@ struct AnimalDetailsView: View {
                 Text(title)
                     .font(.footnote)
                     .foregroundColor(.blue)
+                    .bold()
                 Text(detail)
                     .font(.headline)
                     .foregroundColor(.gray)
@@ -269,6 +277,8 @@ struct AnimalDetailsView: View {
     
     
     struct CameraInfoGridView: View {
+        @State private var showCamera = false
+        
         let cameraInfos: [CameraInfo] = [
             CameraInfo(camID:"C01", location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:24 - 11:00", date: "01-03-24"),
             CameraInfo(camID:"C02", location: "No. 22 Yuen Wo Road, Sha Tin", timeStamp: "11:12 - 11:24", date: "02-03-24"),
@@ -303,6 +313,8 @@ struct AnimalDetailsView: View {
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
+                            showCamera.toggle()
+                            
                         }) {
                             Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
                         }
@@ -315,6 +327,7 @@ struct AnimalDetailsView: View {
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
+                            showCamera.toggle()
                         }) {
                             Text(info.timeStamp).foregroundStyle(.black)
                         }
@@ -329,9 +342,15 @@ struct AnimalDetailsView: View {
                     }
                 }
                 .padding()
+                
             }
             .background(Color(.systemGroupedBackground))
+            .sheet(isPresented: $showCamera) {
+                CameraInfoView(cameraInfomation: CameraInfomation(cameraImageUrl: "camera.circle", cameraID: "#4326", cameraAddress: "No. 21 Yuen Wo Road, Sha Tin", cameraPosition: "22°23'26.0\"N 114°11'52.9\"E", numOfCatchStray: "5"))
+            }
+            
         }
+        
     }
     
     
@@ -361,7 +380,7 @@ struct AnimalDetailsView: View {
 
 struct AnimalDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        AnimalDetailsView(selectedAnnotation: .constant(nil))
+        AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil))
     }
 }
 

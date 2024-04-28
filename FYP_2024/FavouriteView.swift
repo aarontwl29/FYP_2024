@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PetCardView: View {
     var imageName: String
+    var nickName: String
     var breed: String
     var colors: String
     var gender: String
@@ -13,8 +14,13 @@ struct PetCardView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
+                    Text(nickName)
+                        .font(.title3)
+                        .bold()
+                        .foregroundStyle(.blue)
+                        .padding(.bottom,4)
                     Text(breed)
-                        .font(.headline)
+                        .font(.subheadline)
                     Text(colors)
                         .font(.subheadline)
                     Text(gender)
@@ -63,6 +69,20 @@ struct FavouriteView: View {
     @State private var searchText = ""
     @State private var isFilterViewPresented = false
     @State private var showingDetails = false  // 用於控制是否顯示詳細信息視圖
+    
+    let petCardViews: [PetCardView] = [
+        PetCardView(
+            imageName: "image1",
+            nickName: "Buddy",
+            breed: "Labrador",
+            colors: "Yellow",
+            gender: "Male",
+            size: "Large",
+            address: "123 Pet St, New York",
+            date: "20/04/2024"
+        )]
+    
+   //實現新增，創立一個array,裡面創作10個PetCardView, Data你可以偽造，例如PetCardView(imageName: "image\(index + 1)",nickName: "Lucas",breed: "Mixed Breed",colors: "Black, White",gender: "Male",size: "Medium (15-25 kg)",address: "Kpousódou 21, Athína 115 28, Elláda", date: "11/04/2024")
 
     var body: some View {
         VStack {
@@ -94,29 +114,23 @@ struct FavouriteView: View {
 
             ScrollView {
                 VStack(spacing: 15) {
-                    ForEach(0..<10, id: \.self) { index in
-                        PetCardView(
-                            imageName: "image\(index + 1)",
-                            breed: "Mixed Breed",
-                            colors: "Black, White",
-                            gender: "Male",
-                            size: "Medium (15-25 kg)",
-                            address: "Kpousódou 21, Athína 115 28, Elláda",
-                            date: "11/04/2024"
-                        )
-                        .onTapGesture {
-                            self.showingDetails = true  // 更新顯示詳細信息視圖的狀態
-                        }
-                        .sheet(isPresented: $showingDetails) {
-                            // 這裡應該顯示你的 AnimalDetailsView
-                            AnimalDetailsView(selectedAnnotation: .constant(nil)).padding(.top,20)  // 需要正確的參數傳遞
-                        }
+                    //實現更改，更改Loop的內容，裡面內容改為PetCardView的array
+                    ForEach(petCardViews, id: \.nickName) { petCardView in
+                                            petCardView
+                                            .onTapGesture {
+                                                self.showingDetails = true
+                                            }
+                                            .sheet(isPresented: $showingDetails) {
+                                                // 顯示詳細信息視圖
+                                                AnimalDetailsView(isLiked: true, selectedAnnotation: .constant(nil)).padding(.top,20)
+                                            }
+                                        }
                         
-                    }
+                    
                 }.padding(.top, 10)
             }
             .padding(.top, -10)
-        }
+        }.padding(.top, 20)
     }
 }
 

@@ -5,29 +5,21 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showError: Bool = false // 用於顯示錯誤訊息的變量
+    
+    @State private var showTapsView = false // 控制是否導航到 TapsView
     @Environment(\.presentationMode) var presentationMode
+    @Binding var isPresented: Bool
+    
     
     @State public var userAccounts: [UserAccount] = [
-        UserAccount(username: "abc123", password: "abc123", type: UserAccount.AccountType(rawValue: "normal") ?? .normal),
-        UserAccount(username: "abc456", password: "abc456", type: UserAccount.AccountType(rawValue: "volunteer") ?? .normal),
-        UserAccount(username: "abc678", password: "abc678", type: UserAccount.AccountType(rawValue: "organization") ?? .normal)
+        UserAccount(username: "user123", password: "user123", type: UserAccount.AccountType(rawValue: "normal") ?? .normal),
+        UserAccount(username: "user456", password: "user456", type: UserAccount.AccountType(rawValue: "volunteer") ?? .normal),
+        UserAccount(username: "user789", password: "user789", type: UserAccount.AccountType(rawValue: "organization") ?? .normal)
     ]
     
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                Button(action: {
-                    // 返回上一頁的動作
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .padding(.leading, -12)
-                        .font(.title2)
-                }
-                Spacer()
-            }
-            .padding()
             
             Text("Let's Sign you in.")
                 .font(.largeTitle)
@@ -48,11 +40,14 @@ struct LoginView: View {
                 .font(.title2)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 1)
+                .autocapitalization(.none)
+            
             
             SecureField("Enter Password", text: $password)
                 .font(.title2)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 1)
+                .autocapitalization(.none)
             
             
             
@@ -90,7 +85,7 @@ struct LoginView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit) // 避免圖片變形
                         .frame(width: 44, height: 44) // 設定圖片大小
-                        
+                    
                 }.padding(.top, -5)
                 
                 Button(action: {
@@ -114,6 +109,13 @@ struct LoginView: View {
                 .transition(.slide)
                 .animation(.default)
             }
+            
+            
+            NavigationLink(destination: AccountView(), isActive: $showTapsView) {
+                EmptyView()
+            }
+
+            
             
             Button(action:
                     loginAction
@@ -147,15 +149,15 @@ struct LoginView: View {
     
     func loginAction() {
         if let _ = userAccounts.first(where: { $0.username == username && $0.password == password }) {
-            // 登入成功，進行下一步操作
-            // 這裡可以是跳轉到另一個視圖或者保存用戶的登入狀態
             showError = false // 確保錯誤訊息不顯示
-            // 此處插入跳轉到主頁面的代碼
+            presentationMode.wrappedValue.dismiss()
+            showTapsView = true // 設置此變量為 true 來觸發導航
+            self.isPresented = false
         } else {
-            // 登入失敗，顯示錯誤訊息
-            showError = true
+            showError = true // 登入失敗，顯示錯誤訊息
         }
     }
+
 }
 
 
@@ -177,6 +179,25 @@ struct UserAccount {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        // 創建一個本地的 @State 變量來綁定到 LoginView
+        StatefulPreviewWrapper(true) { isPresented in
+            LoginView(isPresented: isPresented)
+        }
     }
 }
+
+// Helper struct to handle state management in previews
+struct StatefulPreviewWrapper<Value, Content: View>: View {
+    @State private var value: Value
+    private var content: (Binding<Value>) -> Content
+
+    init(_ initialValue: Value, @ViewBuilder content: @escaping (Binding<Value>) -> Content) {
+        _value = State(initialValue: initialValue)
+        self.content = content
+    }
+
+    var body: some View {
+        content($value)
+    }
+}
+

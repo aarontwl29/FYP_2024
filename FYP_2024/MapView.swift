@@ -12,6 +12,7 @@ struct MapView: View {
         
     @State private var showReportingView = false
     @State private var showOverlaysView = false
+    @State private var showListAllView = false
         
 
     @State private var annotations: [CustomAnnotation] = []
@@ -121,6 +122,7 @@ struct MapView: View {
                         Spacer()
                         
                         Button(action: {
+                            showListAllView.toggle()
                     
                         }) {
                             Text("List All")
@@ -170,7 +172,7 @@ struct MapView: View {
             }
         }
         .fullScreenCover(item: $selectedAnnotation, content: {
-            annotation in AnimalDetailsView(selectedAnnotation: $selectedAnnotation)
+            annotation in AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil))
         })
         .sheet(isPresented: $showReportingView) {
             ReportingView()
@@ -185,6 +187,9 @@ struct MapView: View {
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
             OverlaysView(annotations:annotations, region: region_)
+        }
+        .sheet(isPresented: $showListAllView) {
+            ListAllView()
         }
     }
     

@@ -1,6 +1,13 @@
 import SwiftUI
 
+
+
 struct AccountView: View {
+    @State private var showProfile = false
+    @State private var username: String = "tony143625"
+    @State private var email: String = "tony8521@icloud.com"
+    
+ 
     var body: some View {
         NavigationView {
             List {
@@ -15,28 +22,28 @@ struct AccountView: View {
                             .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                             .padding(.bottom, 8)
                         
-                        Text("TONY HO")
+                        Text(username)
                             .font(.title2)
                             .padding(.bottom, 2)
-                        Text("ttighaw@icloud.com")
+                        Text(email)
                             .font(.title3)
                             .foregroundColor(.gray)
                             .padding(.bottom, 10)
                         
                         Button(action: {
+                            showProfile.toggle()
                             // Button action
                         }) {
                             Text("Edit Profile")
                                 .font(.title2)
-                                .foregroundStyle(.blue)
-                                .bold()
+                                .foregroundStyle(.white)
+
                         }
-                        .frame(width:290 , height: 50)
-                        .background(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                        
+                        .frame(width:150 , height: 40)
+                        
+                        .background(Color.blue)
+                        
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 }
@@ -59,7 +66,7 @@ struct AccountView: View {
                 }.padding(.vertical, 2)
                 
                 Button(action: {
-                    // Logout action
+                    
                 }) {
                     Label("Logout", systemImage: "arrow.right.square")
                         .foregroundColor(.red)
@@ -75,7 +82,11 @@ struct AccountView: View {
             }
             .listStyle(GroupedListStyle())
         }
+        .sheet(isPresented: $showProfile) {
+            ProfileView() // Present PaymentView as a modal sheet
+        }
     }
+    
 }
 
 enum MenuOption: CaseIterable {
