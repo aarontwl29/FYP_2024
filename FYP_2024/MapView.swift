@@ -212,7 +212,7 @@ struct MapView: View {
             OverlaysView(annotations:annotations, region: region_)
         }
         .sheet(isPresented: $showListAllView) {
-            ListAllView()
+            ListAllView(annotations: annotations)
         }
     }
     
