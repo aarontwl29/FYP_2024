@@ -133,7 +133,9 @@ func performAPICall_Animals() async throws -> [Animal] {
     //     print("Error:", error.localizedDescription)
     // }
     
+    print("in")
     let wrapper = try JSONDecoder().decode([Animal].self, from: data)
+    print("out")
     return wrapper
 }
 func performAPICall_Cameras() async throws -> [Camera] {
