@@ -85,13 +85,14 @@ struct Animal: Codable, Identifiable {
 }
 
 struct HLS: Codable, Identifiable {
-    let DisappearDate: String
-    let AppearTime: Int
-    let DisappearTime: Int
+    let disappearDate: String
+    let appearTime: Int
+    let disappearTime: Int
     let id: String
     let animalId: String
     let url: String
-    let AppearDate: String
+    let appearDate: String
+    let captureImage: String
 }
 
 struct Camera: Codable, Identifiable {
