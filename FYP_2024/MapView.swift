@@ -182,7 +182,7 @@ struct MapView: View {
             }
         }
         .fullScreenCover(item: $selectedAnnotation, content: {
-            annotation in AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil))
+            annotation in AnimalDetailsView(isLiked: false, selectedAnnotation: $selectedAnnotation)
         })
         .sheet(isPresented: $showReportingView) {
             ReportingView()

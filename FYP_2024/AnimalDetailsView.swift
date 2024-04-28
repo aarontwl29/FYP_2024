@@ -67,6 +67,7 @@ struct AnimalDetailsView: View {
                                             .font(.title)
                                             .fontWeight(.bold)
                                             .foregroundStyle(.blue)
+
                         }
                         
                         HStack {
