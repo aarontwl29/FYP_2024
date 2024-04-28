@@ -63,6 +63,9 @@ struct AnimalDetailsView: View {
                 .onAppear {
                                     if let animalAnnotation = selectedAnnotation as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
                                         images = [uiImage] // Update the images array with the uiImage
+                                        for image in animalAnnotation.uiImages{
+                                            images.append(image)
+                                        }
                                     }
                                 }
                 

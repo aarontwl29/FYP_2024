@@ -34,6 +34,7 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
 class AnimalAnnotation: CustomAnnotation {
     let animal: Animal
     var uiImage: UIImage?
+    var uiImages: [UIImage] = []
 
     init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, imageName: String?, type: AnnotationType, animal: Animal) {
         self.animal = animal
@@ -74,7 +75,7 @@ struct Animal: Codable, Identifiable {
     let neuteredStatus: String
     let healthStatus: String
     let age: Int
-    let album: [String]
+    let album: [String]?
     let video: String?
     let voiceSample: String?
     let HLS: [HLS]?

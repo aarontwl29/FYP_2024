@@ -224,7 +224,24 @@ struct MapView: View {
                         annotation.uiImage = image
                     }
                 }
-                                
+                
+                
+                if let album = animal.album {
+                    for urlString in album {
+                        if let url = URL(string: urlString) {
+                            do {
+                                let (data, _) = try await URLSession.shared.data(from: url)
+                                if let image = UIImage(data: data) {
+                                    DispatchQueue.main.async {
+                                        annotation.uiImages.append(image)
+                                    }
+                                }
+                            } catch {
+                                print("Failed to load image from URL: \(urlString)")
+                            }
+                        }
+                    }
+                }
         
                 if(annotation.uiImage != nil){
                     print("UIImage: " , annotation.uiImage)
