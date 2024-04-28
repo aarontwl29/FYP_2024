@@ -8,23 +8,25 @@ struct AnimalDetailsView: View {
     @State private var showFAQView = false
     
     @Binding var selectedAnnotation: CustomAnnotation?
+    var stray: StrayInfoDetal? {
+            guard let animalAnnotation = selectedAnnotation as? AnimalAnnotation else {
+                return nil
+            }
+            return StrayInfoDetal(
+                age: String(animalAnnotation.animal.age),
+                sex: animalAnnotation.animal.gender,
+                species: animalAnnotation.animal.breed,
+                color: animalAnnotation.animal.color,
+                neutered: animalAnnotation.animal.neuteredStatus,
+                health: animalAnnotation.animal.healthStatus
+            )
+        }
     
-    // 定義流浪動物數據列表
-    let strayAnimals: [StrayAnimal] = [
-        StrayAnimal(imageName: "image1", breed: "Shih Tzu", colors: "Black", gender: "Female", size: "Small", address: "101 Pet Street", date: "2023-04-01"),
-        StrayAnimal(imageName: "image2", breed: "Labrador", colors: "Brown", gender: "Male", size: "Large", address: "102 Pet Street", date: "2023-04-02"),
-        StrayAnimal(imageName: "image3", breed: "Beagle", colors: "Tricolor", gender: "Male", size: "Medium", address: "103 Pet Street", date: "2023-04-03"),
-        StrayAnimal(imageName: "image4", breed: "Poodle", colors: "White", gender: "Female", size: "Small", address: "104 Pet Street", date: "2023-04-04"),
-        StrayAnimal(imageName: "image5", breed: "Bulldog", colors: "Grey", gender: "Male", size: "Medium", address: "105 Pet Street", date: "2023-04-05")
-    ]
-    
-    let stray: StrayInfoDetal = StrayInfoDetal(age: "15 Month", sex: "Female", species: "Cibadak", color: "Yellow", neutered: "Yes", health: "Sick")
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    
                     
                     Button(action: {
                         // Dismiss the current view
@@ -59,22 +61,22 @@ struct AnimalDetailsView: View {
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        // Hachiko - Maltese title
-                        Text("Hachiko - Maltese")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.blue)
+                        if let animalAnnotation = selectedAnnotation as? AnimalAnnotation {
+                                        Text(animalAnnotation.animal.nickName)
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .foregroundStyle(.blue)
+                        }
                         
-                        // Information bubbles
                         HStack {
-                            DetailBubble(title: "Age", detail: stray.age)
-                            DetailBubble(title: "Sex", detail: stray.sex)
-                            DetailBubble(title: "Species", detail: stray.species)
+                            DetailBubble(title: "Age", detail: stray?.age ?? "Unknown")
+                            DetailBubble(title: "Sex", detail: stray?.sex ?? "Unknown")
+                            DetailBubble(title: "Species", detail: stray?.species ?? "Unknown")
                         }
                         HStack {
-                            DetailBubble(title: "Main Color", detail: stray.color)
-                            DetailBubble(title: "Neutered", detail: stray.neutered)
-                            DetailBubble(title: "Health", detail: stray.health)
+                            DetailBubble(title: "Main Color", detail: stray?.color ?? "Unknown")
+                            DetailBubble(title: "Neutered", detail: stray?.neutered ?? "Unknown")
+                            DetailBubble(title: "Health", detail: stray?.health ?? "Unknown")
                         }
                     }
                     .padding()
@@ -98,22 +100,7 @@ struct AnimalDetailsView: View {
                                 .padding([.bottom], -15)
                                 .padding(.leading, 15)
                             
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 20) {
-                                    ForEach(strayAnimals, id: \.breed) { animal in
-                                        SimilarStrayBubble(
-                                            imageName:animal.imageName,
-                                            breed: animal.breed,
-                                            colors: animal.colors,
-                                            gender: animal.gender,
-                                            size: animal.size,
-                                            address: animal.address,
-                                            date: animal.date
-                                        )
-                                    }
-                                }
-                                .padding()
-                            }
+                            
                             
                             // 略去其他部分
                         }

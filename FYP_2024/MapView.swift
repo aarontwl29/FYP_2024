@@ -146,9 +146,9 @@ struct MapView: View {
                         ScrollViewReader { value in
                             HStack(spacing: 10) {
                                 ForEach(annotations) { annotation in
-                                    if annotation.type == .animal {
+                                    if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
                                         SimilarStrayBubble(
-                                            imageName: "",
+                                            uiImage: animalAnnotation.uiImage,
                                             breed: "Unknown",
                                             colors: "Unknown",
                                             gender: "Unknown",
@@ -212,6 +212,20 @@ struct MapView: View {
                     type: .animal,
                     animal: animal
                 )
+
+                let hardcodedImageUrl = animal.image
+                if let urlString = animal.image, let url = URL(string: urlString) {
+                    if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                        annotation.uiImage = image
+                    }
+                }
+                                
+        
+                if(annotation.uiImage != nil){
+                    print("UIImage: " , annotation.uiImage)
+                }else{
+                    print("nil!")
+                }
                 annotations.append(annotation)
             }
         } catch {}
@@ -260,7 +274,7 @@ struct MapView_Previews: PreviewProvider {
 
 
 struct SimilarStrayBubble: View {
-    var imageName: String
+    var uiImage: UIImage?
     var breed: String
     var colors: String
     var gender: String
@@ -285,12 +299,19 @@ struct SimilarStrayBubble: View {
                 
                 Spacer()
                 
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding()
+                if let uiImage = uiImage {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding()
+                } else {
+                    RoundedRectangle(cornerRadius: 15)
+                        .frame(width: 100, height: 100)
+                }
+                
+                
             }
             
             HStack{

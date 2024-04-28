@@ -27,6 +27,8 @@ class CustomAnnotation: NSObject, MKAnnotation, Identifiable {
         
         self.highlightValue = Double.random(in: 1...100)
     }
+    
+    
     func setPercentage(to newValue: Double?) {}
 }
 class AnimalAnnotation: CustomAnnotation {

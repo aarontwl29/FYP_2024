@@ -11,8 +11,8 @@ import SwiftUI
 struct FYP_2024App: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            ReportingView()
+            ContentView()
+    
         }
     }
 }
