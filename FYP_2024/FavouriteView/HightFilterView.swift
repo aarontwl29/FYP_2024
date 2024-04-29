@@ -7,8 +7,7 @@ struct HightFilterView: View {
     @Environment(\.presentationMode) var presentationMode
     
    
-    let severity = ["High", "Medium", "Low"]
-    let dayRange = ["1 Week", "1 Month", "6 Month", "1 Year"]
+    let severity = ["Density", "Neutered", "Health"]
     
     var body: some View {
         
@@ -16,10 +15,10 @@ struct HightFilterView: View {
             ScrollView{
                 VStack {
                     SeveritySection(severity: severity, selectedSeverity: $selectedSeverity)
-                    DayRangeSection(dayRange: dayRange, selectedDayRange: $selectedDayRange)
                 
                     SubmitBubbleForHight(buttonInfo: "Submit")
                 }
+                .padding(.top, 10)
                 .navigationBarTitle("Filters", displayMode: .inline)
                 .navigationBarItems(
                     leading: Button(action: {
@@ -41,7 +40,7 @@ struct SeveritySection: View {
     
     var body: some View {
         HStack {
-            Text("Severity")
+            Text("Type")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.blue)
@@ -100,7 +99,7 @@ struct DayRangeSection: View {
     
     var body: some View {
         HStack {
-            Text("Lastest")
+            Text("Density")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.blue)
