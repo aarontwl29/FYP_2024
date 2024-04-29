@@ -86,34 +86,46 @@ struct MapView: View {
 
             
             
-                    
+            
+            
             VStack {
-                Map_SearchBar(searchText: $searchText)
-                    .padding(.top, 0)
-                    .padding(.horizontal)
-       
-                HStack{
+                VStack{
+                    Map_SearchBar(searchText: $searchText)
+                        .padding(.top, 0)
+                        .padding(.horizontal)
+                    
                     Button(action: {
                         showOverlaysView = true
                     }) {
-                        Text("Highlight Area")
+                        Image(systemName: "scribble.variable")
+                            .font(.title2)
                             .foregroundColor(.white)
                             .padding()
-                            .background(Color.blue)
-                            .cornerRadius(8)
+                            .background(Circle().fill(Color.green))
+                            .opacity(0.9)
                     }
+                    .padding(.top, -500)
+                    .padding(.leading, 290 )
                     
-                    Spacer()
+                }
+                Spacer()
+                VStack{
                     
-                    Button(action: {
-                        showReportingView = true
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Circle().fill(Color.blue))
-                            
+                    
+                    HStack{
+                        Spacer()
+                        
+                        Button(action: {
+                            showReportingView = true
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Circle().fill(Color.blue))
+                                
+                        }
+                        Spacer()
                     }
                 }
                 .padding(.bottom, 5)
