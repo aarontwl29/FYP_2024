@@ -90,9 +90,18 @@ struct MapView: View {
             
             VStack {
                 VStack{
-                    Map_SearchBar(searchText: $searchText)
-                        .padding(.top, 0)
-                        .padding(.horizontal)
+                    Map_SearchBar(searchText: $searchText, onOptionSelected: { option in
+                                    if option == "ive (ShaTin)" {
+                                        let newRegion = MKCoordinateRegion(
+                                            center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
+                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                        )
+                                        region = newRegion
+                                    }
+                                    // Add similar handling for other options
+                    })
+                    .padding(.top, 0)
+                    .padding(.horizontal)
                     
                     Button(action: {
                         showOverlaysView = true
