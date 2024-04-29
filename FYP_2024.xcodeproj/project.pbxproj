@@ -40,6 +40,7 @@
 		AB5F66962BDE21DB00564550 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66952BDE21DB00564550 /* HelpView.swift */; };
 		AB5F66982BDE21E900564550 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66972BDE21E900564550 /* AboutView.swift */; };
 		AB5F669A2BDE26F100564550 /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66992BDE26F100564550 /* LanguageView.swift */; };
+		AB7888482BDF9EA20083BF06 /* SubmitSimilarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */; };
 		AB8A38172BDC011400C34430 /* FavFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A38162BDC011400C34430 /* FavFilterView.swift */; };
 		AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */; };
 		AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E8012BD9C91E00AA7F85 /* DonateView.swift */; };
@@ -114,6 +115,7 @@
 		AB5F66952BDE21DB00564550 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		AB5F66972BDE21E900564550 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		AB5F66992BDE26F100564550 /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
+		AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSimilarPage.swift; sourceTree = "<group>"; };
 		AB8A38162BDC011400C34430 /* FavFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavFilterView.swift; sourceTree = "<group>"; };
 		AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AB91E8012BD9C91E00AA7F85 /* DonateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				ABA4814B2BDE9BCC00CE254C /* CameraInfoView.swift */,
 				939B819A2BDBF8F800373F31 /* Elements_MapView */,
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
+				AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */,
 				ABA4814D2BDEB77300CE254C /* ListAllView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
 				93040C0D2BDA8E0400C55B9A /* ReportingView.swift */,
@@ -458,6 +461,7 @@
 				933240A52BDE5EF600446A33 /* Report.swift in Sources */,
 				933BA10A2BD3D14600CB9A88 /* CustomAnnotation.swift in Sources */,
 				AB91E8022BD9C91E00AA7F85 /* DonateView.swift in Sources */,
+				AB7888482BDF9EA20083BF06 /* SubmitSimilarPage.swift in Sources */,
 				93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */,
 				AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */,
 				933BA1002BD3A5E000CB9A88 /* Map_SearchBar.swift in Sources */,

@@ -15,7 +15,8 @@ struct ReportingView: View {
     ]
     @State private var voiceFileURL: URL?
     
-    @StateObject private var locationViewModel = LocationViewModel()
+    @StateObject private var locationViewModel = LocationViewModel() 
+    @State private var showSubmitSimilarPage = false
     
     
     
@@ -231,6 +232,8 @@ struct ReportingView: View {
                     }
             }
             
+        }.sheet(isPresented: $showSubmitSimilarPage) {
+            SubmitSimilarPage(isLiked: false, selectedAnnotation: .constant(nil))// Present PaymentView as a modal sheet
         }
     }
     
@@ -242,6 +245,8 @@ struct ReportingView: View {
     }
     
     func submitReport() {
+        showSubmitSimilarPage.toggle()
+        
         let age = Int(ageInput) ?? 0
                 
                 let report = Report(

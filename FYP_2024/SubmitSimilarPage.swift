@@ -1,5 +1,13 @@
+//
+//  SubmitSimilarPage.swift
+//  FYP_2024
+//
+//  Created by itst on 29/4/2024.
+//
+
 import SwiftUI
-struct AnimalDetailsView: View {
+
+struct SubmitSimilarPage: View {
     @Environment(\.presentationMode) var presentationMode
     @State var isLiked: Bool
     @State private var navigateToTapsView = false
@@ -26,77 +34,15 @@ struct AnimalDetailsView: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationView { 
             VStack {
-                HStack {
-                    
-                    Button(action: {
-                        // Dismiss the current view
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .font(.title)
-                            .foregroundStyle(.black)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.bottom, 10)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        isLiked.toggle()
-                    }) {
-                        Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
-                            .foregroundColor(isLiked ? .blue : .gray)
-                            .font(.title)
-                        
-                    }
-                    .padding(.trailing, 10)
-                    .padding(.bottom, 10)
-                }
-                .background(Color.white) // 給按鈕添加半透明的背景色，以便它們在圖片之上突出顯示
+               
                 
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    ImagePreviewArea(images: $images)
-                }
-                .onAppear {
-                    if let animalAnnotation = selectedAnnotation as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
-                        images = [uiImage] // Update the images array with the uiImage
-                        for image in animalAnnotation.uiImages{
-                            images.append(image)
-                        }
-                    }
-                }
+                
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        if let animalAnnotation = selectedAnnotation as? AnimalAnnotation {
-                            Text(animalAnnotation.animal.nickName)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.blue)
-                            
-                        }
-                        
-                        HStack {
-                            DetailBubble(title: "Age", detail: stray?.age ?? "Unknown")
-                            DetailBubble(title: "Sex", detail: stray?.sex ?? "Unknown")
-                            DetailBubble(title: "Species", detail: stray?.species ?? "Unknown")
-                        }
-                        HStack {
-                            DetailBubble(title: "Main Color", detail: stray?.color ?? "Unknown")
-                            DetailBubble(title: "Neutered", detail: stray?.neutered ?? "Unknown")
-                            DetailBubble(title: "Health", detail: stray?.health ?? "Unknown")
-                        }
-                    }
-                    .padding()
-                    
-                    
-                    CameraInfoGridView()
-                    
-                    
-                    //新增橫向scrollview
+            
                     
                     
                     // 定義流浪動物數據列表
@@ -111,11 +57,11 @@ struct AnimalDetailsView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             // 略去其他部分，專注於新增的橫向滾動部分
-                            Text("Similar Stray Animals")
+                            Text("Are You Reporting Them ?")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.blue)
-                                .padding([.top], 10)
+                                .padding([.top], 20)
                                 .padding([.bottom], -15)
                                 .padding(.leading, 15)
                             
@@ -125,7 +71,7 @@ struct AnimalDetailsView: View {
                             // 略去其他部分
                             
                             ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 20) {
+                                VStack(spacing: 20) {
                                     ForEach(strayAnimals, id: \.breed) { animal in
                                         SimilarStrayBubble(
                                             imageName:animal.imageName,
@@ -147,18 +93,27 @@ struct AnimalDetailsView: View {
                         
                         
                         
-                        
-                        
-                        InfoBubble(buttonInfo: "Adopt this animal", action: {showPrivacyView.toggle()})
-                        InfoBubble(buttonInfo: "More about animal care", action: {showFAQView.toggle()})
-                            .padding(.top, -20)
+                    
                     }
                     .background(Color(.white)) // This is the background color similar to the one in your image
                     .edgesIgnoringSafeArea(.bottom)
                     
                 }
                 
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Submit")
+                        .font(.title2).bold()
+                        .frame(width: 250, height: 10)
+                        .foregroundColor(.white) // 文字顏色
+                        .padding(.vertical) // 四周留空間
+                        .background(Color.blue) // 背景色
+                        .cornerRadius(10) // 圓角
+                        .padding(.top, 10)
+                }
             }
+            
         }
         .sheet(isPresented: $showPrivacyView) {
             AdoptView(contact: PersonContact(imageUrl: "img_bl_icon1", name: "Alex Avalos", phone: "+852 5721 4211", email: "alex@example.com", organization: "HKSCDA"))
@@ -238,7 +193,7 @@ struct AnimalDetailsView: View {
                     Image(imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100)
+                        .frame(width: 180, height: 100)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding()
                 }
@@ -259,8 +214,26 @@ struct AnimalDetailsView: View {
                     Text("Similar 75%")
                         .font(.subheadline).foregroundStyle(.red).bold()
                 }
-                
                 .padding([.leading, .bottom, .trailing])
+                
+                
+                HStack {
+                    
+                    Button(action: {
+                        // 分享的動作
+                    }) {
+                        Text("Merge")
+                            .font(.title2).bold()
+                            .frame(width: 250, height: 10)
+                            .foregroundColor(.white) // 文字顏色
+                            .padding(.vertical) // 四周留空間
+                            .background(Color.green) // 背景色
+                            .cornerRadius(10) // 圓角
+                            
+                    }
+                }
+                .padding([.leading, .bottom, .trailing])
+                
             }
             .background(Color.white)
             .cornerRadius(10)
@@ -405,19 +378,10 @@ struct AnimalDetailsView: View {
         var health: String
     }
     
-    
 }
 
-struct AnimalDetailsView_Previews: PreviewProvider {
+struct SubmitSimilarPage_Previews: PreviewProvider {
     static var previews: some View {
-        AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil))
+        SubmitSimilarPage(isLiked: false, selectedAnnotation: .constant(nil))
     }
 }
-
-
-
-
-
-
-
-
