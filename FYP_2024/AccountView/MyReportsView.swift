@@ -3,41 +3,39 @@ import SwiftUI
 struct MyReportsView: View {
     // 假設這些是從你的後台或模型中獲取的資料
     @State private var numPost: Int = 0
-//    let balanceChange: String = "80%"
-//    let myPost: [Post] = [
-//        Post(name: "Puppy", species: "Ragdoll", locationVal: "No. 21 Yuen Wo Road, Sha Tin", date: "17-04-2024", image: "image1")
-//    ]
     @State private var reports: [Report_UIImage] = []
-    
-    @State private var showPayment = false
-    
+    @State private var showDetails = false
+    @State private var selectedReport: Report_UIImage?
     
     var body: some View {
         NavigationView {
             List {
-                // 當前餘額
-                VStack(alignment: .leading) {
-                    Text("My Posts")
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.blue)
-                    HStack {
-                        Text("Total: " + numPost.codingKey.stringValue)
-                            .font(.title3)
-                            .padding(.top, -10)
-                        Spacer()
+                // Section for displaying the header
+                Section(header: Text("My Posts")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(.blue)) {
+                        HStack {
+                            Text("Total: \(numPost)")
+                                .font(.title3)
+                                .padding(.top, -10)
+                            Spacer()
+                        }
                     }
+                
+                // Section for displaying reports
+                ForEach(reports, id: \.id) { report in
+                    PetCardView(report: report, onDetailTap: {
+                        self.selectedReport = report
+                        self.showDetails = true
+                    })
                 }
-                
-                ForEach(reports) { report in
-                    PetCardView(report: report, showPayment: $showPayment)
-                }
-                
-                
             }
             .navigationTitle("History")
-            .sheet(isPresented: $showPayment) {
-                MyPostDetailsView( selectedAnnotation: .constant(nil)) // Present PaymentView as a modal sheet
+            .sheet(isPresented: $showDetails) {
+                if let selectedReport = selectedReport {
+                    MyPostDetailsView(report: selectedReport)
+                }
             }
         }
         .onAppear {
@@ -56,8 +54,8 @@ struct MyReportsView: View {
                     report: report_
                 )
                 self.numPost += 1
-
-//                let hardcodedImageUrl = report_.image
+                
+                //                let hardcodedImageUrl = report_.image
                 if let urlString = report_.image, let url = URL(string: urlString) {
                     if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                         report.uiImage = image
@@ -78,7 +76,7 @@ struct MyReportsView: View {
                         }
                     }
                 }
-        
+                
                 if(report.uiImage != nil){
                     print("UIImage: " , report.uiImage)
                 }else{
@@ -92,8 +90,8 @@ struct MyReportsView: View {
     struct PetCardView: View {
         
         var report: Report_UIImage
-        @Binding var showPayment: Bool
-
+        var onDetailTap: () -> Void
+        
         var body: some View {
             HStack {
                 
@@ -107,11 +105,11 @@ struct MyReportsView: View {
                         .cornerRadius(8)
                         .padding(.trailing, 10)
                 } else {
-                                // Provide a default view or image if uiImage is nil
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    // ... other modifiers ...
-                            }
+                    // Provide a default view or image if uiImage is nil
+                    Image(systemName: "photo")
+                        .resizable()
+                    // ... other modifiers ...
+                }
                 
                 
                 
@@ -130,9 +128,7 @@ struct MyReportsView: View {
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                Button(action: {
-                    self.showPayment.toggle()
-                }) {
+                Button(action: onDetailTap) {
                     Text("Detail")
                 }
             }
