@@ -47,9 +47,9 @@ struct SubmitSimilarPage: View {
                     
                     // 定義流浪動物數據列表
                     let strayAnimals: [StrayAnimal] = [
-                        StrayAnimal(imageName: "image1", species: "Royal Canin", breed: "Bella", colors: "Black", gender: "Female", size: "Small", address: "21 Yuanhe Road", date: "2023-04-01"),
+                        StrayAnimal(imageName: "milkcat", species: "Tuxedo", breed: "Carlee", colors: "White", gender: "Female", size: "Small", address: "21 Yuanhe Road", date: "2023-04-01"),
                         StrayAnimal(imageName: "image3", species: "Royal Canin", breed: "Ginger", colors: "Brown", gender: "Male", size: "Large", address: "21 Yuanhe Road", date: "2023-04-02"),
-                        StrayAnimal(imageName: "img_ad_content1", species: "Royal Canin", breed: "Luna", colors: "Tricolor", gender: "Male", size: "Medium", address: "21 Yuanhe Road", date: "2023-04-03")]
+                        StrayAnimal(imageName: "img_ad_content1", species: "Royal Canin", breed: "Luna", colors: "Brown", gender: "Male", size: "Medium", address: "21 Yuanhe Road", date: "2023-04-03")]
                     
                     
                     
@@ -211,7 +211,7 @@ struct SubmitSimilarPage: View {
                     Text(date)
                         .font(.footnote)
                     Spacer()
-                    Text("Similar 75%")
+                    Text("Similar 60%")
                         .font(.subheadline).foregroundStyle(.red).bold()
                 }
                 .padding([.leading, .bottom, .trailing])

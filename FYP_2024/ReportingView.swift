@@ -9,10 +9,7 @@ struct ReportingView: View {
     
     @State private var capturedImage: UIImage?
     //    @State private var selectedImage: UIImage?
-    @State private var images: [UIImage] = [
-        UIImage(named: "cat")!,
-        UIImage(named: "dog")!
-    ]
+    @State private var images: [UIImage] = []
     @State private var voiceFileURL: URL?
     
     @StateObject private var locationViewModel = LocationViewModel()
@@ -30,7 +27,7 @@ struct ReportingView: View {
     
     // Replace these with actual breed lists
     let dogBreeds = ["Labrador Retriever", "German Shepherd", "Golden Retriever", "Bulldog", "Beagle"]
-    let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll"]
+    let catBreeds = ["Siamese", "Persian", "Maine Coon", "Bengal", "Ragdoll", "Dragon-Li"]
     
     let colors: [Color] = [.red, .green, .blue, .yellow, .orange, .purple, .pink, .brown, .gray, .black]
     
@@ -266,13 +263,13 @@ struct ReportingView: View {
         let age = Int(ageInput) ?? 0
         
         let report = Report(
-            image: "https://loremflickr.com/640/480?lock=5085374330175488", // You need to upload the image and get the URL
-            
+            image: "https://storage.googleapis.com/fyp-2-20fa1.appspot.com/bc3.jpeg",
             gender: selectedGender ?? "",
             color: selectedColors.map { $0.description }.joined(separator: ", "),
             nickName: nickname,
-            album: ["https://loremflickr.com/640/480?lock=5085374330175488",
-                    "https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
+            album: ["https://storage.googleapis.com/fyp-2-20fa1.appspot.com/bc2.jpeg",
+                    "https://storage.googleapis.com/fyp-2-20fa1.appspot.com/bc4.jpeg",
+                    "https://storage.googleapis.com/fyp-2-20fa1.appspot.com/bc1.jpeg"], // You need to upload the images and get their URLs
             latitude: location?.latitude ?? 22.390873338752847,
             description: animalDescription, // Add a text field in ReportingView for the description
             video: "", // If you have a video, provide its URL
