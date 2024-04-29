@@ -211,7 +211,7 @@ struct ReportingView: View {
             }
             .navigationBarTitle("Report Stray Animal")
             .navigationBarItems(trailing: Button(action: submitReport) {
-                Text("Submit")
+                Text("Next")
             })
             .sheet(isPresented: $showCameraView) {
                 CameraView(capturedImage: $capturedImage)
