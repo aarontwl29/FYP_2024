@@ -143,7 +143,7 @@ struct MapView: View {
                 VStack(alignment: .leading, spacing: 20) {
     
                     HStack{
-                        Text("\(animalCount) recent posts")
+                        Text("\(animalCount) recent stray animal profile")
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundStyle(.black)

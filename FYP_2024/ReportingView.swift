@@ -250,23 +250,25 @@ struct ReportingView: View {
         let age = Int(ageInput) ?? 0
                 
                 let report = Report(
-                    image: "N/A", // You need to upload the image and get the URL
+                    image: "https://loremflickr.com/640/480?lock=5085374330175488", // You need to upload the image and get the URL
+
                     gender: selectedGender ?? "",
                     color: selectedColors.map { $0.description }.joined(separator: ", "),
                     nickName: nickname,
-                    album: ["https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
+                    album: ["https://loremflickr.com/640/480?lock=5085374330175488",
+                                               "https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
                     latitude: location?.latitude ?? 0,
                     description: animalDescription, // Add a text field in ReportingView for the description
                     video: "", // If you have a video, provide its URL
                     type: animalType.rawValue,
-                    userId: "",
+                    userId: "user123",
                     breed: breed,
                     neuteredStatus: selectedNeuteredStatus ?? "",
                     healthStatus: selectedHealthStatus ?? "",
                     voiceSample: voiceFileURL?.absoluteString ?? "",
                     age: age, // Add a field in ReportingView for the age
                     longitude: location?.longitude ?? 0,
-                    timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in milliseconds
+                    timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in millisecondsreprot
                     )
         
         guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
