@@ -5,9 +5,7 @@ struct MyReportsView: View {
     let numPost: Int = 3
     let balanceChange: String = "80%"
     let myPost: [Post] = [
-        Post(name: "Puppy", species: "Ragdoll", locationVal: "No. 21 Yuen Wo Road, Sha Tin", date: "17-04-2024", image: "image1"),
-        Post(name: "JOJO", species: "Maine Coon", locationVal: "No. 22 Yuen Wo Road, Sha Tin", date: "12-03-2024", image: "image2"),
-        Post(name: "KIKI", species: "British Shorthair", locationVal: "No. 23 Yuen Wo Road, Sha Tin", date: "11-03-2024", image: "image3")
+        Post(name: "Puppy", species: "Ragdoll", locationVal: "No. 21 Yuen Wo Road, Sha Tin", date: "17-04-2024", image: "image1")
     ]
     
     @State private var showPayment = false

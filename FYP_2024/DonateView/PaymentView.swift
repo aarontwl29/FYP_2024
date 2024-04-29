@@ -6,6 +6,7 @@ struct PaymentView: View {
     @State private var selectedAmount: String? = "$10" // 預設為 $10 被選中
     @State private var selectedPaymentMethod: String? = "Payme"
     @Environment(\.presentationMode) var presentationMode
+    @State private var showPaymentResult = false
     
     var body: some View {
         ScrollView {
@@ -70,19 +71,31 @@ struct PaymentView: View {
                 // 選擇付款方式的按鈕
                 Button("Donate") {
                     // 處理付款方式選擇的動作
+                    //1. 實現功能，按下Donate時，關閉自己的頁面
+                    
+                    showPaymentResult.toggle()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
                 .font(.title2)
                 .padding()
-                .frame(maxWidth: .infinity)
-                .background(Color.yellow)
-                .foregroundColor(.black)
-                .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 2))
                 
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
+                .padding(.top, 5)
                 Spacer() // 保持按鈕在底部
             }
             .padding()
+            
+        }.sheet(isPresented: $showPaymentResult) {
+            DonateResultView() // Present PaymentView as a modal sheet
         }
+        
     }
 }
 
