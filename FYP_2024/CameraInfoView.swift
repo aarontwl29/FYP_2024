@@ -74,6 +74,7 @@ struct CameraInfoView: View {
 
                 Button(action: {
                     
+                    
                 }) {
                     Image(systemName: "video.fill")
                         .foregroundColor(.red)

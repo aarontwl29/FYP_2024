@@ -41,6 +41,7 @@
 		AB5F66962BDE21DB00564550 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66952BDE21DB00564550 /* HelpView.swift */; };
 		AB5F66982BDE21E900564550 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66972BDE21E900564550 /* AboutView.swift */; };
 		AB5F669A2BDE26F100564550 /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F66992BDE26F100564550 /* LanguageView.swift */; };
+		AB6C9AC72BE016A300F5E298 /* LiveStreamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6C9AC62BE016A300F5E298 /* LiveStreamingView.swift */; };
 		AB7888482BDF9EA20083BF06 /* SubmitSimilarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */; };
 		AB8A38172BDC011400C34430 /* FavFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A38162BDC011400C34430 /* FavFilterView.swift */; };
 		AB91E8002BD9C89B00AA7F85 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */; };
@@ -117,6 +118,7 @@
 		AB5F66952BDE21DB00564550 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		AB5F66972BDE21E900564550 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		AB5F66992BDE26F100564550 /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
+		AB6C9AC62BE016A300F5E298 /* LiveStreamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamingView.swift; sourceTree = "<group>"; };
 		AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitSimilarPage.swift; sourceTree = "<group>"; };
 		AB8A38162BDC011400C34430 /* FavFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavFilterView.swift; sourceTree = "<group>"; };
 		AB91E7FF2BD9C89B00AA7F85 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				ABA4814B2BDE9BCC00CE254C /* CameraInfoView.swift */,
 				939B819A2BDBF8F800373F31 /* Elements_MapView */,
 				AB0D57FD2BD4334900D89984 /* FavouriteView.swift */,
+				AB6C9AC62BE016A300F5E298 /* LiveStreamingView.swift */,
 				AB7888472BDF9EA20083BF06 /* SubmitSimilarPage.swift */,
 				ABA4814D2BDEB77300CE254C /* ListAllView.swift */,
 				AB8A38152BDC011400C34430 /* FavouriteView */,
@@ -457,6 +460,7 @@
 				ABA4814E2BDEB77300CE254C /* ListAllView.swift in Sources */,
 				9350B45E2BCAF26300DC2FB7 /* ContentView.swift in Sources */,
 				ABA453C82BDF7B2D009AD96B /* DonateResultView.swift in Sources */,
+				AB6C9AC72BE016A300F5E298 /* LiveStreamingView.swift in Sources */,
 				933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */,
 				939B81932BDB9E2700373F31 /* ColorOptionView.swift in Sources */,
 				AB17A4142BE002BF0063BD66 /* FakeAnimalsDetailView.swift in Sources */,
