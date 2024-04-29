@@ -3,14 +3,9 @@ import SwiftUI
 struct MyReportsView: View {
     // 假設這些是從你的後台或模型中獲取的資料
     @State private var numPost: Int = 0
-//    let balanceChange: String = "80%"
-//    let myPost: [Post] = [
-//        Post(name: "Puppy", species: "Ragdoll", locationVal: "No. 21 Yuen Wo Road, Sha Tin", date: "17-04-2024", image: "image1")
-//    ]
     @State private var reports: [Report_UIImage] = []
-    
-    @State private var showPayment = false
-    
+    @State private var showDetails = false
+    @State private var selectedReport: Report_UIImage?
     
     var body: some View {
         NavigationView {
@@ -29,16 +24,21 @@ struct MyReportsView: View {
                     }
                 }
                 
-                ForEach(reports) { report in
-                    PetCardView(report: report, showPayment: $showPayment)
-                }
                 
+                List(reports) { report in
+                                PetCardView(report: report, onDetailTap: {
+                                    self.selectedReport = report
+                                    self.showDetails = true
+                                })
+                            }
+                            .sheet(isPresented: $showDetails) {
+                                if let selectedReport = selectedReport {
+                                    MyPostDetailsView(report: selectedReport)
+                                }
+                            }
                 
             }
             .navigationTitle("History")
-            .sheet(isPresented: $showPayment) {
-                MyPostDetailsView( selectedAnnotation: .constant(nil)) // Present PaymentView as a modal sheet
-            }
         }
         .onAppear {
             Task {
@@ -92,7 +92,7 @@ struct MyReportsView: View {
     struct PetCardView: View {
         
         var report: Report_UIImage
-        @Binding var showPayment: Bool
+        var onDetailTap: () -> Void
 
         var body: some View {
             HStack {
@@ -130,9 +130,7 @@ struct MyReportsView: View {
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                Button(action: {
-                    self.showPayment.toggle()
-                }) {
+                Button(action: onDetailTap) {
                     Text("Detail")
                 }
             }
