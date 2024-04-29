@@ -14,69 +14,8 @@ struct ListAllView: View {
     @State private var addresses: [UUID: String] = [:]
     @State private var selectedAnnotation: CustomAnnotation?
     
-//    let petCardViews: [PetCardView] = [
-//        PetCardView(
-//            imageName: "image1",
-//            nickName: "Buddy",
-//            breed: "Labrador",
-//            colors: "Yellow",
-//            gender: "Male",
-//            size: "Large",
-//            address: "123 Pet St, New York",
-//            date: "20/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image2",
-//            nickName: "Whiskers",
-//            breed: "Siamese",
-//            colors: "Brown, Black",
-//            gender: "Female",
-//            size: "Small",
-//            address: "234 Cat Ave, Boston",
-//            date: "21/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image3",
-//            nickName: "Fluffy",
-//            breed: "Rabbit",
-//            colors: "White",
-//            gender: "Male",
-//            size: "Small",
-//            address: "345 Bunny Blvd, Chicago",
-//            date: "22/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image1",
-//            nickName: "Buddy",
-//            breed: "Labrador",
-//            colors: "Yellow",
-//            gender: "Male",
-//            size: "Large",
-//            address: "123 Pet St, New York",
-//            date: "20/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image2",
-//            nickName: "Whiskers",
-//            breed: "Siamese",
-//            colors: "Brown, Black",
-//            gender: "Female",
-//            size: "Small",
-//            address: "234 Cat Ave, Boston",
-//            date: "21/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image3",
-//            nickName: "Fluffy",
-//            breed: "Rabbit",
-//            colors: "White",
-//            gender: "Male",
-//            size: "Small",
-//            address: "345 Bunny Blvd, Chicago",
-//            date: "22/04/2024"
-//        )]
-    
-    
+    @State private var showOnlyWhiteOrBlue = false
+
     var body: some View {
         VStack {
             TextField("Search for stray cats", text: $searchText)
@@ -89,6 +28,7 @@ struct ListAllView: View {
             
             Button(action: {
                 self.isFilterViewPresented = true
+                self.showOnlyWhiteOrBlue.toggle()
             }) {
                 Label("Filter", systemImage: "slider.horizontal.3")
                     .font(.headline)
@@ -102,7 +42,7 @@ struct ListAllView: View {
             .padding(.horizontal)
             .padding(.bottom, 10)
             .sheet(isPresented: $isFilterViewPresented) {
-                FavFilterView()
+                FilterView()
             }
             
             ScrollView {
@@ -119,33 +59,24 @@ struct ListAllView: View {
                     //                            }
                     //                    }
                     
+                    
                     ForEach(annotations, id: \.id) { annotation in
                         if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
-                            PetCardView(
-                                uiImage: animalAnnotation.uiImage,
-                                nickName: animalAnnotation.animal.nickName,
-                                breed: animalAnnotation.animal.breed,
-                                colors: animalAnnotation.animal.color,
-                                gender: animalAnnotation.animal.gender,
-                                size: "\(animalAnnotation.animal.age) years",
-                                address: addresses[annotation.id] ?? "Unknown",
-                                date: randomDateWithinLastWeek()
-                            )
-                            .id(annotation.id)
-                            .onAppear {
-                                // Perform reverse geocoding when the bubble appears
-                                let location = CLLocation(latitude: animalAnnotation.animal.latitude, longitude: animalAnnotation.animal.longitude)
-                                getPlacemark(forLocation: location) { placemark in
-                                    if let placemark = placemark {
-                                        let address = getAddressString(from: placemark)
-                                        addresses[annotation.id] = address
-                                    } else {
-                                        addresses[annotation.id] = "Unknown"
-                                    }
+                            if !showOnlyWhiteOrBlue || animalAnnotation.animal.color == "white" || animalAnnotation.animal.color == "blue" {
+                                PetCardView(
+                                    uiImage: animalAnnotation.uiImage,
+                                    nickName: animalAnnotation.animal.nickName,
+                                    breed: animalAnnotation.animal.breed,
+                                    colors: animalAnnotation.animal.color,
+                                    gender: animalAnnotation.animal.gender,
+                                    size: "\(animalAnnotation.animal.age) years",
+                                    address: addresses[annotation.id] ?? "Unknown",
+                                    date: randomDateWithinLastWeek()
+                                )
+                                .id(annotation.id)
+                                .onTapGesture {
+                                    self.selectedAnnotation = annotation
                                 }
-                            }
-                            .onTapGesture {
-                                self.selectedAnnotation = annotation
                             }
                         }
                     }
@@ -259,6 +190,72 @@ struct ListAllView: View {
             .padding(.horizontal)
         }
     }
+    
+    
+    
+    
+    
+    //    let petCardViews: [PetCardView] = [
+    //        PetCardView(
+    //            imageName: "image1",
+    //            nickName: "Buddy",
+    //            breed: "Labrador",
+    //            colors: "Yellow",
+    //            gender: "Male",
+    //            size: "Large",
+    //            address: "123 Pet St, New York",
+    //            date: "20/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image2",
+    //            nickName: "Whiskers",
+    //            breed: "Siamese",
+    //            colors: "Brown, Black",
+    //            gender: "Female",
+    //            size: "Small",
+    //            address: "234 Cat Ave, Boston",
+    //            date: "21/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image3",
+    //            nickName: "Fluffy",
+    //            breed: "Rabbit",
+    //            colors: "White",
+    //            gender: "Male",
+    //            size: "Small",
+    //            address: "345 Bunny Blvd, Chicago",
+    //            date: "22/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image1",
+    //            nickName: "Buddy",
+    //            breed: "Labrador",
+    //            colors: "Yellow",
+    //            gender: "Male",
+    //            size: "Large",
+    //            address: "123 Pet St, New York",
+    //            date: "20/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image2",
+    //            nickName: "Whiskers",
+    //            breed: "Siamese",
+    //            colors: "Brown, Black",
+    //            gender: "Female",
+    //            size: "Small",
+    //            address: "234 Cat Ave, Boston",
+    //            date: "21/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image3",
+    //            nickName: "Fluffy",
+    //            breed: "Rabbit",
+    //            colors: "White",
+    //            gender: "Male",
+    //            size: "Small",
+    //            address: "345 Bunny Blvd, Chicago",
+    //            date: "22/04/2024"
+    //        )]
 }
 
 

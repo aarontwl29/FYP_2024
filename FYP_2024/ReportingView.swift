@@ -211,7 +211,7 @@ struct ReportingView: View {
             }
             .navigationBarTitle("Report Stray Animal")
             .navigationBarItems(trailing: Button(action: submitReport) {
-                Text("Submit")
+                Text("Next")
             })
             .sheet(isPresented: $showCameraView) {
                 CameraView(capturedImage: $capturedImage)
@@ -242,7 +242,56 @@ struct ReportingView: View {
     }
     
     func submitReport() {
-        // Implement functionality to submit the report with the entered data
+        let age = Int(ageInput) ?? 0
+                
+                let report = Report(
+                    image: "N/A", // You need to upload the image and get the URL
+                    gender: selectedGender ?? "",
+                    color: selectedColors.map { $0.description }.joined(separator: ", "),
+                    nickName: nickname,
+                    album: ["https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
+                    latitude: location?.latitude ?? 0,
+                    description: animalDescription, // Add a text field in ReportingView for the description
+                    video: "", // If you have a video, provide its URL
+                    type: animalType.rawValue,
+                    userId: "",
+                    breed: breed,
+                    neuteredStatus: selectedNeuteredStatus ?? "",
+                    healthStatus: selectedHealthStatus ?? "",
+                    voiceSample: voiceFileURL?.absoluteString ?? "",
+                    age: age, // Add a field in ReportingView for the age
+                    longitude: location?.longitude ?? 0,
+                    timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in milliseconds
+                    )
+        
+        guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
+                else {
+                    print("Invalid URL")
+                    return
+                }
+                
+                do {
+                    let jsonData = try JSONEncoder().encode(report)
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.httpBody = jsonData
+
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        if let error = error {
+                            print("Error submitting report: \(error.localizedDescription)")
+                            return
+                        }
+                        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                            print("Report submitted successfully")
+                        } else {
+                            print("Failed to submit report")
+                        }
+                    }.resume()
+                    print(jsonData)
+                } catch {
+                    print("Error encoding report data: \(error.localizedDescription)")
+                }
         
     }
     
@@ -284,57 +333,8 @@ struct ReportingView: View {
             }
             
             
-            //        let age = Int(ageInput) ?? 0
-            //        
-            //        let report = Report(
-            //            image: "N/A", // You need to upload the image and get the URL
-            //            gender: selectedGender ?? "",
-            //            color: selectedColors.map { $0.description }.joined(separator: ", "),
-            //            nickName: nickname,
-            //            album: ["https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
-            //            latitude: location?.latitude ?? 0,
-            //            description: animalDescription, // Add a text field in ReportingView for the description
-            //            video: "", // If you have a video, provide its URL
-            //            type: animalType.rawValue,
-            //            userId: "",
-            //            breed: breed,
-            //            neuteredStatus: selectedNeuteredStatus ?? "",
-            //            healthStatus: selectedHealthStatus ?? "",
-            //            voiceSample: voiceFileURL?.absoluteString ?? "",
-            //            age: age, // Add a field in ReportingView for the age
-            //            longitude: location?.longitude ?? 0,
-            //            timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in milliseconds
-            //            )
-            //
-            // 
-            //        guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
-            //        else {
-            //            print("Invalid URL")
-            //            return
-            //        }
-            
-            //        do {
-            //            let jsonData = try JSONEncoder().encode(report)
-            //            var request = URLRequest(url: url)
-            //            request.httpMethod = "POST"
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.httpBody = jsonData
-            //
-            //            URLSession.shared.dataTask(with: request) { data, response, error in
-            //                if let error = error {
-            //                    print("Error submitting report: \(error.localizedDescription)")
-            //                    return
-            //                }
-            //                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-            //                    print("Report submitted successfully")
-            //                } else {
-            //                    print("Failed to submit report")
-            //                }
-            //            }.resume()
-            //            print(jsonData)
-            //        } catch {
-            //            print("Error encoding report data: \(error.localizedDescription)")
-            //        }
+          
+          
         }
         
         //        let report = Report(

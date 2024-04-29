@@ -1,5 +1,9 @@
 import SwiftUI
 
+class FilterSettings: ObservableObject {
+    @Published var selectedColors: Set<String> = []
+}
+
 struct FilterView: View {
     @State private var selectedBrands = Set<String>()
     @State private var selectedGender: String? // Default selection
@@ -10,7 +14,9 @@ struct FilterView: View {
     
     @State private var selectedColors = Set<String>()
     
-    let colors = ["Black", "White", "Gray", "Orange", "Brown", "Cream", "Calico", "Tortoiseshell", "Bicolor", "Siamese"]
+
+    
+    let colors = ["Black", "White", "blue", "Gray", "Orange", "Brown", "Cream", "Calico", "Tortoiseshell", "Bicolor", "Siamese"]
     let brands = ["Royal Canin", "Purina", "Whiskas", "Hill's Science Diet", "Blue Buffalo", "Friskies", "Fancy Feast", "Meow Mix", "Iams", "Temptations"]
     let genders = ["N/A", "Male", "Female"]
     let neu = ["N/A", "Yes", "No"]
@@ -352,11 +358,13 @@ struct FilterView_Previews: PreviewProvider {
 
 
 struct SubmitBubble: View {
+    @Environment(\.presentationMode) var presentationMode
     var buttonInfo: String
     var body: some View {
         VStack {
             Button(action: {
                 // 寫上導航到其他頁面的程式碼
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text(buttonInfo)
                     .font(.title2)
