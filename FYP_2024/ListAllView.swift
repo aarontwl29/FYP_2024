@@ -14,69 +14,7 @@ struct ListAllView: View {
     @State private var addresses: [UUID: String] = [:]
     @State private var selectedAnnotation: CustomAnnotation?
     
-//    let petCardViews: [PetCardView] = [
-//        PetCardView(
-//            imageName: "image1",
-//            nickName: "Buddy",
-//            breed: "Labrador",
-//            colors: "Yellow",
-//            gender: "Male",
-//            size: "Large",
-//            address: "123 Pet St, New York",
-//            date: "20/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image2",
-//            nickName: "Whiskers",
-//            breed: "Siamese",
-//            colors: "Brown, Black",
-//            gender: "Female",
-//            size: "Small",
-//            address: "234 Cat Ave, Boston",
-//            date: "21/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image3",
-//            nickName: "Fluffy",
-//            breed: "Rabbit",
-//            colors: "White",
-//            gender: "Male",
-//            size: "Small",
-//            address: "345 Bunny Blvd, Chicago",
-//            date: "22/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image1",
-//            nickName: "Buddy",
-//            breed: "Labrador",
-//            colors: "Yellow",
-//            gender: "Male",
-//            size: "Large",
-//            address: "123 Pet St, New York",
-//            date: "20/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image2",
-//            nickName: "Whiskers",
-//            breed: "Siamese",
-//            colors: "Brown, Black",
-//            gender: "Female",
-//            size: "Small",
-//            address: "234 Cat Ave, Boston",
-//            date: "21/04/2024"
-//        ),
-//        PetCardView(
-//            imageName: "image3",
-//            nickName: "Fluffy",
-//            breed: "Rabbit",
-//            colors: "White",
-//            gender: "Male",
-//            size: "Small",
-//            address: "345 Bunny Blvd, Chicago",
-//            date: "22/04/2024"
-//        )]
-    
-    
+
     var body: some View {
         VStack {
             TextField("Search for stray cats", text: $searchText)
@@ -102,7 +40,7 @@ struct ListAllView: View {
             .padding(.horizontal)
             .padding(.bottom, 10)
             .sheet(isPresented: $isFilterViewPresented) {
-                FavFilterView()
+                FilterView()
             }
             
             ScrollView {
@@ -259,6 +197,72 @@ struct ListAllView: View {
             .padding(.horizontal)
         }
     }
+    
+    
+    
+    
+    
+    //    let petCardViews: [PetCardView] = [
+    //        PetCardView(
+    //            imageName: "image1",
+    //            nickName: "Buddy",
+    //            breed: "Labrador",
+    //            colors: "Yellow",
+    //            gender: "Male",
+    //            size: "Large",
+    //            address: "123 Pet St, New York",
+    //            date: "20/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image2",
+    //            nickName: "Whiskers",
+    //            breed: "Siamese",
+    //            colors: "Brown, Black",
+    //            gender: "Female",
+    //            size: "Small",
+    //            address: "234 Cat Ave, Boston",
+    //            date: "21/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image3",
+    //            nickName: "Fluffy",
+    //            breed: "Rabbit",
+    //            colors: "White",
+    //            gender: "Male",
+    //            size: "Small",
+    //            address: "345 Bunny Blvd, Chicago",
+    //            date: "22/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image1",
+    //            nickName: "Buddy",
+    //            breed: "Labrador",
+    //            colors: "Yellow",
+    //            gender: "Male",
+    //            size: "Large",
+    //            address: "123 Pet St, New York",
+    //            date: "20/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image2",
+    //            nickName: "Whiskers",
+    //            breed: "Siamese",
+    //            colors: "Brown, Black",
+    //            gender: "Female",
+    //            size: "Small",
+    //            address: "234 Cat Ave, Boston",
+    //            date: "21/04/2024"
+    //        ),
+    //        PetCardView(
+    //            imageName: "image3",
+    //            nickName: "Fluffy",
+    //            breed: "Rabbit",
+    //            colors: "White",
+    //            gender: "Male",
+    //            size: "Small",
+    //            address: "345 Bunny Blvd, Chicago",
+    //            date: "22/04/2024"
+    //        )]
 }
 
 

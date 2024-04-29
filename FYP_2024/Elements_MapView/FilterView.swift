@@ -1,5 +1,9 @@
 import SwiftUI
 
+class FilterSettings: ObservableObject {
+    @Published var selectedColors: Set<String> = []
+}
+
 struct FilterView: View {
     @State private var selectedBrands = Set<String>()
     @State private var selectedGender: String? // Default selection
@@ -9,6 +13,8 @@ struct FilterView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var selectedColors = Set<String>()
+    
+
     
     let colors = ["Black", "White", "Gray", "Orange", "Brown", "Cream", "Calico", "Tortoiseshell", "Bicolor", "Siamese"]
     let brands = ["Royal Canin", "Purina", "Whiskas", "Hill's Science Diet", "Blue Buffalo", "Friskies", "Fancy Feast", "Meow Mix", "Iams", "Temptations"]
