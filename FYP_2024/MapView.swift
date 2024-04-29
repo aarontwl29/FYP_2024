@@ -16,6 +16,7 @@ struct MapView: View {
         
 
     @State private var annotations: [CustomAnnotation] = []
+    @State private var addresses: [UUID: String] = [:]
     var animalCount: Int {
         annotations.filter { $0.type == .animal }.count
     }
@@ -151,14 +152,26 @@ struct MapView: View {
                                     if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
                                         SimilarStrayBubble(
                                             uiImage: animalAnnotation.uiImage,
-                                            breed: "Unknown",
-                                            colors: "Unknown",
-                                            gender: "Unknown",
-                                            size: "Unknown",
-                                            address: "Unknown",
-                                            date: "Unknown"
+                                            breed: animalAnnotation.animal.nickName,
+                                            colors: animalAnnotation.animal.color,
+                                            gender: animalAnnotation.animal.gender,
+                                            size: "\(animalAnnotation.animal.age) years",
+                                            address: addresses[annotation.id] ?? "Unknown",
+                                            date: randomDateWithinLastWeek()
                                         )
                                         .id(annotation.id)
+                                        .onAppear {
+                                            // Perform reverse geocoding when the bubble appears
+                                            let location = CLLocation(latitude: animalAnnotation.animal.latitude, longitude: animalAnnotation.animal.longitude)
+                                            getPlacemark(forLocation: location) { placemark in
+                                                if let placemark = placemark {
+                                                    let address = getAddressString(from: placemark)
+                                                    addresses[annotation.id] = address
+                                                } else {
+                                                    addresses[annotation.id] = "Unknown"
+                                                }
+                                            }
+                                        }
                                         .onTapGesture {
                                             focusOnAnnotation(withId: annotation.id)
                                         }
@@ -199,7 +212,7 @@ struct MapView: View {
             OverlaysView(annotations:annotations, region: region_)
         }
         .sheet(isPresented: $showListAllView) {
-            ListAllView()
+            ListAllView(annotations: annotations)
         }
     }
     
@@ -224,7 +237,24 @@ struct MapView: View {
                         annotation.uiImage = image
                     }
                 }
-                                
+                
+                
+                if let album = animal.album {
+                    for urlString in album {
+                        if let url = URL(string: urlString) {
+                            do {
+                                let (data, _) = try await URLSession.shared.data(from: url)
+                                if let image = UIImage(data: data) {
+                                    DispatchQueue.main.async {
+                                        annotation.uiImages.append(image)
+                                    }
+                                }
+                            } catch {
+                                print("Failed to load image from URL: \(urlString)")
+                            }
+                        }
+                    }
+                }
         
                 if(annotation.uiImage != nil){
                     print("UIImage: " , annotation.uiImage)
@@ -264,6 +294,40 @@ struct MapView: View {
         }
     }
 
+    func randomDateWithinLastWeek() -> String {
+        let today = Date()
+        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: today)!
+        
+        let randomTimeInterval = TimeInterval.random(in: (oneWeekAgo.timeIntervalSince1970)...(today.timeIntervalSince1970))
+        let randomDate = Date(timeIntervalSince1970: randomTimeInterval)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM" // Custom format: day and full month name
+        return dateFormatter.string(from: randomDate)
+    }
+    
+    func getPlacemark(forLocation location: CLLocation, completion: @escaping (CLPlacemark?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            completion(placemarks?.first)
+        }
+    }
+
+    func getAddressString(from placemark: CLPlacemark) -> String {
+        var addressString = ""
+        if let street = placemark.thoroughfare {
+            addressString += street + ", "
+        }
+        if let city = placemark.locality {
+            addressString += city
+        }
+        return addressString
+    }
 }
 
 struct MapView_Previews: PreviewProvider {

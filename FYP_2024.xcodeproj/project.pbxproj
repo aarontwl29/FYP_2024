@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93040C0A2BDA767F00C55B9A /* JsonResultPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C092BDA767F00C55B9A /* JsonResultPreview.swift */; };
 		93040C0E2BDA8E0400C55B9A /* ReportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93040C0D2BDA8E0400C55B9A /* ReportingView.swift */; };
 		933240A52BDE5EF600446A33 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933240A42BDE5EF600446A33 /* Report.swift */; };
 		933BA0FE2BD39DA600CB9A88 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933BA0FD2BD39DA600CB9A88 /* MapView.swift */; };
@@ -29,7 +28,6 @@
 		939B81972BDBBD2600373F31 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81962BDBBD2600373F31 /* LocationViewModel.swift */; };
 		939B81992BDBF6C500373F31 /* RadioButtonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81982BDBF6C500373F31 /* RadioButtonField.swift */; };
 		939B81A02BDC371F00373F31 /* OverlaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B819F2BDC371F00373F31 /* OverlaysView.swift */; };
-		939B81A22BDD5E4700373F31 /* View_pre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B81A12BDD5E4700373F31 /* View_pre.swift */; };
 		93C90C9F2BD4107300C6B660 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C90C9E2BD4107300C6B660 /* FilterView.swift */; };
 		AB0D57FA2BD42F0300D89984 /* TapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57F92BD42F0300D89984 /* TapsView.swift */; };
 		AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0D57FD2BD4334900D89984 /* FavouriteView.swift */; };
@@ -77,7 +75,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		93040C092BDA767F00C55B9A /* JsonResultPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonResultPreview.swift; sourceTree = "<group>"; };
 		93040C0D2BDA8E0400C55B9A /* ReportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingView.swift; sourceTree = "<group>"; };
 		933240A42BDE5EF600446A33 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		933BA0FD2BD39DA600CB9A88 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		939B81962BDBBD2600373F31 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		939B81982BDBF6C500373F31 /* RadioButtonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonField.swift; sourceTree = "<group>"; };
 		939B819F2BDC371F00373F31 /* OverlaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaysView.swift; sourceTree = "<group>"; };
-		939B81A12BDD5E4700373F31 /* View_pre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View_pre.swift; sourceTree = "<group>"; };
 		93C90C9E2BD4107300C6B660 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		AB0D57F92BD42F0300D89984 /* TapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapsView.swift; sourceTree = "<group>"; };
 		AB0D57FD2BD4334900D89984 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
@@ -181,8 +177,6 @@
 		9350B45A2BCAF26300DC2FB7 /* FYP_2024 */ = {
 			isa = PBXGroup;
 			children = (
-				939B81A12BDD5E4700373F31 /* View_pre.swift */,
-				93040C092BDA767F00C55B9A /* JsonResultPreview.swift */,
 				AB28B02F2BDC02CF00662336 /* LoginView */,
 				9350B45B2BCAF26300DC2FB7 /* FYP_2024App.swift */,
 				9350B45D2BCAF26300DC2FB7 /* ContentView.swift */,
@@ -465,13 +459,11 @@
 				AB0D57FE2BD4334900D89984 /* FavouriteView.swift in Sources */,
 				ABD3A3FF2BDDBBFF0097F0CC /* HightFilterView.swift in Sources */,
 				AB91E80F2BD9EA8900AA7F85 /* SettingView.swift in Sources */,
-				939B81A22BDD5E4700373F31 /* View_pre.swift in Sources */,
 				AB28B0332BDC02FF00662336 /* RegisterView.swift in Sources */,
 				AB5F66922BDE21A900564550 /* PrivacyView.swift in Sources */,
 				ABEC70542BD41BA70014082E /* BlogView.swift in Sources */,
 				AB91E8072BD9EA3300AA7F85 /* MyReportsView.swift in Sources */,
 				939B818C2BDB939600373F31 /* PhotoImportView.swift in Sources */,
-				93040C0A2BDA767F00C55B9A /* JsonResultPreview.swift in Sources */,
 				AB5F66982BDE21E900564550 /* AboutView.swift in Sources */,
 				939B818A2BDB8E9F00373F31 /* VoiceFilePickerView.swift in Sources */,
 				939B818E2BDB93C800373F31 /* CameraView.swift in Sources */,

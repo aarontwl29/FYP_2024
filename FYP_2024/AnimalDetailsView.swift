@@ -21,6 +21,7 @@ struct AnimalDetailsView: View {
                 health: animalAnnotation.animal.healthStatus
             )
         }
+    @State private var images: [UIImage] = []
     
     
     var body: some View {
@@ -56,9 +57,17 @@ struct AnimalDetailsView: View {
                 .background(Color.white) // 給按鈕添加半透明的背景色，以便它們在圖片之上突出顯示
                 
                 
-//                ScrollView(.horizontal, showsIndicators: false) { // 水平滑動，不顯示滾動條
-//                    ImagePreviewArea(images: $images)
-//                }
+                ScrollView(.horizontal, showsIndicators: false) {
+                                    ImagePreviewArea(images: $images)
+                                }
+                .onAppear {
+                                    if let animalAnnotation = selectedAnnotation as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
+                                        images = [uiImage] // Update the images array with the uiImage
+                                        for image in animalAnnotation.uiImages{
+                                            images.append(image)
+                                        }
+                                    }
+                                }
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
