@@ -17,6 +17,8 @@ struct CameraInfomation {
 
 
 struct CameraInfoView: View {
+    @State private var showLiveStreaming = false
+    
     var cameraInfomation: CameraInfomation
 
     var body: some View {
@@ -65,7 +67,7 @@ struct CameraInfoView: View {
                     .padding(.top, 24)
             }
             .padding(.horizontal)
-
+ 
 
         
             
@@ -73,7 +75,7 @@ struct CameraInfoView: View {
                
 
                 Button(action: {
-                    
+                    showLiveStreaming.toggle()
                     
                 }) {
                     Image(systemName: "video.fill")
@@ -86,7 +88,12 @@ struct CameraInfoView: View {
             .padding(.top, 30)
             
             Spacer()
+            
+                .sheet(isPresented: $showLiveStreaming) {
+                    LiveStreamingView(link: "cat1")
+                }
         }
+        
     }
 }
 

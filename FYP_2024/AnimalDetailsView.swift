@@ -7,6 +7,7 @@ struct AnimalDetailsView: View {
     @State private var showPrivacyView = false
     @State private var showFAQView = false
     
+    
     @Binding var selectedAnnotation: CustomAnnotation?
     var stray: StrayInfoDetal? {
         guard let animalAnnotation = selectedAnnotation as? AnimalAnnotation else {
@@ -139,7 +140,7 @@ struct AnimalDetailsView: View {
                                         )
                                     }
                                 }
-                                .padding()
+                                .padding() 
                             }
                         }
                         .background(Color(.white))
@@ -304,6 +305,7 @@ struct AnimalDetailsView: View {
     
     
     struct CameraInfoGridView: View {
+        @State private var showVideo = false
         @State private var showCamera = false
         
         let cameraInfos: [CameraInfo] = [
@@ -356,7 +358,8 @@ struct AnimalDetailsView: View {
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
-                            showCamera.toggle()
+                            
+                            showVideo.toggle()
                         }) {
                             Text(info.timeStamp).foregroundStyle(.black)
                         }
@@ -376,6 +379,11 @@ struct AnimalDetailsView: View {
             .background(Color(.systemGroupedBackground))
             .sheet(isPresented: $showCamera) {
                 CameraInfoView(cameraInfomation: CameraInfomation(cameraImageUrl: "camera.circle", cameraID: "#4326", cameraAddress: "No. 21 Yuen Wo Road, Sha Tin", cameraPosition: "22°23'26.0\"N 114°11'52.9\"E", numOfCatchStray: "5"))
+            }
+            .sheet(isPresented: $showVideo) {
+                var videoPath = "cat" + String(Int.random(in: 1...4))
+                
+                LiveStreamingView(link: videoPath)
             }
             
         }

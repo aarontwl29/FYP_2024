@@ -1,17 +1,13 @@
-//
-//  LiveStreamingView.swift
-//  FYP_2024
-//
-//  Created by itst on 30/4/2024.
-//
 import SwiftUI
 import AVKit
 
 struct LiveStreamingView: View {
     private var player: AVPlayer
+    private var link: String
 
-    init() {
-        guard let path = Bundle.main.path(forResource: "cat1", ofType: "mp4") else {
+    init(link: String) {
+        self.link = link
+        guard let path = Bundle.main.path(forResource: link, ofType: "mp4") else {
             fatalError("视频文件未找到")
         }
         self.player = AVPlayer(url: URL(fileURLWithPath: path))
@@ -27,6 +23,6 @@ struct LiveStreamingView: View {
 
 struct LiveStreamingView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveStreamingView()
+        LiveStreamingView(link: "cat1")
     }
 }
