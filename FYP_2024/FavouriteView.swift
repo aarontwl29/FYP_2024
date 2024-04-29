@@ -9,7 +9,7 @@ struct PetCardView: View {
     var size: String
     var address: String
     var date: String
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -72,38 +72,38 @@ struct FavouriteView: View {
     
     let petCardViews: [PetCardView] = [
         PetCardView(
-            imageName: "image1",
-            nickName: "Buddy",
-            breed: "Labrador",
-            colors: "Yellow",
-            gender: "Male",
-            size: "Large",
-            address: "123 Pet St, New York",
-            date: "20/04/2024" 
+            imageName: "milkCat1",
+            nickName: "Carlee",
+            breed: "Siamese",
+            colors: "White",
+            gender: "Female",
+            size: "Small",
+            address: "21 Yuen Wo Road, Sha Tin",
+            date: "20/04/2024"
         ),
         PetCardView(
-            imageName: "image2",
-            nickName: "Buddy",
-            breed: "Labrador",
+            imageName: "image3",
+            nickName: "Whiskers",
+            breed: "Bella",
             colors: "Yellow",
             gender: "Male",
             size: "Large",
-            address: "123 Pet St, New York",
-            date: "20/04/2024"
+            address: "25 Yuen Wo Road, Sha Tin",
+            date: "21/05/2024"
         ),
         PetCardView(
             imageName: "img_ad_content1",
-            nickName: "Buddy",
-            breed: "Labrador",
-            colors: "Yellow",
-            gender: "Male",
-            size: "Large",
-            address: "123 Pet St, New York",
-            date: "20/04/2024"
+            nickName: "Paws",
+            breed: "Bella",
+            colors: "Blue",
+            gender: "Female",
+            size: "Middle",
+            address: "14 Yuen Wo Road, Sha Tin",
+            date: "20/05/2024"
         )]
     
-   //實現新增，創立一個array,裡面創作10個PetCardView, Data你可以偽造，例如PetCardView(imageName: "image\(index + 1)",nickName: "Lucas",breed: "Mixed Breed",colors: "Black, White",gender: "Male",size: "Medium (15-25 kg)",address: "Kpousódou 21, Athína 115 28, Elláda", date: "11/04/2024")
-
+    //實現新增，創立一個array,裡面創作10個PetCardView, Data你可以偽造，例如PetCardView(imageName: "image\(index + 1)",nickName: "Lucas",breed: "Mixed Breed",colors: "Black, White",gender: "Male",size: "Medium (15-25 kg)",address: "Kpousódou 21, Athína 115 28, Elláda", date: "11/04/2024")
+    
     var body: some View {
         VStack {
             TextField("Search for stray cats", text: $searchText)
@@ -113,7 +113,7 @@ struct FavouriteView: View {
                 .cornerRadius(10)
                 .shadow(radius: 5)
                 .padding(.horizontal)
-
+            
             Button(action: {
                 self.isFilterViewPresented = true
             }) {
@@ -131,21 +131,21 @@ struct FavouriteView: View {
             .sheet(isPresented: $isFilterViewPresented) {
                 FavFilterView()
             }
-
+            
             ScrollView {
                 VStack(spacing: 15) {
                     //實現更改，更改Loop的內容，裡面內容改為PetCardView的array
                     ForEach(petCardViews, id: \.nickName) { petCardView in
-                                            petCardView
-                                            .onTapGesture {
-                                                self.showingDetails = true
-                                            }
-                                            .sheet(isPresented: $showingDetails) {
-                                                // 顯示詳細信息視圖
-                                                AnimalDetailsView(isLiked: true, selectedAnnotation: .constant(nil)).padding(.top,20)
-                                            }
-                                        }
-                        
+                        petCardView
+                            .onTapGesture {
+                                self.showingDetails = true
+                            }
+                            .sheet(isPresented: $showingDetails) {
+                                // 顯示詳細信息視圖
+                                FakeAnimalsDetailView(isLiked: true, selectedAnnotation: .constant(nil)).padding(.top,20)
+                            }
+                    }
+                    
                     
                 }.padding(.top, 10)
             }

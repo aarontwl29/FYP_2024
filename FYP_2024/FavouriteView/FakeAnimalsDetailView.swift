@@ -1,11 +1,26 @@
+//
+//  FakeAnimalsDetailView.swift
+//  FYP_2024
+//
+//  Created by itst on 30/4/2024.
+//
+
 import SwiftUI
-struct AnimalDetailsView: View {
+
+struct FakeAnimalsDetailView: View {
+    
     @Environment(\.presentationMode) var presentationMode
     @State var isLiked: Bool
     @State private var navigateToTapsView = false
     @State private var strayUrgency = "High Urgency"
     @State private var showPrivacyView = false
     @State private var showFAQView = false
+    
+    @State var imagesUIImage: [UIImage] = [
+        UIImage(named: "milkCat1")!,
+        UIImage(named: "milkCat2")!,
+        UIImage(named: "milkCat3")!
+    ]
     
     @Binding var selectedAnnotation: CustomAnnotation?
     var stray: StrayInfoDetal? {
@@ -58,36 +73,36 @@ struct AnimalDetailsView: View {
                 
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    ImagePreviewArea(images: $images)
+                    ImagePreviewArea(images: $imagesUIImage)
                 }
-                .onAppear {
-                    if let animalAnnotation = selectedAnnotation as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
-                        images = [uiImage] // Update the images array with the uiImage
-                        for image in animalAnnotation.uiImages{
-                            images.append(image)
-                        }
-                    }
-                }
+                //                    .onAppear {
+                //                        if let animalAnnotation = selectedAnnotation as? AnimalAnnotation, let uiImage = animalAnnotation.uiImage {
+                //                            images = [uiImage] // Update the images array with the uiImage
+                //                            for image in animalAnnotation.uiImages{
+                //                                images.append(image)
+                //                            }
+                //                        }
+                //                    }
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        if let animalAnnotation = selectedAnnotation as? AnimalAnnotation {
-                            Text(animalAnnotation.animal.nickName)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.blue)
-                            
-                        }
+                        
+                        Text("Carlee")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.blue)
+                        
+                        
                         
                         HStack {
-                            DetailBubble(title: "Age", detail: stray?.age ?? "Unknown")
-                            DetailBubble(title: "Sex", detail: stray?.sex ?? "Unknown")
-                            DetailBubble(title: "Species", detail: stray?.species ?? "Unknown")
+                            DetailBubble(title: "Age", detail: stray?.age ?? "11")
+                            DetailBubble(title: "Sex", detail: stray?.sex ?? "female")
+                            DetailBubble(title: "Species", detail: stray?.species ?? "Siamese")
                         }
                         HStack {
-                            DetailBubble(title: "Main Color", detail: stray?.color ?? "Unknown")
-                            DetailBubble(title: "Neutered", detail: stray?.neutered ?? "Unknown")
-                            DetailBubble(title: "Health", detail: stray?.health ?? "Unknown")
+                            DetailBubble(title: "Main Color", detail: stray?.color ?? "white")
+                            DetailBubble(title: "Neutered", detail: stray?.neutered ?? "no")
+                            DetailBubble(title: "Health", detail: stray?.health ?? "sick")
                         }
                     }
                     .padding()
@@ -101,7 +116,7 @@ struct AnimalDetailsView: View {
                     
                     // 定義流浪動物數據列表
                     let strayAnimals: [StrayAnimal] = [
-                        StrayAnimal(imageName: "milkCat1", species: "Siamese", breed: "Carlee", colors: "White", gender: "Female", size: "Small", address: "21 Yuanhe Road", date: "2023-04-01"),
+                        StrayAnimal(imageName: "image1", species: "Royal Canin", breed: "Bella", colors: "Black", gender: "Female", size: "Small", address: "21 Yuanhe Road", date: "2023-04-01"),
                         StrayAnimal(imageName: "image3", species: "Royal Canin", breed: "Ginger", colors: "Brown", gender: "Male", size: "Large", address: "21 Yuanhe Road", date: "2023-04-02"),
                         StrayAnimal(imageName: "img_ad_content1", species: "Royal Canin", breed: "Luna", colors: "Tricolor", gender: "Male", size: "Medium", address: "21 Yuanhe Road", date: "2023-04-03")]
                     
@@ -169,7 +184,7 @@ struct AnimalDetailsView: View {
         
         
         
-    } 
+    }
     
     
     struct InfoBubble: View {
@@ -266,7 +281,7 @@ struct AnimalDetailsView: View {
             .cornerRadius(10)
             .shadow(radius: 5)
             .padding(.horizontal)
-        } 
+        }
     }
     
     
@@ -406,18 +421,9 @@ struct AnimalDetailsView: View {
     }
     
     
+    
 }
 
-struct AnimalDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnimalDetailsView(isLiked: false, selectedAnnotation: .constant(nil))
-    }
+#Preview {
+    FakeAnimalsDetailView(isLiked: true, selectedAnnotation: .constant(nil))
 }
-
-
-
-
-
-
-
-

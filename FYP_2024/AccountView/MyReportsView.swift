@@ -18,7 +18,7 @@ struct MyReportsView: View {
                         HStack {
                             Text("Total: \(numPost)")
                                 .font(.title3)
-                                .padding(.top, -10)
+                                .padding(.top, 0)
                             Spacer()
                         }
                     }
