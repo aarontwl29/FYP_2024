@@ -320,6 +320,7 @@ struct FakeAnimalsDetailView: View {
     
     struct CameraInfoGridView: View {
         @State private var showCamera = false
+        @State private var showVideo = false
         
         let cameraInfos: [CameraInfo] = [
             CameraInfo(camID:"C32", location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:24 - 10:30", date: "30-04-24"),
@@ -371,7 +372,7 @@ struct FakeAnimalsDetailView: View {
                         
                         Button(action: {
                             // 寫上導航到其他頁面的程式碼
-                            showCamera.toggle()
+                            showVideo.toggle()
                         }) {
                             Text(info.timeStamp).foregroundStyle(.black)
                         }
@@ -391,6 +392,12 @@ struct FakeAnimalsDetailView: View {
             .background(Color(.systemGroupedBackground))
             .sheet(isPresented: $showCamera) {
                 CameraInfoView(cameraInfomation: CameraInfomation(cameraImageUrl: "camera.circle", cameraID: "#4326", cameraAddress: "No. 21 Yuen Wo Road, Sha Tin", cameraPosition: "22°23'26.0\"N 114°11'52.9\"E", numOfCatchStray: "5"))
+            }
+            
+            .sheet(isPresented: $showVideo) {
+                var videoPath = "cat" + String(Int.random(in: 1...4))
+                
+                LiveStreamingView(link: videoPath)
             }
             
         }
