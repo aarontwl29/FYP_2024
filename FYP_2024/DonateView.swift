@@ -38,16 +38,7 @@ struct DonationCardView: View {
 
             // Buttons Configuration
             HStack {
-                Button(action: {
-                    isLiked.toggle()
-                }) {
-                    Image(systemName: isLiked ? "bookmark.fill" : "bookmark")
-                        .foregroundColor(isLiked ? .green : .gray)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .frame(width: 44, height: 44)
-                .background(Color.gray.opacity(0.1))
-                .clipShape(Circle())
+                
 
                 Spacer()
 
@@ -98,6 +89,7 @@ struct DonationCardView: View {
                                 )
                                 .shadow(radius: 0.5)
             }
+            
         }
         .padding()
         .background(Color.white)
