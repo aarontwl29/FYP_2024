@@ -15,7 +15,7 @@ struct ReportingView: View {
     ]
     @State private var voiceFileURL: URL?
     
-    @StateObject private var locationViewModel = LocationViewModel() 
+    @StateObject private var locationViewModel = LocationViewModel()
     @State private var showSubmitSimilarPage = false
     
     
@@ -50,6 +50,11 @@ struct ReportingView: View {
     @State private var selectedNeuteredStatus: String?
     @State private var selectedHealthStatus: String?
     @State private var animalDescription: String = ""
+    
+    @State private var locationInput: String = ""
+    @State private var showAdditionalDetail: Bool = false
+    
+    
     
     @State private var email: String = ""
     @State private var phone: String = ""
@@ -120,31 +125,44 @@ struct ReportingView: View {
                     DatePicker("Disappear Time", selection: $disappearTime, displayedComponents: [.hourAndMinute])
                 }
                 
+                //                Section(header: Text("Location")) {
+                //                    switch locationViewModel.authorizationStatus {
+                //                    case .authorizedWhenInUse, .authorizedAlways:
+                //                        // Display location-related UI
+                //                        Button(action: getCurrentLocation) {
+                //                            Text("Get Current Location")
+                //                        }
+                //
+                //                        Button(action: selectLocationFromMap) {
+                //                            Text("Select Location from Map")
+                //                        }
+                //
+                //                        if let selectedLocation = locationViewModel.selectedLocation {
+                //                            Text("Selected Location: \(selectedLocation.latitude), \(selectedLocation.longitude)")
+                //                        } else {
+                //                            Text("No location selected")
+                //                        }
+                //                    case .denied, .restricted:
+                //                        Text("Location access denied. Please grant permission in Settings.")
+                //                    case .notDetermined:
+                //                        Text("Location access not determined. Please allow access to use location features.")
+                //                    default:
+                //                        Text("Unable to determine location access status.")
+                //                    }
+                //                }
+                
+                
+                
                 Section(header: Text("Location")) {
-                    switch locationViewModel.authorizationStatus {
-                    case .authorizedWhenInUse, .authorizedAlways:
-                        // Display location-related UI
-                        Button(action: getCurrentLocation) {
-                            Text("Get Current Location")
-                        }
-                        
-                        Button(action: selectLocationFromMap) {
-                            Text("Select Location from Map")
-                        }
-                        
-                        if let selectedLocation = locationViewModel.selectedLocation {
-                            Text("Selected Location: \(selectedLocation.latitude), \(selectedLocation.longitude)")
-                        } else {
-                            Text("No location selected")
-                        }
-                    case .denied, .restricted:
-                        Text("Location access denied. Please grant permission in Settings.")
-                    case .notDetermined:
-                        Text("Location access not determined. Please allow access to use location features.")
-                    default:
-                        Text("Unable to determine location access status.")
+                    TextField("Location", text: $locationInput)
+                    Button(action: {
+                        locationInput = "21 Yuen Wo Road, Sha Tin"  // 現在這個修改是安全的，因為 locationInput 是一個 @State 變量
+                    }) {
+                        Text("Auto Fill")
                     }
                 }
+                
+                
                 
                 Section {
                     Button(action: {
@@ -197,9 +215,7 @@ struct ReportingView: View {
                     }
                     
                     Section(header: Text("Description")) {
-                        TextEditor(text: $animalDescription)
-                            .frame(height: 100)
-                            .padding()
+                        TextField("Description", text: $animalDescription)
                     }
                     
                     Section(header: Text("Contact Information")) {
@@ -248,57 +264,57 @@ struct ReportingView: View {
         showSubmitSimilarPage.toggle()
         
         let age = Int(ageInput) ?? 0
-                
-                let report = Report(
-                    image: "https://loremflickr.com/640/480?lock=5085374330175488", // You need to upload the image and get the URL
-
-                    gender: selectedGender ?? "",
-                    color: selectedColors.map { $0.description }.joined(separator: ", "),
-                    nickName: nickname,
-                    album: ["https://loremflickr.com/640/480?lock=5085374330175488",
-                                               "https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
-                    latitude: location?.latitude ?? 0,
-                    description: animalDescription, // Add a text field in ReportingView for the description
-                    video: "", // If you have a video, provide its URL
-                    type: animalType.rawValue,
-                    userId: "user123",
-                    breed: breed,
-                    neuteredStatus: selectedNeuteredStatus ?? "",
-                    healthStatus: selectedHealthStatus ?? "",
-                    voiceSample: voiceFileURL?.absoluteString ?? "",
-                    age: age, // Add a field in ReportingView for the age
-                    longitude: location?.longitude ?? 0,
-                    timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in millisecondsreprot
-                    )
+        
+        let report = Report(
+            image: "https://loremflickr.com/640/480?lock=5085374330175488", // You need to upload the image and get the URL
+            
+            gender: selectedGender ?? "",
+            color: selectedColors.map { $0.description }.joined(separator: ", "),
+            nickName: nickname,
+            album: ["https://loremflickr.com/640/480?lock=5085374330175488",
+                    "https://loremflickr.com/640/480?lock=5085374330175488"], // You need to upload the images and get their URLs
+            latitude: location?.latitude ?? 22.390873338752847,
+            description: animalDescription, // Add a text field in ReportingView for the description
+            video: "", // If you have a video, provide its URL
+            type: animalType.rawValue,
+            userId: "user123",
+            breed: breed,
+            neuteredStatus: selectedNeuteredStatus ?? "",
+            healthStatus: selectedHealthStatus ?? "",
+            voiceSample: voiceFileURL?.absoluteString ?? "",
+            age: age, // Add a field in ReportingView for the age
+            longitude: location?.longitude ?? 114.19803500942166,
+            timestamp: Int64(Date().timeIntervalSince1970 * 1000) // Current timestamp in millisecondsreprot
+        )
         
         guard let url = URL(string: "https://fyp2024.azurewebsites.net/reports")
-                else {
-                    print("Invalid URL")
+        else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            let jsonData = try JSONEncoder().encode(report)
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error submitting report: \(error.localizedDescription)")
                     return
                 }
-                
-                do {
-                    let jsonData = try JSONEncoder().encode(report)
-                    var request = URLRequest(url: url)
-                    request.httpMethod = "POST"
-                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                    request.httpBody = jsonData
-
-                    URLSession.shared.dataTask(with: request) { data, response, error in
-                        if let error = error {
-                            print("Error submitting report: \(error.localizedDescription)")
-                            return
-                        }
-                        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                            print("Report submitted successfully")
-                        } else {
-                            print("Failed to submit report")
-                        }
-                    }.resume()
-                    print(jsonData)
-                } catch {
-                    print("Error encoding report data: \(error.localizedDescription)")
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    print("Report submitted successfully")
+                } else {
+                    print("Failed to submit report")
                 }
+            }.resume()
+            print(jsonData)
+        } catch {
+            print("Error encoding report data: \(error.localizedDescription)")
+        }
         
     }
     
@@ -340,8 +356,8 @@ struct ReportingView: View {
             }
             
             
-          
-          
+            
+            
         }
         
         //        let report = Report(
@@ -378,5 +394,5 @@ struct ReportingView: View {
 #Preview {
     ReportingView()
 }
-    
+
 
