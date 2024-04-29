@@ -358,11 +358,13 @@ struct FilterView_Previews: PreviewProvider {
 
 
 struct SubmitBubble: View {
+    @Environment(\.presentationMode) var presentationMode
     var buttonInfo: String
     var body: some View {
         VStack {
             Button(action: {
                 // 寫上導航到其他頁面的程式碼
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text(buttonInfo)
                     .font(.title2)
