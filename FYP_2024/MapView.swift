@@ -6,6 +6,9 @@ struct MapView: View {
             center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         )
+    
+    
+    
     @State private var selectedAnnotation: CustomAnnotation?
     
     @State private var searchText = ""
@@ -91,13 +94,31 @@ struct MapView: View {
             VStack {
                 VStack{
                     Map_SearchBar(searchText: $searchText, onOptionSelected: { option in
-                                    if option == "ive (ShaTin)" {
-                                        let newRegion = MKCoordinateRegion(
-                                            center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
-                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                                        )
-                                        region = newRegion
-                                    }
+                        if option == "Hong Kong Institute of Vocational Education, Sha Tin" {
+                            let newRegion = MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 22.390873338752847, longitude: 114.19803500942166),
+                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                )
+                            region = newRegion
+                        }
+                        
+                        
+                        if option == "Hong Kong Institute of Vocational Education, Tuen Mun" {
+                            let newRegion = MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 22.393007441610475, longitude: 113.96973186073811),
+                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                            )
+                            region = newRegion
+                        }
+                        
+                        
+                        if option == "Hong Kong Institute of Vocational Education, Tsing Yi" {
+                            let newRegion = MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 22.342523237954342, longitude: 114.10633075152685),
+                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                            )
+                            region = newRegion
+                        }
                                     // Add similar handling for other options
                     })
                     .padding(.top, 0)
