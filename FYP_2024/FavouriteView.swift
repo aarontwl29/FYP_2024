@@ -79,6 +79,26 @@ struct FavouriteView: View {
             gender: "Male",
             size: "Large",
             address: "123 Pet St, New York",
+            date: "20/04/2024" 
+        ),
+        PetCardView(
+            imageName: "image2",
+            nickName: "Buddy",
+            breed: "Labrador",
+            colors: "Yellow",
+            gender: "Male",
+            size: "Large",
+            address: "123 Pet St, New York",
+            date: "20/04/2024"
+        ),
+        PetCardView(
+            imageName: "img_ad_content1",
+            nickName: "Buddy",
+            breed: "Labrador",
+            colors: "Yellow",
+            gender: "Male",
+            size: "Large",
+            address: "123 Pet St, New York",
             date: "20/04/2024"
         )]
     

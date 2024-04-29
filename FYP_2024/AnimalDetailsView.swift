@@ -99,11 +99,19 @@ struct AnimalDetailsView: View {
                     //新增橫向scrollview
                     
                     
+                    // 定義流浪動物數據列表
+                    let strayAnimals: [StrayAnimal] = [
+                        StrayAnimal(imageName: "image1", species: "Royal Canin", breed: "Bella", colors: "Black", gender: "Female", size: "Small", address: "21 Yuanhe Road", date: "2023-04-01"),
+                        StrayAnimal(imageName: "image3", species: "Royal Canin", breed: "Ginger", colors: "Brown", gender: "Male", size: "Large", address: "21 Yuanhe Road", date: "2023-04-02"),
+                        StrayAnimal(imageName: "img_ad_content1", species: "Royal Canin", breed: "Luna", colors: "Tricolor", gender: "Male", size: "Medium", address: "21 Yuanhe Road", date: "2023-04-03")]
+                    
+                    
+                    
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             // 略去其他部分，專注於新增的橫向滾動部分
-                            Text("Similar Stray Animals")
+                            Text("Similar Stray Animals") 
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.blue)
@@ -113,7 +121,26 @@ struct AnimalDetailsView: View {
                             
                             
                             
+                            
                             // 略去其他部分
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 20) {
+                                    ForEach(strayAnimals, id: \.breed) { animal in
+                                        SimilarStrayBubble(
+                                            imageName:animal.imageName,
+                                            species: animal.species,
+                                            breed: animal.breed,
+                                            colors: animal.colors,
+                                            gender: animal.gender,
+                                            size: animal.size,
+                                            address: animal.address,
+                                            date: animal.date
+                                        )
+                                    }
+                                }
+                                .padding()
+                            }
                         }
                         .background(Color(.white))
                         .edgesIgnoringSafeArea(.bottom)
@@ -180,6 +207,7 @@ struct AnimalDetailsView: View {
     
     struct SimilarStrayBubble: View {
         var imageName: String
+        var species: String
         var breed: String
         var colors: String
         var gender: String
@@ -192,13 +220,16 @@ struct AnimalDetailsView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 5) {
                         Text(breed)
-                            .font(.headline)
+                            .font(.headline).foregroundStyle(.blue)
+                        Text(species)
+                            .font(.subheadline)
                         Text(colors)
                             .font(.subheadline)
                         Text(gender)
                             .font(.subheadline)
                         Text(size)
                             .font(.subheadline)
+                        
                     }
                     .padding()
                     
@@ -225,7 +256,10 @@ struct AnimalDetailsView: View {
                     Text(date)
                         .font(.footnote)
                     Spacer()
+                    Text("Similar 75%")
+                        .font(.subheadline).foregroundStyle(.red).bold()
                 }
+                
                 .padding([.leading, .bottom, .trailing])
             }
             .background(Color.white)
@@ -273,10 +307,10 @@ struct AnimalDetailsView: View {
         @State private var showCamera = false
         
         let cameraInfos: [CameraInfo] = [
-            CameraInfo(camID:"C01", location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:24 - 11:00", date: "01-03-24"),
-            CameraInfo(camID:"C02", location: "No. 22 Yuen Wo Road, Sha Tin", timeStamp: "11:12 - 11:24", date: "02-03-24"),
-            CameraInfo(camID:"C03", location: "No. 23 Yuen Wo Road, Sha Tin", timeStamp: "11:32 - 11:54", date: "03-03-24"),
-            CameraInfo(camID:"C04", location: "No. 24 Yuen Wo Road, Sha Tin", timeStamp: "12:12 - 13:13", date: "04-03-24"),
+            CameraInfo(camID:"C32", location: "No. 21 Yuen Wo Road, Sha Tin", timeStamp: "10:24 - 10:30", date: "30-04-24"),
+            CameraInfo(camID:"C14", location: "No. 22 Yuen Wo Road, Sha Tin", timeStamp: "11:12 - 11:24", date: "18-04-24"),
+            CameraInfo(camID:"C03", location: "No. 23 Yuen Wo Road, Sha Tin", timeStamp: "11:32 - 11:54", date: "14-04-24"),
+            CameraInfo(camID:"C02", location: "No. 24 Yuen Wo Road, Sha Tin", timeStamp: "12:12 - 13:13", date: "04-03-24"),
             CameraInfo(camID:"C05", location: "No. 25 Yuen Wo Road, Sha Tin", timeStamp: "13:15 - 13:19", date: "05-03-24")
         ]
         
@@ -309,7 +343,9 @@ struct AnimalDetailsView: View {
                             showCamera.toggle()
                             
                         }) {
-                            Text(self.truncatedLocation(info.location)).foregroundStyle(.black)
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundColor(Color.black)
+                                .font(.title2)
                         }
                         .frame(width:90 , height: 40)
                         .background(Color.green)
@@ -350,6 +386,7 @@ struct AnimalDetailsView: View {
     // 定義流浪動物數據結構體
     struct StrayAnimal {
         var imageName: String
+        var species: String
         var breed: String
         var colors: String
         var gender: String

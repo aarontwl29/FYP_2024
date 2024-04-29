@@ -104,7 +104,7 @@ struct MapView: View {
                             .background(Circle().fill(Color.green))
                             .opacity(0.9)
                     }
-                    .padding(.top, -350)
+                    .padding(.top, -300)
                     .padding(.leading, 290 )
                     
                 }
