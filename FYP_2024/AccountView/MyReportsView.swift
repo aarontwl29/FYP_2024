@@ -10,35 +10,33 @@ struct MyReportsView: View {
     var body: some View {
         NavigationView {
             List {
-                // 當前餘額
-                VStack(alignment: .leading) {
-                    Text("My Posts")
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.blue)
-                    HStack {
-                        Text("Total: " + numPost.codingKey.stringValue)
-                            .font(.title3)
-                            .padding(.top, -10)
-                        Spacer()
+                // Section for displaying the header
+                Section(header: Text("My Posts")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(.blue)) {
+                        HStack {
+                            Text("Total: \(numPost)")
+                                .font(.title3)
+                                .padding(.top, -10)
+                            Spacer()
+                        }
                     }
+                
+                // Section for displaying reports
+                ForEach(reports, id: \.id) { report in
+                    PetCardView(report: report, onDetailTap: {
+                        self.selectedReport = report
+                        self.showDetails = true
+                    })
                 }
-                
-                
-                List(reports) { report in
-                                PetCardView(report: report, onDetailTap: {
-                                    self.selectedReport = report
-                                    self.showDetails = true
-                                })
-                            }
-                            .sheet(isPresented: $showDetails) {
-                                if let selectedReport = selectedReport {
-                                    MyPostDetailsView(report: selectedReport)
-                                }
-                            }
-                
             }
             .navigationTitle("History")
+            .sheet(isPresented: $showDetails) {
+                if let selectedReport = selectedReport {
+                    MyPostDetailsView(report: selectedReport)
+                }
+            }
         }
         .onAppear {
             Task {
@@ -56,8 +54,8 @@ struct MyReportsView: View {
                     report: report_
                 )
                 self.numPost += 1
-
-//                let hardcodedImageUrl = report_.image
+                
+                //                let hardcodedImageUrl = report_.image
                 if let urlString = report_.image, let url = URL(string: urlString) {
                     if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                         report.uiImage = image
@@ -78,7 +76,7 @@ struct MyReportsView: View {
                         }
                     }
                 }
-        
+                
                 if(report.uiImage != nil){
                     print("UIImage: " , report.uiImage)
                 }else{
@@ -93,7 +91,7 @@ struct MyReportsView: View {
         
         var report: Report_UIImage
         var onDetailTap: () -> Void
-
+        
         var body: some View {
             HStack {
                 
@@ -107,11 +105,11 @@ struct MyReportsView: View {
                         .cornerRadius(8)
                         .padding(.trailing, 10)
                 } else {
-                                // Provide a default view or image if uiImage is nil
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    // ... other modifiers ...
-                            }
+                    // Provide a default view or image if uiImage is nil
+                    Image(systemName: "photo")
+                        .resizable()
+                    // ... other modifiers ...
+                }
                 
                 
                 
