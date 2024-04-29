@@ -14,6 +14,7 @@ struct ListAllView: View {
     @State private var addresses: [UUID: String] = [:]
     @State private var selectedAnnotation: CustomAnnotation?
     
+    @State private var showOnlyWhiteOrBlue = false
 
     var body: some View {
         VStack {
@@ -27,6 +28,7 @@ struct ListAllView: View {
             
             Button(action: {
                 self.isFilterViewPresented = true
+                self.showOnlyWhiteOrBlue.toggle()
             }) {
                 Label("Filter", systemImage: "slider.horizontal.3")
                     .font(.headline)
@@ -57,33 +59,24 @@ struct ListAllView: View {
                     //                            }
                     //                    }
                     
+                    
                     ForEach(annotations, id: \.id) { annotation in
                         if let animalAnnotation = annotation as? AnimalAnnotation, annotation.type == .animal {
-                            PetCardView(
-                                uiImage: animalAnnotation.uiImage,
-                                nickName: animalAnnotation.animal.nickName,
-                                breed: animalAnnotation.animal.breed,
-                                colors: animalAnnotation.animal.color,
-                                gender: animalAnnotation.animal.gender,
-                                size: "\(animalAnnotation.animal.age) years",
-                                address: addresses[annotation.id] ?? "Unknown",
-                                date: randomDateWithinLastWeek()
-                            )
-                            .id(annotation.id)
-                            .onAppear {
-                                // Perform reverse geocoding when the bubble appears
-                                let location = CLLocation(latitude: animalAnnotation.animal.latitude, longitude: animalAnnotation.animal.longitude)
-                                getPlacemark(forLocation: location) { placemark in
-                                    if let placemark = placemark {
-                                        let address = getAddressString(from: placemark)
-                                        addresses[annotation.id] = address
-                                    } else {
-                                        addresses[annotation.id] = "Unknown"
-                                    }
+                            if !showOnlyWhiteOrBlue || animalAnnotation.animal.color == "white" || animalAnnotation.animal.color == "blue" {
+                                PetCardView(
+                                    uiImage: animalAnnotation.uiImage,
+                                    nickName: animalAnnotation.animal.nickName,
+                                    breed: animalAnnotation.animal.breed,
+                                    colors: animalAnnotation.animal.color,
+                                    gender: animalAnnotation.animal.gender,
+                                    size: "\(animalAnnotation.animal.age) years",
+                                    address: addresses[annotation.id] ?? "Unknown",
+                                    date: randomDateWithinLastWeek()
+                                )
+                                .id(annotation.id)
+                                .onTapGesture {
+                                    self.selectedAnnotation = annotation
                                 }
-                            }
-                            .onTapGesture {
-                                self.selectedAnnotation = annotation
                             }
                         }
                     }

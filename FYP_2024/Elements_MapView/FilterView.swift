@@ -16,7 +16,7 @@ struct FilterView: View {
     
 
     
-    let colors = ["Black", "White", "Gray", "Orange", "Brown", "Cream", "Calico", "Tortoiseshell", "Bicolor", "Siamese"]
+    let colors = ["Black", "White", "blue", "Gray", "Orange", "Brown", "Cream", "Calico", "Tortoiseshell", "Bicolor", "Siamese"]
     let brands = ["Royal Canin", "Purina", "Whiskas", "Hill's Science Diet", "Blue Buffalo", "Friskies", "Fancy Feast", "Meow Mix", "Iams", "Temptations"]
     let genders = ["N/A", "Male", "Female"]
     let neu = ["N/A", "Yes", "No"]
